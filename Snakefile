@@ -4,42 +4,22 @@ HTTP = HTTPRemoteProvider()
 RMD_FILES, = glob_wildcards("notebooks/{rmd_files}.Rmd")
 
 # declare all input files here
-DATA_FILES = [
-    "data/ensemble_hgnc.txt",
-    "data/immune_cell_reference/immune_cell_reference_tidy.tsv",
-    "data/schelker/ascites_bulk_samples.xls",
-    "data/schelker/single_cell_schelker.rda",
-    "data/schelker/ascites_facs.xlsx",
-    "data/racle/GSE93722_RAW/GSM2461007_LAU1255.genes.results.txt",
-    "data/racle/GSE93722_RAW/GSM2461009_LAU1314.genes.results.txt",
-    "data/racle/GSE93722_RAW/GSM2461005_LAU355.genes.results.txt",
-    "data/racle/GSE93722_RAW/GSM2461003_LAU125.genes.results.txt",
-    "data/racle/racle2017_flow_cytometry.xlsx",
-    "data/hoek/HoekPBMC_mixture.RData",
-    "data/hoek/HoekPBMC_gtruth.RData"
-]
+# DATA_FILES = [
+# ]
 
 
 rule book:
   """build book using R bookdown"""
   input:
     # data
-    DATA_FILES,
+    # DATA_FILES,
     # content (Rmd files and related stuff)
     expand("notebooks/{rmd_files}.Rmd", rmd_files = RMD_FILES),
     "notebooks/bibliography.bib",
     "notebooks/_bookdown.yml",
     "notebooks/_output.yml"
   output:
-    "results/book/index.html",
-    "results/cache/results_for_figures.rda",
-    "results/figures/schelker_single_cell_tsne.pdf",
-    "results/figures/spillover_migration_chart.pdf",
-    "results/figures/summary.pdf",
-    "results/tables/mixing_study_correlations.tsv",
-    "results/tables/sensitivity.tsv",
-    "results/tables/specificity.tsv",
-    "results/tables/spillover_signal_noise.tsv"
+    "results/book/index.html"
   conda:
     "envs/bookdown.yml"
   shell:
@@ -58,24 +38,85 @@ rule data:
      "mkdir -p data && "
      "tar -xvzf {input} -C data --strip-components 1"
 
+rule preprocess_archs:
+    """preprocess archs4 data to be in a consisten format with
+    the GEO data"""
+    input:
+      "scripts/preprocess_archs4.R",
+      "data/bioqc_geo_oracle_dump/BIOQC_GSM_DATA_TABLE.csv",
+      "data/bioqc_geo_oracle_dump/BIOQC_NORMALIZE_TISSUES_DATA_TABLE.csv",
+      "data/bioqc_geo_oracle_dump/BIOQC_TISSUE_SET_DATA_TABLE.csv",
+      "data/archs4/Jitao David Zhang - ARCHS4-humanGregorGEOBioQC-cache.Rdata",
+      "data/archs4/Jitao David Zhang - ARCHS4-mouseGregorGEOBioQC-cache.Rdata",
+      "data/archs4/Jitao David Zhang - ARCHS4-humanEset-phenoData.txt",
+      "./data/archs4/Jitao David Zhang - ARCHS4-mouseEset-phenoData.txt"
+    output:
+      "results/archs4/archs4_res.csv",
+      "results/archs4/archs4_meta.csv"
+    conda:
+      "envs/preprocess_archs.yml"
+    shell:
+      "Rscript scripts/preprocess_archs4.R"
 
-rule get_cache:
-  """
-  download precomputed results for sensitivity and specificity analysis.
 
-  Sensitivity and Specificity are very resource-intensive. You can skip this part
-  by using our precomputed values.
-  """
+rule process_geo:
+  """processes BioQC results into a set of R-objects
+  that can be readliy used for analysis"""
   input:
-    # TODO change to github once published
-    HTTP.remote("www.cip.ifi.lmu.de/~sturmg/cache.tar.gz", allow_redirects=True)
+    "scripts/process_data.R",
+    "data/bioqc_geo_oracle_dump/BIOQC_RES_DATA_TABLE.csv",
+    "data/bioqc_geo_oracle_dump/materialized_views/BIOQC_SELECTED_SAMPLES_TSET_DATA_MATERIALIZED VIEW.csv"
   output:
-     "results/cache/results_for_figures.rda",
-     "results/cache/sensitivity_analysis_res.rda",
-     "results/cache/specificity_analysis_res.rda"
+    "results/data_processed.RData"
+  conda:
+    "envs/process_bioqc.yml"
   shell:
-     "mkdir -p data && "
-     "tar -xvzf {input} -C results/cache --strip-components 2"
+    "Rscript {input} {output}"
+
+
+rule process_archs:
+  """processes BioQC results into a set of R-objects
+  that can be readliy used for analysis"""
+  input:
+    "scripts/process_data.R",
+    "results/archs4/archs4_res.csv",
+    "results/archs4/archs4_meta.csv"
+  output:
+    "results/archs4/archs4_data_processed.RData"
+  conda:
+    "envs/process_bioqc.yml"
+  shell:
+    "Rscript {input} {output}"
+
+
+rule model_geo:
+  """correct for correlation of the signatures by fitting `rlm` models. """
+  input:
+    "scripts/correct_for_correlation.R",
+    "scripts/config.R",
+    "results/data_processed.RData",
+  output:
+    "results/models.RData"
+  conda:
+    "envs/model_correlation.yml"
+  shell:
+    "Rscript {input} {output}"
+
+
+rule model_archs:
+  """correct for correlation of the signatures by fitting `rlm` models. """
+  input:
+    "scripts/correct_for_correlation.R",
+    "scripts/config.R",
+    "results/archs4/archs4_data_processed.RData",
+  output:
+    "results/archs4/archs4_models.RData"
+  conda:
+    "envs/model_correlation.yml"
+  shell:
+    "Rscript {input} {output}"
+
+
 
 
 rule upload_book:
@@ -85,7 +126,6 @@ rule upload_book:
     "results/figures/spillover_migration_all.pdf"
   shell:
     """
-    cp results/figures/spillover_migration_all.pdf gh-pages/files
     cd gh-pages && \
     cp -R ../results/book/* ./ && \
     git add --all * && \
@@ -106,16 +146,6 @@ rule wipe:
     _wipe()
 
 
-rule test_immunedeconv:
-  """run unit tests of the immunedeconv package"""
-  conda:
-    "envs/bookdown.yml"
-  shell:
-    "cd immunedeconv && "
-    "make test"
-
-
-
 rule _data_archive:
     """
     FOR DEVELOPMENT ONLY.
@@ -130,27 +160,12 @@ rule _data_archive:
       "tar cvzf {output} data.in"
 
 
-rule _cache_archive:
-    """
-    FOR DEVELOPMENT ONLY.
-
-    Generate a cache.tar.gz archive from results/cache to publish on github.
-    """
-    input:
-      "results/cache"
-    output:
-      "results/cache.tar.gz"
-    shell:
-      "tar cvzf {output} {input}"
-
-
 def _clean():
   shell(
     """
     rm -rfv results/book/*
     rm -rfv notebooks/_bookdown_files/*files
     rm -fv notebooks/_main*
-    rm -fv results/figures/*
     """)
 
 

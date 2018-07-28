@@ -1,8 +1,1 @@
-# rmd_files: [
-#     "index.Rmd",
-#     "01_create_database.Rmd",
-#     "02_select_and_get_samples.Rmd",
-#     "02-2_sample_processing.Rmd",
-#     "04_analyse_migration.Rmd"
-# ]
-new_session: yes  
+new_session: yes

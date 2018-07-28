@@ -1,0 +1,6 @@
+output:
+  - bookdown::gitbook
+#  - bookdown::pdf_book
+always_allow_html: yes
+documentclass: book
+
