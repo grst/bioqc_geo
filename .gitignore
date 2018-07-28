@@ -1,6 +1,8 @@
 plots/*
 results/*
 data
+data.in
+results.tmp
 *.html
 *.CommonMark
 .ipynb_checkpoints

@@ -1,0 +1,20 @@
+---
+title: "[DRAFT] A prevalence of tissue heterogeneity in gene expression data"
+author: Gregor Sturm, Jitao David Zhang 
+date: "`r Sys.Date()`"
+documentclass: book 
+bibliography: bibliography.bib
+biblio-style: apalike
+link-citations: yes
+colorlinks: yes
+description: Getting the study ready for publication.  
+---
+
+# Introduction
+
+Dear Editor,
+ 
+Recently we created a software tool, BioQC, that detects tissue heterogeneity in gene expression data and shared it with the community of genome researchers via Bioconductor [10.1186/s12864-017-3661-2]. The concept of tissue heterogeneity stems from our observations that gene expression data is often compromised by cells originating from other tissues than the target tissue of profiling. Tissue heterogeneity can be caused by physiological or pathological processes, such as immune cell infiltration. Alternatively, they can be caused by technical imperfection to separate complex or nearby tissues or even human errors. Failures in detecting tissue heterogeneity may have profound implications on data interpretation and reproducibility. 
+ 
+As bioinformaticians working on drug discovery in the pharma industry, we are convinced that gene expression data available in publicly available databases such as NCBI Gene Expression Omnibus (GEO) or EBI ArrayExpress has great potential to catalyse new therapeutic agents. Disease signatures derived from disease models or patient biopsies, for instance, can be used to assess cellular models used for discovery and to guide compound selection. Molecular phenotypes of compounds, in another example, can be used to validate both efficacy and pre-clinical safety of compounds. Apparently all such applications depend critically on the quality of gene expression data. Several groups have scrutinised publicly available datasets and have identified deleterious factors of data quality such as batch effects, human error, and even data manipulation and faking. However, tissue heterogeneity has not been explicitly addressed so far and there is neither data nor knowledge about its prevalence. To fill this gap, we undertook a systematic investigation of publicly available gene expression datasets. The results highlighted below reveal widespread tissue heterogeneity in gene expression data and uncover patterns of heterogeneity.
+

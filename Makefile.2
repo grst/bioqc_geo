@@ -1,0 +1,71 @@
+R=R
+RMD_FILES= $(wildcard *.Rmd) 
+PREVIEW_FILES = $(patsubst %,%.preview,$(RMD_FILES))
+SHELL= /bin/bash
+CWD= $(shell pwd)
+
+
+#################################
+# Render Rmarkdown documents
+#################################
+
+.PHONY: book
+book: results/data_processed.RData results/archs4/archs4_data_processed.RData results/models.RData results/archs4/archs4_models.RData $(RMD_FILES)
+	Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::gitbook', new_session=TRUE)"
+
+.PHONY: pdf 
+pdf: results/data_processed.RData results/models.RData $(RMD_FILES)
+	Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::pdf_book')"
+	mv _book/_main.pdf _book/bioqc-geo-manuscript.pdf
+
+.PHONY: watch
+watch: book
+	while inotifywait -r -e close_write -e create -e modify -e move . ; do make book ; done
+
+.PHONY: upload-book
+upload-book: book
+	cd gh-pages && cp -R ../_book/* ./ && git add --all * && git commit --allow-empty -m "update docs" && git push origin gh-pages
+
+# render a chapter only by calling `make chapter1.Rmd.preview`
+.PHONY: $(PREVIEW_FILES)
+$(PREVIEW_FILES): %.Rmd.preview: %.Rmd
+	Rscript -e "bookdown::preview_chapter('$<', 'bookdown::gitbook')"
+
+.PHONY: clean
+clean:
+	rm -rfv *_book 
+	rm -rfv _bookdown_files/*_files
+	rm -fv _main*
+
+.PHONY: wipe_cache
+wipe_cache:
+	rm -rfv _bookdown_files
+
+.PHONY: wipe
+wipe: clean wipe_cache
+	rm -rfv results
+
+results/archs4/archs4_res.csv: 
+	mkdir -p results/archs4
+	Rscript "preprocess_archs4.R"
+
+results/data_processed.RData:
+	mkdir -p results
+	Rscript process_data.R data/bioqc_geo_oracle_dump/BIOQC_RES_DATA_TABLE.csv data/bioqc_geo_oracle_dump/materialized_views/BIOQC_SELECTED_SAMPLES_TSET_DATA_MATERIALIZED\ VIEW.csv results/data_processed.RData
+
+results/models.RData: config.R results/data_processed.RData
+	mkdir -p results
+	Rscript correct_for_correlation.R results/models.RData results/data_processed.RData
+
+results/archs4/archs4_data_processed.RData: results/archs4/archs4_res.csv
+	mkdir -p results
+	Rscript process_data.R ./results/archs4/archs4_res.csv ./results/archs4/archs4_meta.csv results/archs4/archs4_data_processed.RData
+
+results/archs4/archs4_models.RData: config.R results/archs4/archs4_data_processed.RData
+	mkdir -p results
+	Rscript correct_for_correlation.R results/archs4/archs4_models.RData results/archs4/archs4_data_processed.RData
+
+
+
+# empty target can be used to force regeneration of files
+.FORCE:
