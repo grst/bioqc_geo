@@ -1,18 +1,27 @@
 ## Sample Processing with BioQC {#sample-processing}
 
 ```{r setup, include=FALSE}
-source("lib/knitr.R")
-library(BioQC)
-library(VennDiagram)
-library(data.table)
-library(grid)
-library(gridBase)
-library(stringr)
+library(sqldf)
+library(dplyr)
 library(readr)
-library(testthat)
-library(Hmisc)
-source("lib/plots.R")
-source("lib/db.R")
+library(stringr)
+library(data.table)
+library(gridExtra)
+library(VennDiagram)
+library(knitr)
+library(ggplot2)
+library(BioQC)
+```
+
+```{r load-data-postselection, include=FALSE}
+bioqc_bioqc_success = read_csv("../data/bioqc_geo_oracle_dump/BIOQC_BIOQC_SUCCESS_DATA_TABLE.csv")
+bioqc_gsm = read_csv("../data/bioqc_geo_oracle_dump/BIOQC_GSM_DATA_TABLE.csv")
+bioqc_gse_gsm = read_csv("../data/bioqc_geo_oracle_dump/BIOQC_GSE_GSM_DATA_TABLE.csv")
+bioqc_normalize_tissues = read_csv("../data/bioqc_geo_oracle_dump/BIOQC_NORMALIZE_TISSUES_DATA_TABLE.csv")
+bioqc_gse_gpl = read_csv("../data/bioqc_geo_oracle_dump/BIOQC_GSE_GPL_DATA_TABLE.csv")
+bioqc_signatures = read_csv("../data/bioqc_geo_oracle_dump/BIOQC_SIGNATURES_DATA_TABLE.csv")
+bioqc_res = read_csv("../data/bioqc_geo_oracle_dump/BIOQC_RES_DATA_TABLE.csv")
+bioqc_selected_samples = read_csv("../data/bioqc_geo_oracle_dump/materialized_views/BIOQC_SELECTED_SAMPLES_DATA_MATERIALIZED VIEW.csv")
 ```
 
 The following processes are ressource intensive, therefore we execute them on a high performance cluster (HPC). We use [chunksub](https://github.com/grst/chunksub) to distribute the [list of sample ids](#sample-list) to the workers. This involves four major steps which are also documented in the project's [Makefile](https://github.com/grst/BioQC_GEO_analysis/blob/master/Makefile). 
@@ -31,20 +40,17 @@ The failures during download and annotation reduce the number of samples availab
 inserted, that don't have a tissue annotated, although the gse was selected. -->
 
 ```{r after_failures, cache=TRUE}
+count_gse_gsm = function(tbl) {
+  summarise(tbl, GSM=n_distinct(GSM), GSE=n_distinct(GSE))
+}
 
-sql_select = "
-select /*+ USE_HASH(bs, bgg) parallel(16) */ count(distinct bg.gsm) as GSM
-                                           , count(distinct bgg.gse) as GSE"
-sql_from = "
-from bioqc_bioqc_success bs
-join bioqc_gsm bg
-  on bg.gsm = bs.gsm
-join bioqc_gse_gsm bgg
-  on bgg.gsm = bs.gsm 
-"
-sql_where = ""
-res = dbGetQuery(mydb, str_c(sql_select, sql_from, sql_where, sep="\n"))
-kable(res)
+tmp_tbl = bioqc_bioqc_success %>%
+  inner_join(bioqc_gsm, by=c("GSM"="GSM")) %>%
+  inner_join(bioqc_gse_gsm, by=c("GSM"="GSM"))
+  
+tmp_tbl %>% 
+  count_gse_gsm() %>%
+  kable()
 ```
 
 
@@ -52,48 +58,47 @@ kable(res)
 
 Multi channel microarrays date back to the early age of gene expression studies. They don't provide absolute gene expression data and are not meaningful outside their experimental context. We therefore exclude these experiments:
 ```{r exclude_multichannel, cache=TRUE}
-sql_select2 = sql_select
-sql_from2 = sql_from
-sql_where2 = str_c(sql_where, "where channel_count = 1", sep="\n")
-res = dbGetQuery(mydb, str_c(sql_select2, sql_from2, sql_where2, sep="\n"))
-kable(res)
+tmp_tbl2 = tmp_tbl %>% 
+  filter(CHANNEL_COUNT == 1)
+  
+tmp_tbl2 %>% 
+  count_gse_gsm() %>% 
+  kable() 
 ```
 
 ### Exclude non-mapped tissues
 We exclude samples that have a tissue annotated, but it is not mapped to a [normalized tissue](#tissue-normalization). 
 
 ```{r normalize_tissue, cache=TRUE}
-sql_select3 = sql_select2
-sql_from3 = str_c(sql_from2, "
-join bioqc_normalize_tissues bnt
-  on bnt.tissue_orig = lower(bg.tissue_orig)", sep="\n")
-sql_where3 = sql_where2
-res = dbGetQuery(mydb, str_c(sql_select3, sql_from3, sql_where3, sep="\n"))
-kable(res)
+tmp_tbl3 = tmp_tbl2 %>%
+  mutate(TISSUE_ORIG=tolower(TISSUE_ORIG)) %>%
+  inner_join(bioqc_normalize_tissues, by=c("TISSUE_ORIG"="TISSUE_ORIG")) 
+  
+tmp_tbl3 %>%
+  count_gse_gsm() %>% 
+  kable()
 ```
 
 ### Select organisms
 We were interested in the organism distribution.
 ```{r filter_orga, cache=TRUE}
-sql_select4 = str_c(sql_select3, ", bg.organism_ch1", sep="\n")
-sql_from4 = sql_from3
-sql_where4 = sql_where3
-res = dbGetQuery(mydb, str_c(sql_select4, sql_from4, sql_where4, "
-group by organism_ch1
-order by gsm desc", sep="\n"))
-kable(res)
+tmp_tbl3 %>% 
+  group_by(ORGANISM_CH1) %>%
+  count_gse_gsm() %>% 
+  arrange(-GSM) %>% 
+  kable() 
 ```
 
 Results suggest that it makes sense to limit the analysis to the three main organisms: *H. sapiens*, *M. musculus*, *R. norvegicus*. This makes also sense as these species are closesly related and therefore the signatures are more likely to translate within these species. 
 We are left with the following amount of samples: 
 
 ```{r filter_orga2, cache=TRUE}
-sql_select5 = sql_select3
-sql_from5 = sql_from4
-sql_where5 = str_c(sql_where4, "
-  and organism_ch1 in ('Homo sapiens', 'Mus musculus', 'Rattus norvegicus')", sep="\n")
-res = dbGetQuery(mydb, str_c(sql_select5, sql_from5, sql_where5, sep="\n"))
-kable(res)
+tmp_tbl5 = tmp_tbl3 %>% 
+  filter(ORGANISM_CH1 %in% c('Homo sapiens', 'Mus musculus', 'Rattus norvegicus')) 
+  
+tmp_tbl5 %>% 
+  count_gse_gsm() %>% 
+  kable() 
 ```
 
 ### Quality control
@@ -104,20 +109,11 @@ We will first filter samples by applying a cutoff-value to statistics on the gen
 On each study, we have calculated the mean of each gene over all samples. Of this series of means, we calculate the IQR. If a per-gene normalization has been applied, this value should be close to zero. This histogram shows a distribution of all IQRs over all remaining studies: 
 
 ```{r study_iqr, cache=TRUE}
-sql_select_hist = "
-select /*+ USE_HASH(bs, bgg) parallel(16) */ distinct bgg.gse
-                                  , study_median
-                                  , abs(study_75-study_25) as IQR
-"
-sql_from_hist = str_c(sql_from5, "
-  join bioqc_gse_gpl bgl
-    on bgg.gse = bgl.gse
-    and bg.gpl = bgl.gpl", sep="\n")
-sql_where_hist = sql_where5
-
-
-res = dbGetQuery(mydb, str_c(sql_select_hist, sql_from_hist, sql_where_hist, sep="\n"))
-sm = res$IQR
+tbl_hist = tmp_tbl5 %>%
+  inner_join(bioqc_gse_gpl, by=c("GSE"="GSE", "GPL"="GPL")) %>% 
+  mutate(IQR=abs(STUDY_75-STUDY_25))
+  
+sm = tbl_hist$IQR
 hist(sm[sm > 0 & sm < 25],
      breaks=seq(0, 25, .25),
      main="Variance between gene for each study (IQR)",
@@ -129,53 +125,49 @@ minor.tick(nx=5)
 We exclude all studies having a very low variance between genes (IQR < 0.5). Remaining samples:
 
 ```{r exclude_iqr, cache=TRUE}
-sql_select6 = sql_select3
-sql_from6 = str_c(sql_from5, "
-  join bioqc_gse_gpl bgl on bgg.gse = bgl.gse", sep="\n")
-sql_where6 = str_c(sql_where5, "
-  and abs(study_75 - study_25) >= .5", sep="\n")
-res = dbGetQuery(mydb, str_c(sql_select6, sql_from6, sql_where6, sep="\n"))
-kable(res)
+tmp_tbl6 = tbl_hist %>% 
+  filter(IQR >= .5)
+  
+tmp_tbl6 %>% 
+  count_gse_gsm() %>%
+  kable() 
 ```
 
 Now, we have a look at the p-value distribution of the signature we called `awesome_housekeepers` containing ubiquitous genes. The gene expression of these genes can be assumed to be more or less constant over all tissue types, therefore this signature should score high in every sample. 
 
 **Awesome Housekeepers**
 ```{r hk_gene_list, cache=TRUE, echo=TRUE, include=FALSE}
-res = dbGetQuery(mydb, "select * from bioqc_signatures where id = 54911")
+res = sqldf("select * from bioqc_signatures where id = 56184")
 str_replace_all(res$GENE_SYMBOLS, ",", ", ")
 ```
 
 The orange curve is the pvalue distribution of the housekeeping signature. The blue curve shows the distribution of a random control signature containing 100 randomly chosen genes. 
 ```{r, cache=TRUE}
-sql_select_hk = "
-select /*+ USE_HASH(bs, bgg) parallel(16) */ br.signature
-                                           , br.pvalue
-                                           , bs.name
-"
-sql_from_hk = str_c(sql_from6, "
-  join bioqc_res br on br.gsm = bg.gsm
-  join bioqc_signatures bs on bs.id = br.signature", sep="\n")
-sql_where_hk = str_c(sql_where6, "
-  and br.signature in (56184, 56206) -- awesome_housekeepers, random_100_0")
-res = data.table(dbGetQuery(mydb, str_c(sql_select_hk, sql_from_hk, sql_where_hk, sep="\n")))
-invisible(res[,SCORE:=absLog10p(as.numeric(PVALUE))])
-ggplot(res, aes(x=SCORE)) + geom_density(aes(color=NAME)) + geom_vline(xintercept = 5, color="blue") + theme(legend.position = "top")
+tmp_bioqc_res = bioqc_signatures %>% 
+  filter(ID %in% c(56184, 56206)) %>% # awesome_housekeepers, random_100_0
+  inner_join(bioqc_res, by=c("ID"="SIGNATURE")) %>%
+  rename(SIGNATURE=ID)
+  
+tbl_hk = tmp_tbl6 %>% 
+  inner_join(tmp_bioqc_res, by=c("GSM"="GSM")) %>%
+  mutate(SCORE=absLog10p(as.numeric(PVALUE)))
+  
+ggplot(tbl_hk, aes(x=SCORE)) +
+  geom_density(aes(color=NAME)) +
+  geom_vline(xintercept = 5, color="blue") +
+  theme(legend.position = "top")
 ```
 
 We exclude all samples for which `awesome_housekeepers` scores with < 5, i.e. pvalue >= 1e-5. 
 ```{r filter_housekeeping, cache=TRUE}
-sql_select7 = sql_select6
-sql_from7 = str_c(sql_from6, "
-  join bioqc_res br on br.gsm = bg.gsm", sep="\n")
-sql_where7 = str_c(sql_where6, "
-  and signature = 56184
-  and pvalue < 1e-5", sep="\n")
+tmp_tbl7 = tbl_hk %>% 
+  filter(SIGNATURE == 56184) %>% 
+  filter(PVALUE < 1e-5)
 
-res = dbGetQuery(mydb, str_c(sql_select7, sql_from7, sql_where7, sep="\n"))
-kable(res)
+tmp_tbl7 %>%
+  count_gse_gsm() %>%
+  kable() 
 ```
-
 
 This is the 'background' of samples on which we test for tissue contamination. 
 We store the selected samples alongside with meta information required for the analysis in the materialized view `BIOQC_SELECTED_SAMPLES` in our DBS. [Here](https://github.com/grst/BioQC_GEO_analysis/blob/master/db/views/sample_selection.sql) is the SQL script generating the materialized view. 
@@ -185,10 +177,9 @@ We store the selected samples alongside with meta information required for the a
 
 The following table shows how many samples are available for each tissue: 
 ```{r tissues, cache=TRUE}
-sqlTissue = "
-select /*+ parallel(16) */ tissue, count(distinct gsm) as samples from bioqc_selected_samples
-group by tissue
-order by samples desc"
-resTissue = dbGetQuery(mydb, sqlTissue)
-kable(resTissue)
+bioqc_selected_samples %>% 
+  group_by(TISSUE) %>%
+  summarise(samples=n_distinct(GSM)) %>% 
+  arrange(-samples) %>% 
+  kable()
 ```
