@@ -1,0 +1,18 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="C07925C3-BC68-524E-69DD-A1AA72487A97" containerWithKeyObject="4F762A3B-7E09-78A0-9AEC-998416826647" localFKIndex="294D9370-B817-B8B4-DCB3-C47E1507D414" name="SYS_C00171078">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>SRSLIGHT</sourceObjSchema>
+<sourceObjName>SYS_C00171078</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>EC5050FA-50FF-6563-0A27-BDDC782D7946</importedID>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>68CF9A20-61A8-1D54-32E7-9404049EA081</referredTableID>
+<keyObject>5BFDEC7E-922E-3AC6-61E5-580D73A7B13D</keyObject>
+<referredKeyID>5BFDEC7E-922E-3AC6-61E5-580D73A7B13D</referredKeyID>
+<mandatory>false</mandatory>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

@@ -1,0 +1,110 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev11g class="oracle.dbtools.crest.model.design.storage.oracle.v11g.TableProxyOraclev11g" name="BIOQC_SIGNATURES" directorySegmentName="seg_0" id="E3B856E9-D567-1A3D-7B6D-13CEC1D2C2DF">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:26 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<logging>NO</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<segment>FA80C872-5094-7E09-4D6E-C835CFF4D8F9</segment>
+<tableSpace>FA95D7DB-A1A0-EF39-EA0C-A4FA5A1D398A</tableSpace>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="ID" id="4217172D-4D5B-F625-F42C-89A77AC60C34">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:27 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="SOURCE" id="4C1F8EA1-F17C-03A6-E531-838C509EF0B6">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:27 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="GENE_SYMBOLS" id="4D9E4244-5CD7-7FE3-5EB7-0334493ED2B6">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:27 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="NAME" id="E0B6DE0B-DF1E-FFA6-050C-26DD7913E437">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:27 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="DESCRIPTION" id="E31428DC-A638-793C-C9A7-D8059C07C20F">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:27 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<indexProxies>
+<IndexProxy class="oracle.dbtools.crest.model.design.storage.oracle.v10g.IndexProxyOraclev10g" name="BIOQC_SIGNATURES_SOURCE" id="1E69EC39-8CA5-82B4-762B-9EC7590F7CAB">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:27 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<schemaObject>63DD9CAB-7D49-9AC0-25B0-AF906BDE65DF</schemaObject>
+<logging>NO</logging>
+<segment>7CDBBBEB-B062-2380-50C5-B4AB5515643E</segment>
+<tableSpace>FA95D7DB-A1A0-EF39-EA0C-A4FA5A1D398A</tableSpace>
+</IndexProxy>
+<IndexProxy class="oracle.dbtools.crest.model.design.storage.oracle.v10g.IndexProxyOraclev10g" name="UQ_SIGNATURES" id="97FB6C58-B3BD-B518-0ABF-87C72CFEEC32">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:27 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<schemaObject>63DD9CAB-7D49-9AC0-25B0-AF906BDE65DF</schemaObject>
+<logging>NO</logging>
+<segment>7CDBBBEB-B062-2380-50C5-B4AB5515643E</segment>
+<tableSpace>FA95D7DB-A1A0-EF39-EA0C-A4FA5A1D398A</tableSpace>
+</IndexProxy>
+</indexProxies>
+<lobStorages>
+<LobStorage class="oracle.dbtools.crest.model.design.storage.oracle.v11g.LobStorageOraclev11g" name="SYS_LOB0000295450C00004$$" id="0818E2DD-9C25-80DA-4E37-8AD1BE21D6E0">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:28 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<cache>NOCACHE</cache>
+<chunk>8192</chunk>
+<column>DESCRIPTION</column>
+<logging>NO</logging>
+<tableSpace>FA95D7DB-A1A0-EF39-EA0C-A4FA5A1D398A</tableSpace>
+</LobStorage>
+<LobStorage class="oracle.dbtools.crest.model.design.storage.oracle.v11g.LobStorageOraclev11g" name="SYS_LOB0000295450C00005$$" id="47D9CE20-E84D-3E2F-E971-8B0C176EC436">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:28 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<cache>NOCACHE</cache>
+<chunk>8192</chunk>
+<column>GENE_SYMBOLS</column>
+<logging>NO</logging>
+<tableSpace>FA95D7DB-A1A0-EF39-EA0C-A4FA5A1D398A</tableSpace>
+</LobStorage>
+</lobStorages>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="BIOQC_SIGNATURES_PK" id="6B989E65-5F4A-F91C-15EC-7A2C7EC608DF">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:28 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<schemaObject>63DD9CAB-7D49-9AC0-25B0-AF906BDE65DF</schemaObject>
+<logging>NO</logging>
+<segment>7CDBBBEB-B062-2380-50C5-B4AB5515643E</segment>
+<tableSpace>FA95D7DB-A1A0-EF39-EA0C-A4FA5A1D398A</tableSpace>
+<indexSegment>7CDBBBEB-B062-2380-50C5-B4AB5515643E</indexSegment>
+<indexSort>SORTED</indexSort>
+<usingIndex>BY INDEX NAME</usingIndex>
+</PrimaryKey>
+</primaryKeys>
+<uniqueKeys>
+<UniqueKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.UniqueOraclev10g" name="UQ_SIGNATURES" id="287C56C8-E7B3-808B-972F-2C723E093228">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:28 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<logging>NO</logging>
+<segment>7CDBBBEB-B062-2380-50C5-B4AB5515643E</segment>
+<tableSpace>FA95D7DB-A1A0-EF39-EA0C-A4FA5A1D398A</tableSpace>
+<existingIndex>97FB6C58-B3BD-B518-0ABF-87C72CFEEC32</existingIndex>
+<indexSegment>7CDBBBEB-B062-2380-50C5-B4AB5515643E</indexSegment>
+<indexSort>SORTED</indexSort>
+<usingIndex>BY INDEX NAME</usingIndex>
+</UniqueKey>
+</uniqueKeys>
+</TableProxyOraclev11g>

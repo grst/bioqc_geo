@@ -1,0 +1,143 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="E3B856E9-D567-1A3D-7B6D-13CEC1D2C2DF" name="BIOQC_SIGNATURES">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>SRSLIGHT</sourceObjSchema>
+<sourceObjName>BIOQC_SIGNATURES</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:26 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ID" id="4217172D-4D5B-F625-F42C-89A77AC60C34">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_SIGNATURES</sourceObjSchema>
+<sourceObjName>ID</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:27 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,10,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="NAME" id="E0B6DE0B-DF1E-FFA6-050C-26DD7913E437">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_SIGNATURES</sourceObjSchema>
+<sourceObjName>NAME</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:27 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255 BYTE</dataTypeSize>
+<ownDataTypeParameters>255 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SOURCE" id="4C1F8EA1-F17C-03A6-E531-838C509EF0B6">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_SIGNATURES</sourceObjSchema>
+<sourceObjName>SOURCE</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:27 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255 BYTE</dataTypeSize>
+<ownDataTypeParameters>255 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DESCRIPTION" id="E31428DC-A638-793C-C9A7-D8059C07C20F">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_SIGNATURES</sourceObjSchema>
+<sourceObjName>DESCRIPTION</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:27 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT028</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+<ownDataTypeParameters>4000,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="GENE_SYMBOLS" id="4D9E4244-5CD7-7FE3-5EB7-0334493ED2B6">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_SIGNATURES</sourceObjSchema>
+<sourceObjName>GENE_SYMBOLS</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:27 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT028</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+<ownDataTypeParameters>4000,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="6B989E65-5F4A-F91C-15EC-7A2C7EC608DF" schemaObject="63DD9CAB-7D49-9AC0-25B0-AF906BDE65DF" name="BIOQC_SIGNATURES_PK">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>SRSLIGHT</sourceObjSchema>
+<sourceObjName>SYS_C00171063</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:27 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4217172D-4D5B-F625-F42C-89A77AC60C34"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="287C56C8-E7B3-808B-972F-2C723E093228" name="UQ_SIGNATURES">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>SRSLIGHT</sourceObjSchema>
+<sourceObjName>UQ_SIGNATURES</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:28 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E0B6DE0B-DF1E-FFA6-050C-26DD7913E437"/>
+<colUsage columnID="4C1F8EA1-F17C-03A6-E531-838C509EF0B6"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="1E69EC39-8CA5-82B4-762B-9EC7590F7CAB" schemaObject="63DD9CAB-7D49-9AC0-25B0-AF906BDE65DF" name="BIOQC_SIGNATURES_SOURCE">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>SRSLIGHT</sourceObjSchema>
+<sourceObjName>BIOQC_SIGNATURES_SOURCE</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:27 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4C1F8EA1-F17C-03A6-E531-838C509EF0B6"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="97FB6C58-B3BD-B518-0ABF-87C72CFEEC32" schemaObject="63DD9CAB-7D49-9AC0-25B0-AF906BDE65DF" name="UQ_SIGNATURES">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>SRSLIGHT</sourceObjSchema>
+<sourceObjName>UQ_SIGNATURES</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:27 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E0B6DE0B-DF1E-FFA6-050C-26DD7913E437"/>
+<colUsage columnID="4C1F8EA1-F17C-03A6-E531-838C509EF0B6"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

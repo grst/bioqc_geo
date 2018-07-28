@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<relationalModel class="oracle.dbtools.crest.model.design.relational.RelationalDesign" name="bin_srslight" id="2131CEC6-43E4-6403-74AA-BCD213AFDF70" mainViewID="81F38DE3-BDDA-4744-4B72-B1759E23360D">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:25 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<shouldBeOpen>false</shouldBeOpen>
+<selectedRDBMSSite>32076570-2523-435C-2E92-BF29817DFF70</selectedRDBMSSite>
+<importConnectionStamps>
+<importConnectionStamp class="oracle.dbtools.crest.imports.DBConnectionStamp">
+<connName>bin_srslight</connName>
+<connUrl>jdbc:oracle:thin:@bin.kau.roche.com:15001:bin</connUrl>
+<connUser>srslight</connUser>
+<connType>1</connType>
+</importConnectionStamp>
+</importConnectionStamps>
+</relationalModel>

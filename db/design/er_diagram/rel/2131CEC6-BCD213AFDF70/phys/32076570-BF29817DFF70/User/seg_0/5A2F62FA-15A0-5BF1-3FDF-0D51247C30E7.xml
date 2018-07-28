@@ -1,0 +1,9 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<UserOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.UserOraclev10g" name="SRSLIGHT" directorySegmentName="seg_0" id="5A2F62FA-15A0-5BF1-3FDF-0D51247C30E7">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjName>SRSLIGHT</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:25 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<schemaObject>63DD9CAB-7D49-9AC0-25B0-AF906BDE65DF</schemaObject>
+</UserOraclev10g>

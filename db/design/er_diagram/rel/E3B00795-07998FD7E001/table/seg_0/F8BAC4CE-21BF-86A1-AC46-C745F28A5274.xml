@@ -1,0 +1,134 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="F8BAC4CE-21BF-86A1-AC46-C745F28A5274" name="BIOQC_TISSUE_SET">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>SRSLIGHT</sourceObjSchema>
+<sourceObjName>BIOQC_TISSUE_SET</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>F6F3ECD9-74E0-5B7D-BFA5-DF9E476F032B</importedID>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="SIGNATURE" id="658E09E8-544B-822A-610F-AB179E674C18">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_TISSUE_SET</sourceObjSchema>
+<sourceObjName>SIGNATURE</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>7F0CE7E3-6DF7-5476-4DE9-240C3AA60152</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,10,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="FE2173B9-F073-86EE-14CA-67121068F5BA" referredColumn="B5CC77C9-2E1D-D97F-0919-4B99F4790EBF"/>
+</associations>
+</Column>
+<Column name="TISSUE" id="14F74F2A-333A-D544-D6B8-CBA57D43DCC4">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_TISSUE_SET</sourceObjSchema>
+<sourceObjName>TISSUE</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>4507DD8D-56D8-50A1-C1A8-BC0AB1A79B37</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>80 BYTE</dataTypeSize>
+<ownDataTypeParameters>80 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="89800F75-FA09-4643-9019-0284D785FEAA" referredColumn="4B9D6B73-32E3-15D2-6547-7A7C27707874"/>
+</associations>
+</Column>
+<Column name="TGROUP" id="EAD80CF5-134A-FFB4-11D8-266114D3F7DF">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_TISSUE_SET</sourceObjSchema>
+<sourceObjName>TGROUP</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>9C3794DA-8BE8-268D-31CD-32FA165E9CE8</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>80 BYTE</dataTypeSize>
+<ownDataTypeParameters>80 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TISSUE_SET" id="07C34626-8492-73A5-B9EC-4EF511B4DC36">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_TISSUE_SET</sourceObjSchema>
+<sourceObjName>TISSUE_SET</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>7071ADF8-2F6A-FD44-D530-FEF48DB5C70B</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>80 BYTE</dataTypeSize>
+<ownDataTypeParameters>80 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="7B80699D-CED8-A587-ABDD-78B19E01ABCC" schemaObject="E48D1DFC-F58A-EB89-55D1-E3F239C61932" name="BIOQC_TISSUE_SET_PK">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>SRSLIGHT</sourceObjSchema>
+<sourceObjName>SYS_C00171284</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>396DFED7-167C-1CE4-FDE0-F5A0024B30DA</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="658E09E8-544B-822A-610F-AB179E674C18"/>
+<colUsage columnID="EAD80CF5-134A-FFB4-11D8-266114D3F7DF"/>
+<colUsage columnID="07C34626-8492-73A5-B9EC-4EF511B4DC36"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="F914F834-2BF5-B02E-FEFD-E35B52864C2C" schemaObject="E48D1DFC-F58A-EB89-55D1-E3F239C61932" name="BIOQC_TISSUE_SET_TISSUE">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>SRSLIGHT</sourceObjSchema>
+<sourceObjName>BIOQC_TISSUE_SET_TISSUE</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>4377EFC5-E852-1408-B1A3-EEE600D5248F</importedID>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="14F74F2A-333A-D544-D6B8-CBA57D43DCC4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="3F64E4AC-13F7-3B2E-122C-94674112599A" name="SYS_C00171286">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="14F74F2A-333A-D544-D6B8-CBA57D43DCC4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="4D99A717-0865-6CCF-B8E5-5BC9247B0A1D" name="SYS_C00171285">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="658E09E8-544B-822A-610F-AB179E674C18"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

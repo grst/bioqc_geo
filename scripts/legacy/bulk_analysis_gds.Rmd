@@ -1,0 +1,181 @@
+Apply BioQC on samples with tissues annotated
+=============================================
+
+This is our first bulk analysis running BioQC on all GEO datasets (GDS) 
+that have a tissue annotated. 
+
+```{r load_libries}
+library(pylr)
+library(parallel)
+library(tools)
+source("lib.R")
+eset.path = "/homebasel/biocomp/sturmg/projects/GEO_BioQC/data/GDS_all/%s.Rdata"
+bioqc.res.path = "/homebasel/biocomp/sturmg/projects/GEO_BioQC/data/GDS_all/plots/%s_bioqc_res.tab"
+studies = sapply(Sys.glob(sprintf(eset.path, "*")), function(x) {return (file_path_sans_ext(basename(x)))})
+```
+
+1. We download all GDS from GEO using chunksub
+2. We have a look at the available attributes in the pData(eset)
+
+```{r}
+getAttributes = function(study) { 
+  load(sprintf(eset.path, study))
+  return(list(colnames(pData(eset))))
+}
+r = unlist(mcmapply(getAttributes, studies, mc.cores=40))
+c = count(r)
+attributes = c[with(c, order(-freq)),]
+write.table(attributes, file="/homebasel/biocomp/sturmg/projects/GEO_BioQC/BioQC_GEO_analysis/results/geo_gds_attributes.tsv")
+```
+
+3. We will now get an overview over the abundance of the respective tissues, so that we can choose the top $n$ tissues on which we can then perform the contamination analysis. 
+
+```{r}
+getTissues = function(study) {
+  load(sprintf(eset.path, study))
+  if("tissue" %in% colnames(pData(eset))) {
+    return(list(lapply(lapply(pData(eset)$tissue, as.character), tolower)))
+  } else {
+    print(paste(basename(study), "does not contain any tissue annotation. "))
+    return(list(c("no_tissue_annotation")))
+  }
+}
+r = unlist(mcmapply(getTissues, studies, mc.cores=40))
+c = count(r)
+tissues = c[with(c, order(-freq)),]
+write.table(tissues, file="/homebasel/biocomp/sturmg/projects/GEO_BioQC/BioQC_GEO_analysis/results/geo_gds_tissues.tsv")
+```
+
+4. We now merge all samples from one tissue into one expression set.
+We can then run BioQC on this Expression set and identify contamined examples. 
+
+```{r}
+# init samplesPerTissue list. 
+#
+# We create a list (used as dictionary) to store a dataframe 
+# for each tissue that will contain the respective BioQC results. 
+tissueList = as.character(tissues[,1])
+gmtFile = system.file("extdata/exp.tissuemark.affy.roche.symbols.gmt", package="BioQC")
+gmt <- readGmt(gmtFile)
+emptySignatureDf = data.frame(row.names=names(gmt))
+samplesPerTissue = rep(list(edf), length(tissueList))
+names(samplesPerTissue) = tissueList
+
+# extract tissue specific results
+#
+# Go through all studies in parallel. Return a list 
+# tissue -> DataFrame(resultsForTissue) for each 
+# study. 
+bioQCTissue = function(study) {
+  load(sprintf(eset.path, study))
+  bioqcRes = read.table(sprintf(bioqc.res.path, study))
+  if ("tissue" %in% colnames(pData(eset))) {
+    study.tissues = unique(sapply(sapply(pData(eset)$tissue, as.character), tolower))
+    getTissueBioqcRes = function(tissue) {
+      cols = which(pData(eset)$tissue == tissue)
+      res = bioqcRes[, cols, drop=FALSE]
+      colnames(res) = sapply(colnames(res), function(x) {return(paste(study, x, sep="."))})
+      return(res)
+    }
+    return(sapply(study.tissues, getTissueBioqcRes))
+  } 
+}
+r.per.study = mcmapply(bioQCTissue, studies, mc.cores=40)
+
+# reduce the per-study results into the samplesPerTissue list. 
+for(study in r.per.study) {
+  for(tissue in names(study)) {
+    samplesPerTissue[[tissue]] = cbind(samplesPerTissue[[tissue]], study[[tissue]])
+  }  
+}
+```
+
+
+Make a heatmap for each tissue displaying only significant signatures (BioQC score >6 per row)
+```{r}
+for (tissue in tissueList) {
+  print(tissue)
+  bioqcResFil <- filterPmat(samplesPerTissue[[tissue]], 1E-6)
+  if(ncol(bioqcResFil) > 20 && nrow(bioqcResFil) > 1) {  
+    bioqcAbsLogRes <- as.matrix(absLog10p(bioqcResFil))
+    bioqcAbsLogResNorm = apply(bioqcAbsLogRes, 2, norm01)
+    pdf(file=sprintf("results/heatmaps/%s.pdf", make.names(tissue, unique=TRUE)), width=100, height=15)
+    print(bioqcHeatmap(bioqcAbsLogResNorm, title=tissue))
+    dev.off()
+  }  
+}
+
+```
+
+Make a heatmap for each tissue using only the siginificant samples. (BioQC score >6 per column and per column)
+```{r}
+for (tissue in tissueList) {
+  print(tissue)
+  bioqcResFil = t(filterPmat(t(samplesPerTissue[[tissue]]), 1E-6))
+  bioqcResFil <- filterPmat(bioqcResFil, 1E-6)
+  if(ncol(bioqcResFil) > 15 && nrow(bioqcResFil) > 1) {  
+    bioqcAbsLogRes <- as.matrix(absLog10p(bioqcResFil))
+    bioqcAbsLogResNorm = apply(bioqcAbsLogRes, 2, norm01)
+    pdf(file=sprintf("results/heatmaps_sig/%s.pdf", make.names(tissue, unique=TRUE)), width=100, height=15)
+    print(bioqcHeatmap(bioqcAbsLogResNorm, title=tissue))
+    dev.off()
+  }  
+}
+
+```
+
+Which are the (second/third/...) highest scoring signatures for each tissue?
+```{r}
+my.tissues = c("bone marrow", "liver", "kidney", "lung", "colon", "jejunum")
+
+plotTop5 = function(sig.counts, i) {
+  # get the top 5 tissues that score #1
+  top5 = data.frame(sig.counts[order(sig.counts[,i], decreasing=TRUE)[1:5], i, drop=FALSE])
+  # prepare for plotting
+  top5['signature'] = rownames(top5)
+  top5.molten = melt(top5, id.vars="signature", value.name="count", variable.name="rank" )
+  # plot bar chart 
+  return(ggplot(top5.molten, aes(x=rank, y=count, fill=signature)) +
+          geom_bar(aes(fill=signature), stat="identity", position="dodge") +
+          ggtitle(paste(tissue, "#", i)))
+}
+
+for (tissue in my.tissues) {
+  tissue.scores = samplesPerTissue[[tissue]]
+  # filter for significant samples (filter for cols, not rows in that case)
+  tissue.scores.fil = t(filterPmat(t(tissue.scores), 1E-6))
+  tissue.scores.fil.log = absLog10p(tissue.scores.fil)
+  
+  sig.ranks = apply(tissue.scores.fil.log, 2, function(x) {return(rank(x, ties.method="first"))})
+  sig.counts = data.frame(sapply(1:10, function(i) {
+      apply(sig.ranks, 1, function(x){sum(x == nrow(sig.ranks)-i+1)})
+    }))
+  for (i in 1:5) {
+    print(plotTop5(sig.counts, i))
+  }
+  
+}
+
+```
+
+Which tissue signatures are enriched in a certain tissue, even though the signatures show no/little overlap? 
+This could show that certain cell types are abundant in multiple tissues. 
+-> make a boxplot for the top5 enriched signatures (by median)
+```{r}
+tissue = "kidney"
+tissue.scores = samplesPerTissue[[tissue]]
+tissue.scores.log = absLog10p(tissue.scores)
+top5.ids = order(apply(tissue.scores.log, 1, median), decreasing=TRUE)[1:5]
+top5 = tissue.scores.log[top5.ids, ]
+top5['signature'] = rownames(top5)
+top5.molten = melt(top5, id.vars="signature", value.name="score", variable.name="study")
+ylim1 = boxplot.stats(top5.molten$score)$stats[c(1,5)]
+ggplot(top5.molten, aes(x=signature, y=score)) + geom_boxplot() + coord_cartesian(ylim = ylim1*2)
+
+```
+
+
+
+
+
+

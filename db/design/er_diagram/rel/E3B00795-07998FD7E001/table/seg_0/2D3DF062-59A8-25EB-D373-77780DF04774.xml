@@ -1,0 +1,321 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="2D3DF062-59A8-25EB-D373-77780DF04774" name="BIOQC_GSE">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>SRSLIGHT</sourceObjSchema>
+<sourceObjName>BIOQC_GSE</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>DF52BEAC-CF19-B65E-009F-D0C467FE3D83</importedID>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ID" id="5132B7B6-EBFD-FD6B-FD03-B5ADC4771C91">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_GSE</sourceObjSchema>
+<sourceObjName>ID</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>34857FAA-C2B5-3773-0745-5B293258381F</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,10,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TITLE" id="5F3037C1-171F-982C-CE87-37CDC380FCC4">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_GSE</sourceObjSchema>
+<sourceObjName>TITLE</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>1C7B9658-EF10-9EE6-05AB-8FBEE187C1AE</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT028</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+<ownDataTypeParameters>4000,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="GSE" id="4E0BD391-2987-82E3-0432-599005FFE007">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_GSE</sourceObjSchema>
+<sourceObjName>GSE</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>6E566C0D-A6C8-9AF5-56E3-39ACB6B20B00</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>15 BYTE</dataTypeSize>
+<ownDataTypeParameters>15 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="STATUS" id="2EBD65AF-0A5E-B8D8-2306-92F83ACD9689">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_GSE</sourceObjSchema>
+<sourceObjName>STATUS</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>8AC63B76-990B-850D-ADB3-2762DD4152CA</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT028</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+<ownDataTypeParameters>4000,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SUBMISSION_DATE" id="D5384E92-0665-BC2B-4169-1E33DC4EC544">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_GSE</sourceObjSchema>
+<sourceObjName>SUBMISSION_DATE</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>46977C78-F082-C6FB-8B2B-41799A5B1832</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT028</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+<ownDataTypeParameters>4000,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LAST_UPDATE_DATE" id="2000A321-1A48-0291-EAE4-8790DA3A88AB">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_GSE</sourceObjSchema>
+<sourceObjName>LAST_UPDATE_DATE</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>D9AF998F-7D33-45A0-90C7-E6449ADA6EEA</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT028</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+<ownDataTypeParameters>4000,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PUBMED_ID" id="E30E032E-E65C-678E-9CBE-8437D2064A68">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_GSE</sourceObjSchema>
+<sourceObjName>PUBMED_ID</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>328E0D70-8654-968A-5F1D-EB5A8B9C7ECE</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,10,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SUMMARY" id="132206EF-B358-9573-1692-48661AB986BA">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_GSE</sourceObjSchema>
+<sourceObjName>SUMMARY</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>52C7245E-F7BE-C041-815E-DF896160026E</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT028</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+<ownDataTypeParameters>4000,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TYPE" id="262D39C1-513D-00E1-60E9-CB8BEAE26C94">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_GSE</sourceObjSchema>
+<sourceObjName>TYPE</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>1C496B66-B943-2976-C440-E9E6647F6F00</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT028</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+<ownDataTypeParameters>4000,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CONTRIBUTOR" id="9DF2D2AC-77B9-0713-FA3C-643731E157A4">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_GSE</sourceObjSchema>
+<sourceObjName>CONTRIBUTOR</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>B5A36B0A-A5B3-E698-4DF9-4964662E7856</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT028</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+<ownDataTypeParameters>4000,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="WEB_LINK" id="35E5282A-18AC-59A9-8CD0-8F20EE85CAE2">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_GSE</sourceObjSchema>
+<sourceObjName>WEB_LINK</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>2250E4FD-7F86-B5F0-9EE7-A94196AAFB28</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT028</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+<ownDataTypeParameters>4000,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="OVERALL_DESIGN" id="504B29DE-551A-B1CD-95B9-2C92F352890C">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_GSE</sourceObjSchema>
+<sourceObjName>OVERALL_DESIGN</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>09BA74C1-EF16-25CE-F439-6045177DDD28</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT028</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+<ownDataTypeParameters>4000,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="REPEATS" id="612C8536-F19C-11B3-CAD7-76AD68930D95">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_GSE</sourceObjSchema>
+<sourceObjName>REPEATS</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>367D9A9F-DEE2-DA64-C9EB-A6C828CDDA01</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT028</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+<ownDataTypeParameters>4000,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="REPEATS_SAMPLE_LIST" id="E1E74F53-CC54-6D0E-0FF9-F7AD49576395">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_GSE</sourceObjSchema>
+<sourceObjName>REPEATS_SAMPLE_LIST</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>B7DD14E7-B688-AE80-660D-01BA2EA93093</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT028</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+<ownDataTypeParameters>4000,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="VARIABLE" id="85882559-DA61-B7D6-9D08-EA1F8E18C07F">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_GSE</sourceObjSchema>
+<sourceObjName>VARIABLE</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>0C2303DD-B2F0-98C0-1979-BF9B126DC1A6</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT028</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+<ownDataTypeParameters>4000,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="VARIABLE_DESCRIPTION" id="09074ECE-FEC4-2CFA-52ED-E8AD3C38B3BC">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_GSE</sourceObjSchema>
+<sourceObjName>VARIABLE_DESCRIPTION</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>C3015382-955D-AF27-67F0-AD4769A544BC</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT028</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+<ownDataTypeParameters>4000,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CONTACT" id="D88388E4-3583-3FD2-C452-2A8D9EC4A394">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_GSE</sourceObjSchema>
+<sourceObjName>CONTACT</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>F781AD72-17CE-0BE4-F09B-BFE545E5C6B3</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT028</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+<ownDataTypeParameters>4000,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SUPPLEMENTARY_FILE" id="EA7FC317-2ACC-614C-14A0-6F378DD77CC3">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_GSE</sourceObjSchema>
+<sourceObjName>SUPPLEMENTARY_FILE</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>E8A10931-F98F-14EE-FEA7-CF68721406BB</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT028</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+<ownDataTypeParameters>4000,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="57268122-C7AD-512C-D097-18A985F83853" schemaObject="E48D1DFC-F58A-EB89-55D1-E3F239C61932" name="BIOQC_GSE_PK">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>SRSLIGHT</sourceObjSchema>
+<sourceObjName>SYS_C00171041</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>B01EE512-208E-85CE-879D-295FF2BC938A</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4E0BD391-2987-82E3-0432-599005FFE007"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

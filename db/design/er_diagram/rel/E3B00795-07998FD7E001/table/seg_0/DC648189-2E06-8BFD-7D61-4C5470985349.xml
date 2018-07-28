@@ -1,0 +1,106 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="DC648189-2E06-8BFD-7D61-4C5470985349" name="BIOQC_RES">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>SRSLIGHT</sourceObjSchema>
+<sourceObjName>BIOQC_RES</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>75392BD9-44FE-48F7-82AB-E43813CCBFD4</importedID>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="GSM" id="AF2A9EB1-A391-48BC-2E3F-AEAC0755E78B">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_RES</sourceObjSchema>
+<sourceObjName>GSM</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>9D6AAA49-24FB-B6A6-DF54-0722F993DB77</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10 BYTE</dataTypeSize>
+<ownDataTypeParameters>10 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="2A897FDE-1E39-1700-9F7A-9DCA32ABC0D8" referredColumn="8AA1E291-C55B-3F1B-B411-FF46C78EC67F"/>
+</associations>
+</Column>
+<Column name="SIGNATURE" id="93619FDE-D2B3-4543-30CB-EAC3048BD0E1">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_RES</sourceObjSchema>
+<sourceObjName>SIGNATURE</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>DFCF52F7-553C-8000-7BEF-D303011ECD9C</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,10,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="28C9A935-A6A4-6107-4806-8EF81A909F3E" referredColumn="B5CC77C9-2E1D-D97F-0919-4B99F4790EBF"/>
+</associations>
+</Column>
+<Column name="PVALUE" id="4428620F-4C98-C89A-953B-9EACEDA78513">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_RES</sourceObjSchema>
+<sourceObjName>PVALUE</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>4E7FCAD8-9502-5A6A-E069-173D6BA7CAA7</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT056</logicalDatatype>
+<dataTypeSize>8</dataTypeSize>
+<ownDataTypeParameters>8,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="DB834EDB-39A5-9C21-73C8-04B0A6EAC61B" name="BIOQC_RES_PK">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>SRSLIGHT</sourceObjSchema>
+<sourceObjName>SYS_C00171270</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>211177D5-B8DC-F45E-C8C7-330D105021BC</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="AF2A9EB1-A391-48BC-2E3F-AEAC0755E78B"/>
+<colUsage columnID="93619FDE-D2B3-4543-30CB-EAC3048BD0E1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="5E66FCA6-E235-2938-F75D-44D3D48A0EDD" name="SYS_C00171271">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="AF2A9EB1-A391-48BC-2E3F-AEAC0755E78B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="112A7F17-7E04-4272-F13A-7A1A9F9FA4A0" name="SYS_C00171272">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="93619FDE-D2B3-4543-30CB-EAC3048BD0E1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

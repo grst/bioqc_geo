@@ -1,0 +1,85 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="6E8695C4-871D-5982-E1EC-50C562C58A29" name="BIOQC_GSE_GSM">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>SRSLIGHT</sourceObjSchema>
+<sourceObjName>BIOQC_GSE_GSM</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:26 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="GSE" id="926420E2-47E9-C8AD-D4B8-41CED5073B6A">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_GSE_GSM</sourceObjSchema>
+<sourceObjName>GSE</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:27 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>15 BYTE</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="0497F382-32FF-6226-986E-23C5CBFD8CFF" referredColumn="6E566C0D-A6C8-9AF5-56E3-39ACB6B20B00"/>
+</associations>
+</Column>
+<Column name="GSM" id="BDF8E769-6DCC-4F78-B7B2-12AE9E0C2B7D">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_GSE_GSM</sourceObjSchema>
+<sourceObjName>GSM</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:27 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>15 BYTE</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="9E9C4CB7-26D2-FD86-7864-B73E5A7E331E" referredColumn="4AC06D68-E572-EFF5-8FFC-51E8FB604B41"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="5E62BBEC-3AD6-2ACD-27B8-D9FE41910253" schemaObject="63DD9CAB-7D49-9AC0-25B0-AF906BDE65DF" name="BIOQC_GSE_GSM_PK">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>SRSLIGHT</sourceObjSchema>
+<sourceObjName>SYS_C00171044</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:27 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="926420E2-47E9-C8AD-D4B8-41CED5073B6A"/>
+<colUsage columnID="BDF8E769-6DCC-4F78-B7B2-12AE9E0C2B7D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="43D114E9-8560-8DCB-65B0-6F361FD4E1BA" name="SYS_C00171057">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:28 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="926420E2-47E9-C8AD-D4B8-41CED5073B6A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="7894BA15-DD38-3048-70B9-360E38E678AE" name="SYS_C00171080">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:28 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="BDF8E769-6DCC-4F78-B7B2-12AE9E0C2B7D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

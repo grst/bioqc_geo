@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="er_diagram" id="54E3038A-F61C-A991-2090-AA868ADB5B85" version="3.5">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:44:01 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>54E3038A-F61C-A991-2090-AA868ADB5B85</designId>
+<usedDesignStorageDescriptors>
+<designDescr class="oracle.dbtools.crest.model.design.Design$DesignStorageDesc" id="54E3038A-F61C-A991-2090-AA868ADB5B85">
+<designStoragePath>Y:\projects\BioQC_GEO_analysis\db\er_diagram</designStoragePath>
+</designDescr>
+</usedDesignStorageDescriptors>
+</OSDM_Design>

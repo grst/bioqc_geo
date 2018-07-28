@@ -1,0 +1,231 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev11g class="oracle.dbtools.crest.model.design.storage.oracle.v11g.TableProxyOraclev11g" name="BIOQC_GPL" directorySegmentName="seg_0" id="EC5050FA-50FF-6563-0A27-BDDC782D7946">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:26 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<logging>NO</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<segment>FA80C872-5094-7E09-4D6E-C835CFF4D8F9</segment>
+<tableSpace>FA95D7DB-A1A0-EF39-EA0C-A4FA5A1D398A</tableSpace>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="..." id="27FE27BE-D227-6C5E-2BF6-C5855F989B02">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:27 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="GPL" id="5897D89D-F30B-E1D6-E673-A7E46623C54C">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:27 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="BIOC_PACKAGE" id="933EFF93-0EE4-106D-84A3-4F9EF5DC8C53">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:27 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="HAS_ANNOT" id="991BCB0C-DAFD-1CC1-3D7F-22C083DBFEA0">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:27 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="ID" id="B18034B6-01B1-24CC-0C4D-89FE9290838B">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:27 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="TITLE" id="F42E8974-70F7-2C06-1397-442D51ABA96E">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:27 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<lobStorages>
+<LobStorage class="oracle.dbtools.crest.model.design.storage.oracle.v11g.LobStorageOraclev11g" name="SYS_LOB0000295168C00002$$" id="02282692-ADB1-65D9-06B7-01449E816090">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:28 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<cache>NOCACHE</cache>
+<chunk>8192</chunk>
+<column>TITLE</column>
+<logging>NO</logging>
+<tableSpace>FA95D7DB-A1A0-EF39-EA0C-A4FA5A1D398A</tableSpace>
+</LobStorage>
+<LobStorage class="oracle.dbtools.crest.model.design.storage.oracle.v11g.LobStorageOraclev11g" name="SYS_LOB0000295168C00004$$" id="0000FB61-1C11-9207-99F4-5524B02BE59A">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:28 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<cache>NOCACHE</cache>
+<chunk>8192</chunk>
+<column>STATUS</column>
+<logging>NO</logging>
+<tableSpace>FA95D7DB-A1A0-EF39-EA0C-A4FA5A1D398A</tableSpace>
+</LobStorage>
+<LobStorage class="oracle.dbtools.crest.model.design.storage.oracle.v11g.LobStorageOraclev11g" name="SYS_LOB0000295168C00005$$" id="8F8F097C-C3AD-9E7B-FD8C-BB6C2755C3FA">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:28 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<cache>NOCACHE</cache>
+<chunk>8192</chunk>
+<column>SUBMISSION_DATE</column>
+<logging>NO</logging>
+<tableSpace>FA95D7DB-A1A0-EF39-EA0C-A4FA5A1D398A</tableSpace>
+</LobStorage>
+<LobStorage class="oracle.dbtools.crest.model.design.storage.oracle.v11g.LobStorageOraclev11g" name="SYS_LOB0000295168C00006$$" id="23A01765-494B-8AB6-7A8D-97787ED94C12">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:28 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<cache>NOCACHE</cache>
+<chunk>8192</chunk>
+<column>LAST_UPDATE_DATE</column>
+<logging>NO</logging>
+<tableSpace>FA95D7DB-A1A0-EF39-EA0C-A4FA5A1D398A</tableSpace>
+</LobStorage>
+<LobStorage class="oracle.dbtools.crest.model.design.storage.oracle.v11g.LobStorageOraclev11g" name="SYS_LOB0000295168C00007$$" id="71BC34F8-66B7-B2D9-369E-D026B79C5148">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:28 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<cache>NOCACHE</cache>
+<chunk>8192</chunk>
+<column>TECHNOLOGY</column>
+<logging>NO</logging>
+<tableSpace>FA95D7DB-A1A0-EF39-EA0C-A4FA5A1D398A</tableSpace>
+</LobStorage>
+<LobStorage class="oracle.dbtools.crest.model.design.storage.oracle.v11g.LobStorageOraclev11g" name="SYS_LOB0000295168C00008$$" id="584984BF-046F-8EA9-3D2B-C7B380A4F5E3">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:28 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<cache>NOCACHE</cache>
+<chunk>8192</chunk>
+<column>DISTRIBUTION</column>
+<logging>NO</logging>
+<tableSpace>FA95D7DB-A1A0-EF39-EA0C-A4FA5A1D398A</tableSpace>
+</LobStorage>
+<LobStorage class="oracle.dbtools.crest.model.design.storage.oracle.v11g.LobStorageOraclev11g" name="SYS_LOB0000295168C00009$$" id="CE7C4ACA-23AD-F080-EB02-119FD05CC70D">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:28 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<cache>NOCACHE</cache>
+<chunk>8192</chunk>
+<column>ORGANISM</column>
+<logging>NO</logging>
+<tableSpace>FA95D7DB-A1A0-EF39-EA0C-A4FA5A1D398A</tableSpace>
+</LobStorage>
+<LobStorage class="oracle.dbtools.crest.model.design.storage.oracle.v11g.LobStorageOraclev11g" name="SYS_LOB0000295168C00010$$" id="5BFA5F6F-A9FF-0FBF-678F-96AC5DC33C57">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:28 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<cache>NOCACHE</cache>
+<chunk>8192</chunk>
+<column>MANUFACTURER</column>
+<logging>NO</logging>
+<tableSpace>FA95D7DB-A1A0-EF39-EA0C-A4FA5A1D398A</tableSpace>
+</LobStorage>
+<LobStorage class="oracle.dbtools.crest.model.design.storage.oracle.v11g.LobStorageOraclev11g" name="SYS_LOB0000295168C00011$$" id="57D9A9E8-E561-FC6E-939A-0201A424685B">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:28 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<cache>NOCACHE</cache>
+<chunk>8192</chunk>
+<column>MANUFACTURE_PROTOCOL</column>
+<logging>NO</logging>
+<tableSpace>FA95D7DB-A1A0-EF39-EA0C-A4FA5A1D398A</tableSpace>
+</LobStorage>
+<LobStorage class="oracle.dbtools.crest.model.design.storage.oracle.v11g.LobStorageOraclev11g" name="SYS_LOB0000295168C00012$$" id="58F06B47-5411-0DF3-1DEB-B2A574E0DFE8">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:28 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<cache>NOCACHE</cache>
+<chunk>8192</chunk>
+<column>COATING</column>
+<logging>NO</logging>
+<tableSpace>FA95D7DB-A1A0-EF39-EA0C-A4FA5A1D398A</tableSpace>
+</LobStorage>
+<LobStorage class="oracle.dbtools.crest.model.design.storage.oracle.v11g.LobStorageOraclev11g" name="SYS_LOB0000295168C00013$$" id="A29C695B-89F2-F19C-AD61-CFA3A0BBCD08">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:28 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<cache>NOCACHE</cache>
+<chunk>8192</chunk>
+<column>CATALOG_NUMBER</column>
+<logging>NO</logging>
+<tableSpace>FA95D7DB-A1A0-EF39-EA0C-A4FA5A1D398A</tableSpace>
+</LobStorage>
+<LobStorage class="oracle.dbtools.crest.model.design.storage.oracle.v11g.LobStorageOraclev11g" name="SYS_LOB0000295168C00014$$" id="190D060B-905D-AE34-1D52-6DB9046D7F83">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:28 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<cache>NOCACHE</cache>
+<chunk>8192</chunk>
+<column>SUPPORT</column>
+<logging>NO</logging>
+<tableSpace>FA95D7DB-A1A0-EF39-EA0C-A4FA5A1D398A</tableSpace>
+</LobStorage>
+<LobStorage class="oracle.dbtools.crest.model.design.storage.oracle.v11g.LobStorageOraclev11g" name="SYS_LOB0000295168C00015$$" id="7B90BBE1-2464-75FD-A9E5-088ED87CA7E1">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:28 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<cache>NOCACHE</cache>
+<chunk>8192</chunk>
+<column>DESCRIPTION</column>
+<logging>NO</logging>
+<tableSpace>FA95D7DB-A1A0-EF39-EA0C-A4FA5A1D398A</tableSpace>
+</LobStorage>
+<LobStorage class="oracle.dbtools.crest.model.design.storage.oracle.v11g.LobStorageOraclev11g" name="SYS_LOB0000295168C00016$$" id="417C2329-10C7-B17A-B4C5-6BDAE6EE7FA2">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:28 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<cache>NOCACHE</cache>
+<chunk>8192</chunk>
+<column>WEB_LINK</column>
+<logging>NO</logging>
+<tableSpace>FA95D7DB-A1A0-EF39-EA0C-A4FA5A1D398A</tableSpace>
+</LobStorage>
+<LobStorage class="oracle.dbtools.crest.model.design.storage.oracle.v11g.LobStorageOraclev11g" name="SYS_LOB0000295168C00017$$" id="181A1B2F-24FA-4797-D790-8B12DB57092C">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:28 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<cache>NOCACHE</cache>
+<chunk>8192</chunk>
+<column>CONTACT</column>
+<logging>NO</logging>
+<tableSpace>FA95D7DB-A1A0-EF39-EA0C-A4FA5A1D398A</tableSpace>
+</LobStorage>
+<LobStorage class="oracle.dbtools.crest.model.design.storage.oracle.v11g.LobStorageOraclev11g" name="SYS_LOB0000295168C00019$$" id="6F79B039-30FB-4929-6360-1C3FC8EB4448">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:28 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<cache>NOCACHE</cache>
+<chunk>8192</chunk>
+<column>SUPPLEMENTARY_FILE</column>
+<logging>NO</logging>
+<tableSpace>FA95D7DB-A1A0-EF39-EA0C-A4FA5A1D398A</tableSpace>
+</LobStorage>
+<LobStorage class="oracle.dbtools.crest.model.design.storage.oracle.v11g.LobStorageOraclev11g" name="SYS_LOB0000295168C00020$$" id="CB0C9D65-69C1-2274-130A-1454660C7940">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:28 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<cache>NOCACHE</cache>
+<chunk>8192</chunk>
+<column>BIOC_PACKAGE</column>
+<logging>NO</logging>
+<tableSpace>FA95D7DB-A1A0-EF39-EA0C-A4FA5A1D398A</tableSpace>
+</LobStorage>
+</lobStorages>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="BIOQC_GPL_PK" id="B9DE5A25-2620-045F-09C5-3A88DCF6DE48">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:27 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<schemaObject>63DD9CAB-7D49-9AC0-25B0-AF906BDE65DF</schemaObject>
+<logging>NO</logging>
+<segment>7CDBBBEB-B062-2380-50C5-B4AB5515643E</segment>
+<tableSpace>FA95D7DB-A1A0-EF39-EA0C-A4FA5A1D398A</tableSpace>
+<indexSegment>7CDBBBEB-B062-2380-50C5-B4AB5515643E</indexSegment>
+<indexSort>SORTED</indexSort>
+<usingIndex>BY INDEX NAME</usingIndex>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev11g>

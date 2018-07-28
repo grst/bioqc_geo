@@ -1,0 +1,14 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TriggerOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TriggerOraclev10g" name="SIG_BIR" directorySegmentName="seg_0" id="2DE467ED-E798-9A2A-75A3-BE19B9C494A5">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>SRSLIGHT</sourceObjSchema>
+<sourceObjName>SIG_BIR</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:28 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<actions>INSERT</actions>
+<body>begin &lt;br/&gt;  select sig_seq.NEXTVAL&lt;br/&gt;  into :new.id&lt;br/&gt;  from dual;&lt;br/&gt;end;</body>
+<triggerTime>BEFORE</triggerTime>
+<owner>5A2F62FA-15A0-5BF1-3FDF-0D51247C30E7</owner>
+<table>E3B856E9-D567-1A3D-7B6D-13CEC1D2C2DF</table>
+</TriggerOraclev10g>

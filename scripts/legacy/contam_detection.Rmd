@@ -1,0 +1,81 @@
+Automatically detect contaimined samples
+========================================
+
+Sandbox for testing different methods for identifying  
+contamination automatically. 
+
+
+```{r}
+
+
+studies = Sys.glob("/homebasel/biocomp/sturmg/projects/GEO_BioQC/GDS_tissue/plots/*_bioqc_res.tab")
+contamResDf = as.data.frame(matrix(vector(), nrow=length(studies), ncol=3))
+colnames(contamResDf) = c("study", "contamined", "samples")
+findContamStudies = function(study) {
+    bioqcRes = read.table(study)
+    bioqcResFil <- filterPmat(bioqcRes, 1E-6)
+    bioqcAbsLogRes <- as.matrix(absLog10p(bioqcResFil))
+    contamined = FALSE
+    contam.sample.names = ""
+    if(dim(bioqcAbsLogRes)[1] > 0) {
+       contam.samples = detectContamZ(bioqcAbsLogRes)
+       contam.samples = which(apply(contam.samples, 1, sum) > 0)
+       contam.sample.names = paste(names(contam.samples), sep=",")
+       contamined = length(contam.samples) > 0
+    }   
+    return(list(contamined=contamined, samples=contam.sample.names))
+}
+contamStudies = sapply(studies, findContamStudies)
+write.table(t(contamStudies), sep='\t', file="/homebasel/biocomp/sturmg/projects/GEO_BioQC/GDS_tissue/contamined.z.tsv")
+```
+
+
+Z-test based
+(more than n times the average/median)
+```{r}
+# Detect Contaminated Samples based on z-score. 
+# Returns:
+#     boolean matrix sample/tissue with TRUE for contamined. 
+detectContamZ = function(bioqcAbsLogRes) {
+  thres.z = 6
+  contam.samples = apply(bioqcAbsLogRes, 1, function(row) {
+    x = mean(row)
+    return(row > 6*x)
+  })
+  return(contam.samples)
+}
+
+
+```
+
+
+Double Z-test based
+(more than n times the average/median in one tissue and 
+less than n times the average/median in another tissue)
+```{r}
+```
+
+Enrichment based. Define a tissue as enriched. If a sample is enriched in a non-enriched tissue, 
+define it as contamined. 
+```{r}
+thres.enriched = 6 # log 10 pval
+thres.contam = 15
+enriched.tissues = apply(bioqcAbsLogRes, 1, function(row) {
+  return (median(row) > thres.enriched) 
+})
+contam.samples = apply(bioqcAbsLogRes, 1, function(row) {
+  enriched = median(row) > thres.enriched
+  return(!enriched & (row > thres.contam))
+})
+```
+
+T test based. (actually we need sth different.) Make a boolean matrix: tissue is overrepresented in sample in comparison to other samples. Make second boolean matrix: tissue is underrepresented in sample in comparison to other samples. If a sample has both an over and an underrepresented tissue, it is likely to be contamined. 
+```{r}
+test.greater = matrix(False, nrow=nrow(bioqcAbsLogRes), ncol=(bioqcAbsLogRes))
+test.less = matrix(False, nrow=nrow(bioqcAbsLogRes), ncol=(bioqcAbsLogRes))
+for i in 1:nrow(test.greater) {
+  for j in 1:ncol(test.greater) {
+    
+  }
+}
+```

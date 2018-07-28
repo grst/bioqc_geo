@@ -1,0 +1,89 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="FE66C57E-A641-8836-5BE2-232697F3588C" name="BIOQC_GSE_GPL">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>SRSLIGHT</sourceObjSchema>
+<sourceObjName>BIOQC_GSE_GPL</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>BA9D4DF9-03F9-E890-9D55-C4651BA15754</importedID>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="GSE" id="B1B5C1A1-74D3-FEA0-3359-311806563A35">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_GSE_GPL</sourceObjSchema>
+<sourceObjName>GSE</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>93FDC338-2407-FD06-45A5-7BE9C3B0A2C4</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>15 BYTE</dataTypeSize>
+<ownDataTypeParameters>15 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="4A5EBAB9-2AE2-C56F-BCE5-FE0B17E93A65" referredColumn="4E0BD391-2987-82E3-0432-599005FFE007"/>
+</associations>
+</Column>
+<Column name="GPL" id="D7FF1932-5795-F968-379B-9C5F7FE2BCEE">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_GSE_GPL</sourceObjSchema>
+<sourceObjName>GPL</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>04C06508-483B-244F-7DA0-98132CFB3058</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>15 BYTE</dataTypeSize>
+<ownDataTypeParameters>15 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="3B5ED4F1-1293-8479-A3A9-05D13A356364" referredColumn="DBFD0C37-8217-6756-31A8-EDBC16EB301F"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="600AC21B-0441-5708-7528-906FB39AAD07" schemaObject="E48D1DFC-F58A-EB89-55D1-E3F239C61932" name="BIOQC_GSE_GPL_PK">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>SRSLIGHT</sourceObjSchema>
+<sourceObjName>SYS_C00171045</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>3BDE8068-EC72-7BB7-C143-DAAA05B49508</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B1B5C1A1-74D3-FEA0-3359-311806563A35"/>
+<colUsage columnID="D7FF1932-5795-F968-379B-9C5F7FE2BCEE"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="8639A914-56B8-8D57-0A59-3E309DC0C6F8" name="SYS_C00171056">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D7FF1932-5795-F968-379B-9C5F7FE2BCEE"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="6611B6D5-6F94-AC0A-7DD7-0381E8898FF7" name="SYS_C00171055">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B1B5C1A1-74D3-FEA0-3359-311806563A35"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

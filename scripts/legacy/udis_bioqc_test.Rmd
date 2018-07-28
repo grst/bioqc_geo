@@ -1,0 +1,258 @@
+---
+title: "UDIS BioQC test"
+output: html_document
+---
+
+```{r}
+stop("This file is not intended to be ran as a script. This would mess up the database. ")
+source("lib/db.R")
+source("lib/lib.R")
+source("lib/geo_annotation.R")
+source("lib/db_io.R")
+source("lib/plots.R")
+source("lib/io.R")
+library(testthat)
+library(data.table)
+library(readr)
+library(ribiosIO)
+library(BioQC)
+library(readr)
+```
+
+
+Metadata has been imported with sqldeveloper. 
+
+```{r meta2db}
+gmt = readGmt("results/gmt_all.gmt")
+eset1395 = gct_to_eset("db/data/udis/1395.gct")
+bioqc_res = wmwTest(eset1395, gmt, valType="p.greater", col="desc")
+res1395 = bioqc2db(bioqc_res)
+write_tsv(res1395, "./db/data/udis/1395.res.tsv")
+
+eset205 = gct_to_eset("db/data/udis/205.gct")
+bioqc_res = wmwTest(eset205, gmt, valType="p.greater", col="desc")
+res205 = bioqc2db(bioqc_res)
+write_tsv(res205, "./db/data/udis/205.res.tsv")
+
+eset206 = gct_to_eset("db/data/udis/206.gct")
+bioqc_res = wmwTest(eset206, gmt, valType="p.greater", col="desc")
+res206 = bioqc2db(bioqc_res)
+write_tsv(res206, "./db/data/udis/206.res.tsv")
+
+```
+
+
+Make heatmaps: 
+
+```{r, cache=TRUE}
+tissues = dbGetQuery(mydb, "
+  select distinct bnt.tissue
+  from udis_meta um
+  join bioqc_normalize_tissues bnt on bnt.tissue_orig = lower(um.tissue_or_cell_type)
+  join bioqc_tissue_set bts on bts.tissue = bnt.tissue
+  where bts.signature_set = 'gtex_all'")
+
+getTissueSamples = function(tissue) {
+  # get all samples belonging to one tissue and filter for siginifant 
+  # signatures in one sql query! 
+  query = "
+  with udis_tissue as (
+    select  um.*
+          , tissue
+    from udis_meta um
+    join bioqc_normalize_tissues bnt on bnt.tissue_orig = lower(um.tissue_or_cell_type)
+    where bnt.tissue = ?
+  ), gmt_signatures as (
+    select * from bioqc_signatures 
+    where source = 'gtex_ngs_0.7_3.gmt'
+  )
+  select /*+ parallel(16) */ um.experiment_name
+         , um.tissue_or_cell_type
+         , um.tissue
+        -- , ur.signature
+         , gs.name as SIGNATURE
+         , ur.pvalue
+    from udis_res ur
+    join gmt_signatures gs on gs.id = ur.signature
+    right outer join udis_tissue um on ur.experiment_name = um.experiment_name
+    order by experiment_name
+  "
+  data = dbGetQuery(mydb, query, tissue)
+  data = data.frame(data, pvalue.log=absLog10p(as.numeric(data[,"PVALUE"])))
+  data$EXPERIMENT_NAME = as.character(data$EXPERIMENT_NAME)
+  return(data)
+}
+
+for(tissue in tissues$TISSUE) {
+  data = data.table(getTissueSamples(tissue))
+  data$EXPERIMENT_NAME = factor(data$EXPERIMENT_NAME, levels=unique(data$EXPERIMENT_NAME))
+  data$SIGNATURE = factor(data$SIGNATURE, levels=sort(unique(data$SIGNATURE), decreasing = TRUE))
+  print(tissue)
+  hm.palette <- colorRampPalette(rev(brewer.pal(11, 'Spectral')), space='Lab')  
+  sampids = levels(data$EXPERIMENT_NAME)
+ 
+  pdf(file=sprintf("results/heatmaps_udis/%s.pdf", tissue),
+      width=min(nrow(data)*.3 + 5, 30),
+      height=length(levels(data$SIGNATURE))*.33+2)
+  for (i in seq(1, length(sampids), 70)) {
+    print(ggplot(data=data[EXPERIMENT_NAME %in% sampids[i:(i+70)], ], aes(x=EXPERIMENT_NAME, y=SIGNATURE, fill=pvalue.log)) + 
+            geom_tile() +
+            coord_equal() +
+            scale_fill_gradientn(colours = hm.palette(100), limits=c(0, 30), oob=squish) +
+            scale_y_discrete(drop=FALSE) + 
+            theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+            ggtitle(tissue))
+  }
+  dev.off()
+}
+```
+
+
+Repeat the excercise with BioQC signatures
+```{r}
+getTissueSamples = function(tissue) {
+  # get all samples belonging to one tissue and filter for siginifant 
+  # signatures in one sql query! 
+  query = "
+  with udis_tissue as (
+    select  um.*
+          , tissue
+    from udis_meta um
+    join bioqc_normalize_tissues bnt on bnt.tissue_orig = lower(um.tissue_or_cell_type)
+    where bnt.tissue = ?
+  ), gmt_signatures as (
+    select  bs.*
+          , bts.tissue as tissue_detected
+    from bioqc_signatures bs
+    join bioqc_tissue_set bts on bts.signature = bs.id
+    where source = 'exp.tissuemark.affy.roche.symbols.gmt'
+  )
+  select /*+ parallel(16) */ um.experiment_name
+         , um.tissue_or_cell_type
+         , um.tissue
+        -- , ur.signature
+         , gs.name as SIGNATURE
+         , gs.tissue_detected
+         , ur.pvalue
+    from udis_res ur
+    join gmt_signatures gs on gs.id = ur.signature
+    right outer join udis_tissue um on ur.experiment_name = um.experiment_name
+    order by experiment_name
+  "
+  data = dbGetQuery(mydb, query, tissue)
+  data = data.frame(data, pvalue.log=absLog10p(as.numeric(data[,"PVALUE"])))
+  data$EXPERIMENT_NAME = as.character(data$EXPERIMENT_NAME)
+  return(data)
+}
+
+for(tissue in tissues$TISSUE) {
+  data = data.table(getTissueSamples(tissue))
+  data$EXPERIMENT_NAME = factor(data$EXPERIMENT_NAME, levels=unique(data$EXPERIMENT_NAME))
+  data$SIGNATURE = factor(data$SIGNATURE, levels=sort(unique(data$SIGNATURE), decreasing = TRUE))
+  print(tissue)
+  hm.palette <- colorRampPalette(rev(brewer.pal(11, 'Spectral')), space='Lab')  
+  sampids = levels(data$EXPERIMENT_NAME)
+ 
+  pdf(file=sprintf("results/heatmaps_udis_bioqc/%s.pdf", tissue),
+      width=min(nrow(data)*.3 + 5, 30),
+      height=length(levels(data$SIGNATURE))*.33+2)
+  for (i in seq(1, length(sampids), 70)) {
+    print(ggplot(data=data[EXPERIMENT_NAME %in% sampids[i:(i+70)], ], aes(x=EXPERIMENT_NAME, y=SIGNATURE, fill=pvalue.log)) + 
+            geom_tile() +
+            coord_equal() +
+            scale_fill_gradientn(colours = hm.palette(100), limits=c(0, 30), oob=squish) +
+            scale_y_discrete(drop=FALSE) + 
+            theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+            ggtitle(tissue))
+  }
+  dev.off()
+}
+
+```
+
+## Top signature gtex
+```{r}
+
+query = "
+  with udis_tissue as (
+    select  um.*
+          , tissue
+    from udis_meta um
+    join bioqc_normalize_tissues bnt on bnt.tissue_orig = lower(um.tissue_or_cell_type)
+  ), gmt_signatures as (
+    select * from bioqc_signatures 
+    where source = 'gtex_ngs_0.7_3.gmt'
+  ), udis_signature_rank as (
+    select /*+ parallel(16) */ um.experiment_name
+         , um.tissue_or_cell_type
+         , um.tissue
+        -- , ur.signature
+         , gs.name as SIGNATURE
+         , ur.pvalue
+         , ROW_NUMBER() over (partition by um.experiment_name 
+                                order by ur.pvalue asc) as rk
+    from udis_res ur
+    join gmt_signatures gs on gs.id = ur.signature
+    right outer join udis_tissue um on ur.experiment_name = um.experiment_name
+  ) 
+  select 
+      experiment_name
+    , tissue_or_cell_type
+    , tissue as mapped_tissue
+    , signature as top_signature
+    , pvalue
+  from udis_signature_rank
+  where rk = 1
+  order by experiment_name
+"
+data = dbGetQuery(mydb, query)
+write_tsv(data, "results/heatmaps_udis/top_signatures.tsv")
+
+```
+
+
+## Top signature bioqc
+```{r}
+
+query = "
+  with udis_tissue as (
+    select  um.*
+          , tissue
+    from udis_meta um
+    join bioqc_normalize_tissues bnt on bnt.tissue_orig = lower(um.tissue_or_cell_type)
+  ), gmt_signatures as (
+    select bs.*
+         , bts.tissue as tissue_detected
+    from bioqc_signatures bs
+    join bioqc_tissue_set bts on bts.signature = bs.id
+    where source = 'exp.tissuemark.affy.roche.symbols.gmt'
+  ), udis_signature_rank as (
+    select /*+ parallel(16) */ um.experiment_name
+         , um.tissue_or_cell_type
+         , um.tissue
+        -- , ur.signature
+         , gs.name as SIGNATURE
+         , gs.tissue_detected
+         , ur.pvalue
+         , ROW_NUMBER() over (partition by um.experiment_name 
+                                order by ur.pvalue asc) as rk
+    from udis_res ur
+    join gmt_signatures gs on gs.id = ur.signature
+    right outer join udis_tissue um on ur.experiment_name = um.experiment_name
+  ) 
+  select 
+      experiment_name
+    , tissue_or_cell_type
+    , tissue as mapped_tissue
+    , signature as top_signature
+    , tissue_detected as top_tissue
+    , pvalue
+  from udis_signature_rank
+  where rk = 1
+  order by experiment_name
+
+"
+data = dbGetQuery(mydb, query)
+write_tsv(data, "results/heatmaps_udis_bioqc/top_signatures.tsv")
+
+```

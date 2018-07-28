@@ -1,0 +1,57 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev11g class="oracle.dbtools.crest.model.design.storage.oracle.v11g.TableProxyOraclev11g" name="BIOQC_NORMALIZE_TISSUES" directorySegmentName="seg_0" id="51515198-EA17-2A21-DB8D-FC476F611BAF">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:26 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<logging>NO</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<segment>FA80C872-5094-7E09-4D6E-C835CFF4D8F9</segment>
+<tableSpace>FA95D7DB-A1A0-EF39-EA0C-A4FA5A1D398A</tableSpace>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="TISSUE_ORIG" id="7CA366EF-9BA2-9B98-094B-503D8DDCCF42">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:27 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="TISSUE" id="8131BD43-A26D-2B98-3AFA-E70461D0C2EE">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:27 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<indexProxies>
+<IndexProxy class="oracle.dbtools.crest.model.design.storage.oracle.v10g.IndexProxyOraclev10g" name="BIOQC_NORMALIZE_TISSUES_TISSUE" id="63F0ECA0-D7AF-3F35-09BB-E234BD184EC5">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:27 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<schemaObject>63DD9CAB-7D49-9AC0-25B0-AF906BDE65DF</schemaObject>
+<logging>NO</logging>
+<segment>7CDBBBEB-B062-2380-50C5-B4AB5515643E</segment>
+<tableSpace>FA95D7DB-A1A0-EF39-EA0C-A4FA5A1D398A</tableSpace>
+</IndexProxy>
+</indexProxies>
+<foreignKeys>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="SYS_C00171242" id="4FE02DFA-D72A-7C1C-124A-B25CB0883656">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:28 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+</ForeignKey>
+</foreignKeys>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="BIOQC_NORMALIZE_TISSUES_PK" id="21BA65B3-977A-E8CC-AB77-5A7009D3CA10">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:45:28 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<schemaObject>63DD9CAB-7D49-9AC0-25B0-AF906BDE65DF</schemaObject>
+<logging>NO</logging>
+<segment>7CDBBBEB-B062-2380-50C5-B4AB5515643E</segment>
+<tableSpace>FA95D7DB-A1A0-EF39-EA0C-A4FA5A1D398A</tableSpace>
+<indexSegment>7CDBBBEB-B062-2380-50C5-B4AB5515643E</indexSegment>
+<indexSort>SORTED</indexSort>
+<usingIndex>BY INDEX NAME</usingIndex>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev11g>

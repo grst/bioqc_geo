@@ -1,0 +1,88 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="4654C672-F10E-DB42-D2A8-12025AE064E9" name="BIOQC_NORMALIZE_TISSUES">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>SRSLIGHT</sourceObjSchema>
+<sourceObjName>BIOQC_NORMALIZE_TISSUES</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>51515198-EA17-2A21-DB8D-FC476F611BAF</importedID>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="TISSUE_ORIG" id="C5DBAB98-4A56-100F-AFB1-92966CDFF6ED">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_NORMALIZE_TISSUES</sourceObjSchema>
+<sourceObjName>TISSUE_ORIG</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>7CA366EF-9BA2-9B98-094B-503D8DDCCF42</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>1000 BYTE</dataTypeSize>
+<ownDataTypeParameters>1000 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TISSUE" id="3B09F380-E611-8546-6A0A-3AD67193F78D">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_NORMALIZE_TISSUES</sourceObjSchema>
+<sourceObjName>TISSUE</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>8131BD43-A26D-2B98-3AFA-E70461D0C2EE</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>80 BYTE</dataTypeSize>
+<ownDataTypeParameters>80 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="1F3BBBC1-B78E-89FE-1C0D-C38DC221A3C6" referredColumn="4B9D6B73-32E3-15D2-6547-7A7C27707874"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="A6DFBF45-2221-6EDE-31CB-625681BE044D" schemaObject="E48D1DFC-F58A-EB89-55D1-E3F239C61932" name="BIOQC_NORMALIZE_TISSUES_PK">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>SRSLIGHT</sourceObjSchema>
+<sourceObjName>SYS_C00171422</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>21BA65B3-977A-E8CC-AB77-5A7009D3CA10</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C5DBAB98-4A56-100F-AFB1-92966CDFF6ED"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="FF5E98DB-A41E-7EE8-BA3B-98EEC7588495" schemaObject="E48D1DFC-F58A-EB89-55D1-E3F239C61932" name="BIOQC_NORMALIZE_TISSUES_TISSUE">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>SRSLIGHT</sourceObjSchema>
+<sourceObjName>BIOQC_NORMALIZE_TISSUES_TISSUE</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>63F0ECA0-D7AF-3F35-09BB-E234BD184EC5</importedID>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="3B09F380-E611-8546-6A0A-3AD67193F78D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="4FBA2ABB-54D8-ABC7-7758-B1DC116738A0" name="SYS_C00171242">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="3B09F380-E611-8546-6A0A-3AD67193F78D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

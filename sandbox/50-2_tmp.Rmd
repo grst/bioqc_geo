@@ -1,0 +1,115 @@
+# Tissue Contamination
+
+```{r setup, include=FALSE}
+source("lib/knitr.R")
+library(BioQC)
+library(rworldmap)
+library(data.table)
+library(sqldf)
+source("lib/plots.R")
+source("lib/db.R")
+```
+
+```{r, eval=FALSE}
+sql = "
+select /*+ parallel(16) */ * 
+from bioqc_contamination
+where tissue_set = 'bioqc_solid'
+"
+res_bioqc = data.table(dbGetQuery(mydb, sql))
+res_bioqc[,MIN_FOUND_PVALUE:=as.numeric(MIN_FOUND_PVALUE)]
+res_bioqc[,MIN_EXP_PVALUE:=as.numeric(MIN_EXP_PVALUE)]
+res_bioqc[,EXP_SCORE:=absLog10p(MIN_EXP_PVALUE)]
+res_bioqc[,FOUND_SCORE:=absLog10p(MIN_FOUND_PVALUE)]
+# pbonf = 0.05 / nrow(res_bioqc)
+```
+
+```{r, eval=FALSE}
+qqarb = function(x, f=qlnorm) {
+  qqplot(x, f(ppoints(x)))
+}
+```
+
+
+```{r, eval=FALSE}
+platform_effect = res[GPL %in% c('GPL570', 'GPL1261', 'GPL1355') & TGROUP == 'liver' & FOUND_TGROUP == 'liver']
+ggplot(platform_effect, aes(x=FOUND_SCORE)) + geom_density(aes(colour=GPL))
+
+```
+
+```{r, eval=FALSE}
+robust_stats = function(x) {
+  qts = quantile(x, c(.05, .95))
+  xq = x[x >= qts[1] & x <= qts[2]]
+  return(list(mean(xq), sd(xq)))
+}
+
+```
+
+
+
+
+```{r, eval=FALSE}
+example = res_bioqc[GPL == 'GPL1261' & TGROUP == 'liver' & FOUND_TGROUP %in% c('kidney', 'liver')]
+ggplot(example, aes(x=FOUND_SCORE)) + geom_density(aes(colour=FOUND_TGROUP)) + coord_cartesian(ylim=c(0,2))
+```
+
+```{r, eval=FALSE}
+baseline = res_bioqc[, c("rmean", "rsd") := robust_stats(FOUND_SCORE), by=c("GPL", "TGROUP", "FOUND_TGROUP")]
+baseline[, total_tissue:=length(GSM), by=c("TGROUP", "FOUND_TGROUP")]
+fil = baseline[TGROUP != FOUND_TGROUP & 
+                 FOUND_SCORE > rmean + 3 * rsd &
+                 FOUND_SCORE > 2 #-log10(pbonf)
+               ]
+
+# fil = baseline[TGROUP != FOUND_TGROUP & MIN_FOUND_PVALUE / MIN_EXP_PVALUE < 1e-3]
+
+
+
+#### exclude 'double contaminations'
+fil[, rk:=frankv(FOUND_SCORE, order=-1), by=c("GSM", "GPL", "TGROUP")]
+fil = fil[rk==1]
+
+# fil = baseline[TGROUP != FOUND_TGROUP & MIN_FOUND_PVALUE / MIN_EXP_PVALUE < 1e-3]
+```
+
+```{r, eval=FALSE}
+aggr = sqldf('select TGROUP, FOUND_TGROUP, count(GSM) as cnt from fil group by TGROUP, FOUND_TGROUP')
+ggplot(aggr, aes(y=TGROUP, x=FOUND_TGROUP)) + geom_tile(aes(fill=cnt)) + geom_text(aes(label=cnt))
+
+```
+
+
+
+```{r, eval=FALSE}
+set.seed(42)
+migration = sqldf('select TGROUP as ORIGIN, FOUND_TGROUP as destination, count(GSM) as count from fil group by TGROUP, FOUND_TGROUP')
+col = rand_color(length(unique(migration$ORIGIN)))
+names(col) = unique(migration$ORIGIN)
+chordDiagram(migration, grid.col=col, annotationTrack="grid", preAllocateTracks=1)
+circos.trackPlotRegion(track.index=1, panel.fun = function(x, y) {
+  xlim = get.cell.meta.data("xlim")
+  ylim = get.cell.meta.data("ylim")
+  sector.name = get.cell.meta.data("sector.index")
+  circos.text(mean(xlim), ylim[1] + .1, sector.name, facing = "clockwise", niceFacing = TRUE, adj = c(0, 0.5), cex=2)
+  circos.axis(h = "top", labels.cex = 0.5, major.tick.percentage = 0.2, sector.index = sector.name, track.index = 2)
+}, bg.border = NA)
+```
+
+
+```{r, eval=FALSE}
+per_tissue = sqldf("select tgroup
+                  , total_tissue as TOTAL
+                   , count(gsm) as CONTAMINATED
+                   , count(gsm)/cast(total_tissue as float) as RATIO
+                   from fil group by tgroup")
+# png(filename = "contamination.png", width = 1200, height=600)
+ggplot(data=per_tissue, aes(x=TGROUP, y=RATIO)) +
+  geom_bar(stat="identity") + 
+  theme(axis.text = element_text(size=24), 
+        axis.text.x = element_text(angle = 90, hjust = 1),
+        axis.title = element_text(size=24)) + 
+  xlab("tissue") + 
+  ylab("fraction contaminated")
+```
+

@@ -1,0 +1,185 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="1A8ABEE7-435F-D0B1-DBF3-89721E935983" schemaObject="63DD9CAB-7D49-9AC0-25B0-AF906BDE65DF" name="BIOQC_GSE_GPL">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>SRSLIGHT</sourceObjSchema>
+<sourceObjName>BIOQC_GSE_GPL</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2017-04-11 06:57:30 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="GSE" id="506F0538-28D7-9A26-B6EE-08B223237BDF">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_GSE_GPL</sourceObjSchema>
+<sourceObjName>GSE</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2017-04-11 06:57:30 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>15 BYTE</dataTypeSize>
+<ownDataTypeParameters>15 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="7573E093-91F3-B4F1-763A-91BD6678EF2E" referredColumn="6E566C0D-A6C8-9AF5-56E3-39ACB6B20B00"/>
+</associations>
+</Column>
+<Column name="GPL" id="4A4BF068-B471-63DC-2469-2F8737E0A3F2">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_GSE_GPL</sourceObjSchema>
+<sourceObjName>GPL</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2017-04-11 06:57:30 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>15 BYTE</dataTypeSize>
+<ownDataTypeParameters>15 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="2A8517C2-64A0-7C5B-3A45-DE321F867D24" referredColumn="5897D89D-F30B-E1D6-E673-A7E46623C54C"/>
+</associations>
+</Column>
+<Column name="STUDY_MIN" id="0301F059-6957-265B-7D44-CB8BCB56F6CB">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_GSE_GPL</sourceObjSchema>
+<sourceObjName>STUDY_MIN</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2017-04-11 06:57:30 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT021</logicalDatatype>
+<dataTypePrecision>126</dataTypePrecision>
+<ownDataTypeParameters>,126,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="STUDY_25" id="0A15974F-F7EA-E336-0D12-6F3AF68D548D">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_GSE_GPL</sourceObjSchema>
+<sourceObjName>STUDY_25</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2017-04-11 06:57:30 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT021</logicalDatatype>
+<dataTypePrecision>126</dataTypePrecision>
+<ownDataTypeParameters>,126,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="STUDY_MEDIAN" id="4A2AAEF4-899C-F8DA-2305-8492C9A08A76">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_GSE_GPL</sourceObjSchema>
+<sourceObjName>STUDY_MEDIAN</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2017-04-11 06:57:30 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT021</logicalDatatype>
+<dataTypePrecision>126</dataTypePrecision>
+<ownDataTypeParameters>,126,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="STUDY_MEAN" id="B670C6ED-C5CE-B3B7-0621-99E8D4561DF4">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_GSE_GPL</sourceObjSchema>
+<sourceObjName>STUDY_MEAN</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2017-04-11 06:57:30 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT021</logicalDatatype>
+<dataTypePrecision>126</dataTypePrecision>
+<ownDataTypeParameters>,126,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="STUDY_75" id="836F2AA4-0906-441B-BA32-1CA64312D848">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_GSE_GPL</sourceObjSchema>
+<sourceObjName>STUDY_75</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2017-04-11 06:57:30 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT021</logicalDatatype>
+<dataTypePrecision>126</dataTypePrecision>
+<ownDataTypeParameters>,126,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="STUDY_MAX" id="CB1AF4A7-6DCD-2F14-2989-9DDF95FC5CF7">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>BIOQC_GSE_GPL</sourceObjSchema>
+<sourceObjName>STUDY_MAX</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2017-04-11 06:57:30 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT021</logicalDatatype>
+<dataTypePrecision>126</dataTypePrecision>
+<ownDataTypeParameters>,126,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="4494A96E-AED7-9A2C-5925-D75C141D1440" schemaObject="63DD9CAB-7D49-9AC0-25B0-AF906BDE65DF" name="BIOQC_GSE_GPL_PK">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>SRSLIGHT</sourceObjSchema>
+<sourceObjName>SYS_C00171045</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2017-04-11 06:57:30 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="506F0538-28D7-9A26-B6EE-08B223237BDF"/>
+<colUsage columnID="4A4BF068-B471-63DC-2469-2F8737E0A3F2"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="28ECC321-3214-4744-BE93-68F0A77BE192" schemaObject="63DD9CAB-7D49-9AC0-25B0-AF906BDE65DF" name="BIOQC_GSE_GPL_IQR">
+<sourceConnName>bin_srslight</sourceConnName>
+<sourceObjSchema>SRSLIGHT</sourceObjSchema>
+<sourceObjName>BIOQC_GSE_GPL_IQR</sourceObjName>
+<createdBy>sturmg</createdBy>
+<createdTime>2017-04-11 06:57:30 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<indexExpression>ABS(&quot;STUDY_75&quot;-&quot;STUDY_25&quot;)</indexExpression>
+<isSurrogateKey>false</isSurrogateKey>
+</ind_PK_UK>
+<ind_PK_UK id="84AA1AE7-D846-74F5-7BE0-B9D6BCCD6B3F" name="SYS_C00171055">
+<createdBy>sturmg</createdBy>
+<createdTime>2017-04-11 06:57:30 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="506F0538-28D7-9A26-B6EE-08B223237BDF"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="F4DC671E-CA7A-1FC1-EFA1-87C531A95271" name="SYS_C00171056">
+<createdBy>sturmg</createdBy>
+<createdTime>2017-04-11 06:57:30 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4A4BF068-B471-63DC-2469-2F8737E0A3F2"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

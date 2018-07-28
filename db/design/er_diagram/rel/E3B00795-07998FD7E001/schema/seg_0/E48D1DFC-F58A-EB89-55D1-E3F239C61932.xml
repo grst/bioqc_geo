@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<SchemaObject class="oracle.dbtools.crest.model.design.relational.SchemaObject" name="SRSLIGHT" directorySegmentName="seg_0" id="E48D1DFC-F58A-EB89-55D1-E3F239C61932">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:55:24 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<importedID>63DD9CAB-7D49-9AC0-25B0-AF906BDE65DF</importedID>
+</SchemaObject>

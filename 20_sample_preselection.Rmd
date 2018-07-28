@@ -1,0 +1,150 @@
+# Sample Selection and processing {#sample-selection}
+
+```{r setup, include=FALSE}
+source("lib/knitr.R")
+library(BioQC)
+library(rworldmap)
+library(VennDiagram)
+library(data.table)
+library(grid)
+library(gridBase)
+library(stringr)
+library(testthat)
+source("lib/plots.R")
+source("lib/db.R")
+```
+
+## Sample Preselection
+Here, we document the sample selection process before running *BioQC*. 
+
+### Required annotation
+A sample is *usable* for this study, if 
+
+* the gene symbos are annotated (requirement to run BioQC)
+* the tissue of origin is annotated (requirment to draw conclusions about contamination)
+
+We consider two approaches for annotating gene symbols: 
+
+* Using the Bioconductor [AnnotationDbi](https://bioconductor.org/packages/release/bioc/html/AnnotationDbi.html) package. The GEOmetadb provides a mapping of the GPL identifier to these packages. 
+* Using the `annotGPL=TRUE` option of [GEOquery](https://bioconductor.org/packages/release/bioc/html/GEOquery.html)'s `getGEO`. This requires an annotation file being available for the respective platform. We retrieved a list of the available annotation files [in an earlier step](#load-annotation-information). 
+
+We compare the two methods with respect to the amount of usable samples that we can get. 
+
+We create the 'annotation statistics' using an  [sql script](https://github.com/grst/BioQC_GEO_analysis/blob/master/db/views/annotation_stats.sql) and calculate these Venn diagrams: 
+
+ 
+```{r sample_filtering, echo=FALSE, fig.height=3, fig.width=8, cache=TRUE}
+sqlStats = "
+select 'total', count(distinct gsm), count(distinct gse) 
+from bioqc_studies_total
+union
+  select 'tissue', count(distinct gsm), count(distinct gse) 
+  from bioqc_studies_has_tissue
+union 
+  select 'package', count(distinct gsm), count(distinct gse)
+  from bioqc_studies_has_package
+union
+  select 'annotation', count(distinct gsm), count(distinct gse)
+  from bioqc_studies_has_annot
+union 
+  select 'tissue_package', count(distinct gsm), count(distinct gse)
+  from (
+    select *
+    from bioqc_studies_has_tissue
+    intersect
+      select *
+      from bioqc_studies_has_package) u1
+union
+  select 'annotation_package', count(distinct gsm), count(distinct gse) 
+  from (
+    select *
+    from bioqc_studies_has_annot
+    intersect
+      select *
+      from bioqc_studies_has_package) u2
+union
+  select 'tissue_annotation', count(distinct gsm), count(distinct gse)
+  from (
+    select *
+    from bioqc_studies_has_tissue
+    intersect
+      select * 
+      from bioqc_studies_has_annot) u3
+union
+  select 'annotation_tissue_package', count(distinct gsm), count(distinct gse)
+  from (
+    select *
+    from bioqc_studies_has_tissue 
+    intersect
+      select *
+      from bioqc_studies_has_package
+    intersect
+      select *
+      from bioqc_studies_has_annot) u4
+"
+stats = data.table(dbGetQuery(mydb, sqlStats))
+colnames(stats) = c("rn", "GSM", "GSE")
+setkey(stats,rn)
+
+categories = c("tissue", "annot pkg", "annot GPL")
+colors=c('red', 'green', 'blue')
+
+plot.new()
+gl = grid.layout(nrow=1, ncol=2)
+vp.1 = viewport(layout.pos.col=1, layout.pos.row=1)
+vp.2 = viewport(layout.pos.col=2, layout.pos.row=1)
+pushViewport(viewport(layout=gl))
+pushViewport(vp.1)
+
+invisible(draw.triple.venn(stats[rn=='tissue',GSM], 
+                 stats[rn=='package',GSM], 
+                 stats[rn=='annotation',GSM], 
+                 stats[rn=='tissue_package',GSM],
+                 stats[rn=='annotation_package',GSM], 
+                 stats[rn=='tissue_annotation',GSM], 
+                 stats[rn=='annotation_tissue_package',GSM], 
+                 category=categories, fill=colors))
+
+popViewport()
+pushViewport(vp.2)
+
+invisible(draw.triple.venn(stats[rn=='tissue',GSE], 
+                 stats[rn=='package',GSE], 
+                 stats[rn=='annotation',GSE], 
+                 stats[rn=='tissue_package',GSE],
+                 stats[rn=='annotation_package',GSE], 
+                 stats[rn=='tissue_annotation',GSE], 
+                 stats[rn=='annotation_tissue_package',GSE],
+                 category=categories, fill=colors))
+
+popViewport(1)
+```
+
+The `getGEO` method appears to be the more powerful method. Ideal would be a combination of the two, however, for the sake of simplicity, we stick to `getGEO`, loosing `r as.integer(stats[rn=="tissue_package",GSE]-stats[rn=="annotation_tissue_package",GSE])` studies (`r as.integer(stats[rn=="tissue_package",GSM]-stats[rn=="annotation_tissue_package",GSM])` samples). 
+
+This leaves us with the following filtering result: 
+```{r sample_filtering2, cache=TRUE, echo=FALSE}
+tab = stats[.(c("total", "tissue", "annotation", "tissue_annotation"))]
+tab = tab[,comment:=c("total", "tissue annotated", "annotation file available", "tissue and annotation file")]
+kable(tab[,c("comment","GSM","GSE"),with=FALSE])
+```
+
+```{r gse_path, include=FALSE}
+gse.file = "results/gse_lists/gse_tissue_annotation.txt"
+```
+
+### Export list of samples {#sample-list}
+We store the respective gse identifiers in ``r gse.file``: 
+```{r sample_filtering_out}
+sqlGse = "
+select distinct gse
+from (
+  select *
+  from bioqc_studies_has_tissue
+  intersect
+    select *
+    from bioqc_studies_has_annot) u"
+gse = dbGetQuery(mydb, sqlGse)
+writeLines(gse$GSE, file(gse.file))
+```
+

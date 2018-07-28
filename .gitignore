@@ -1,0 +1,14 @@
+plots/*
+results/*
+data
+*.html
+*.CommonMark
+.ipynb_checkpoints
+*_files
+*_cache
+~$*
+gh-pages
+_book
+_main*
+Thumbs.db
+_notebooks

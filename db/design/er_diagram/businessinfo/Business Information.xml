@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<BusinessInfoDesign class="oracle.dbtools.crest.model.businessinfo.BusinessInfoDesign" name="Business Information" id="3275AB7C-DF37-B09D-1CFF-CF0DF3C902B1">
+<createdBy>sturmg</createdBy>
+<createdTime>2016-12-12 07:44:02 UTC</createdTime>
+<ownerDesignName>er_diagram</ownerDesignName>
+<shouldBeOpen>false</shouldBeOpen>
+</BusinessInfoDesign>
