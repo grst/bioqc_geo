@@ -1,17 +1,19 @@
 # Sample Selection and processing {#sample-selection}
 
 ```{r setup, include=FALSE}
-source("lib/knitr.R")
-library(BioQC)
-library(rworldmap)
-library(VennDiagram)
+library(sqldf)
+library(dplyr)
+library(readr)
 library(data.table)
-library(grid)
-library(gridBase)
-library(stringr)
-library(testthat)
-source("lib/plots.R")
-source("lib/db.R")
+library(gridExtra)
+library(VennDiagram)
+```
+
+```{r load-data, include=FALSE}
+bioqc_studies_has_tissue = read_csv("../data/bioqc_geo_oracle_dump/materialized_views/BIOQC_STUDIES_HAS_TISSUE_DATA_MATERIALIZED VIEW.csv")
+bioqc_studies_has_package = read_csv("../data/bioqc_geo_oracle_dump/materialized_views/BIOQC_STUDIES_HAS_PACKAGE_DATA_MATERIALIZED VIEW.csv")
+bioqc_studies_has_annot = read_csv("../data/bioqc_geo_oracle_dump/materialized_views/BIOQC_STUDIES_HAS_ANNOT_DATA_MATERIALIZED VIEW.csv")
+bioqc_studies_total = read_csv("../data/bioqc_geo_oracle_dump/materialized_views/BIOQC_STUDIES_TOTAL_DATA_MATERIALIZED VIEW.csv")
 ```
 
 ## Sample Preselection
@@ -82,10 +84,12 @@ union
       select *
       from bioqc_studies_has_annot) u4
 "
-stats = data.table(dbGetQuery(mydb, sqlStats))
+stats = data.table(sqldf(sqlStats))
 colnames(stats) = c("rn", "GSM", "GSE")
 setkey(stats,rn)
+```
 
+```{r sample_filtering, echo=FALSE, fig.height=3, fig.width=8, cache=TRUE}
 categories = c("tissue", "annot pkg", "annot GPL")
 colors=c('red', 'green', 'blue')
 
@@ -128,23 +132,3 @@ tab = stats[.(c("total", "tissue", "annotation", "tissue_annotation"))]
 tab = tab[,comment:=c("total", "tissue annotated", "annotation file available", "tissue and annotation file")]
 kable(tab[,c("comment","GSM","GSE"),with=FALSE])
 ```
-
-```{r gse_path, include=FALSE}
-gse.file = "results/gse_lists/gse_tissue_annotation.txt"
-```
-
-### Export list of samples {#sample-list}
-We store the respective gse identifiers in ``r gse.file``: 
-```{r sample_filtering_out}
-sqlGse = "
-select distinct gse
-from (
-  select *
-  from bioqc_studies_has_tissue
-  intersect
-    select *
-    from bioqc_studies_has_annot) u"
-gse = dbGetQuery(mydb, sqlGse)
-writeLines(gse$GSE, file(gse.file))
-```
-

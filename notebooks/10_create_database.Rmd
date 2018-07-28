@@ -1,11 +1,11 @@
 # Setup Database {#setup-database}
 
-```{r, include=FALSE}
-source("config.R")
-source("lib/db.R")
-source("lib/lib.R")
-source("lib/geo_annotation.R")
-source("lib/db_io.R")
+```{r, include=FALSE, eval=FALSE}
+source("../lib/config.R")
+source("../lib/db.R")
+source("../lib/lib.R")
+source("../lib/geo_annotation.R")
+source("../lib/db_io.R")
 library(RSQLite)
 library(testthat)
 library(readr)
@@ -17,6 +17,9 @@ We store meta information for GEO samples and BioQC p-values in
 an Oracle 11g database. We combine the metadata from [GEOmetadb](https://www.bioconductor.org/packages/release/bioc/vignettes/GEOmetadb/inst/doc/GEOmetadb.html)
 with tables to store signature scores generated with
 [BioQC](https://accio.github.io/BioQC) and manually curated annotations.
+
+If you want to reproduce the database, have a look at the additional repository
+[grst/Bioqc_GEO_Analysis](https://github.com/grst/BioQC_GEO_analysis).
 
 The following figure shows the database scheme used for the study as entity-relationship (ER) diagram:
 
@@ -44,7 +47,7 @@ knitr::include_graphics("db/design/er_diagram.png")
 ## Import GEOmetadb
 
 First, we need to extract a list of tables:
-```{r}
+```{r, include=TRUE, eval=FALSE}
 gdb = dbConnect(SQLite(), file.path(DATA_DIR, "geometabase/GEOmetadb.sqlite"))
 tables = dbListTables(gdb)
 writeLines(tables, file(file.path(DATA_DIR, "geometabase/tables.txt")))
@@ -208,5 +211,3 @@ bioqc_melt_all.uniq.tsv
 bioqc_success.txt
 ```
 
-## Store results
-We do not only use the database as pure data storage, but also as data analysis engine, harvesting the power of SQL. (See sections [sample selection](#sample-selection) and [contamination analysis](#contamination-analysis)). We save intermediate results of time-consuming queries in so-called [*materialized views*](https://docs.oracle.com/cd/B10501_01/server.920/a96567/repmview.htm), which are pysical snapshots of a query's result.
