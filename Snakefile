@@ -3,9 +3,39 @@ HTTP = HTTPRemoteProvider()
 
 RMD_FILES, = glob_wildcards("notebooks/{rmd_files}.Rmd")
 
-# declare all input files here
-# DATA_FILES = [
-# ]
+# all files in the data directory
+DATA_FILES = [
+  "data/bioqc_geo_oracle_dump/BIOQC_SIGNATURES_DATA_TABLE.csv",
+  "data/bioqc_geo_oracle_dump/BIOQC_TMP_TISSUE_SET_DATA_TABLE.csv",
+  "data/bioqc_geo_oracle_dump/BIOQC_NORMALIZE_TISSUES_DATA_TABLE.csv",
+  "data/bioqc_geo_oracle_dump/BIOQC_GSE_GSM_DATA_TABLE.csv",
+  "data/bioqc_geo_oracle_dump/BIOQC_GSM_DATA_TABLE.csv",
+  "data/bioqc_geo_oracle_dump/BIOQC_SMATRIX_DATA_TABLE.csv",
+  "data/bioqc_geo_oracle_dump/BIOQC_SIGNALS_DATA_TABLE.csv",
+  "data/bioqc_geo_oracle_dump/BIOQC_GEODB_COLUMN_DESC_DATA_TABLE.csv",
+  "data/bioqc_geo_oracle_dump/BIOQC_BIOQC_SUCCESS_DATA_TABLE.csv",
+  "data/bioqc_geo_oracle_dump/BIOQC_RES_DATA_TABLE.csv",
+  "data/bioqc_geo_oracle_dump/BIOQC_GPL_DATA_TABLE.csv",
+  "data/bioqc_geo_oracle_dump/BIOQC_SELECTED_SAMPLES_TSET_DATA_MATERIALIZED VIEW.csv",
+  "data/bioqc_geo_oracle_dump/BIOQC_METAINFO_DATA_TABLE.csv",
+  "data/bioqc_geo_oracle_dump/BIOQC_GSE_GPL_DATA_TABLE.csv",
+  "data/bioqc_geo_oracle_dump/BIOQC_GEOCONVERT_DATA_TABLE.csv",
+  "data/bioqc_geo_oracle_dump/BIOQC_TISSUES_DATA_TABLE.csv",
+  "data/bioqc_geo_oracle_dump/BIOQC_GDS_DATA_TABLE.csv",
+  "data/bioqc_geo_oracle_dump/BIOQC_GSE_DATA_TABLE.csv",
+  "data/bioqc_geo_oracle_dump/BIOQC_GDS_SUBSET_DATA_TABLE.csv",
+  "data/bioqc_geo_oracle_dump/BIOQC_TMP_GSE_GPL_DATA_TABLE.csv",
+  "data/bioqc_geo_oracle_dump/BIOQC_SIGNATURE_SYMBOL_DATA_TABLE.csv",
+  "data/bioqc_geo_oracle_dump/BIOQC_TISSUE_SET_DATA_TABLE.csv",
+  "data/paxdb/Jitao David Zhang - PAXDB-humanGregorGEOBioQC-cache.RData",
+  "data/paxdb/Jitao David Zhang - PAXDB-humanEset-phenoData.txt",
+  "data/paxdb/Jitao David Zhang - PAXDB-mouseGregorGEOBioQC-cache.RData",
+  "data/paxdb/Jitao David Zhang - PAXDB-mouseEset-phenoData.txt",
+  "data/archs4/Jitao David Zhang - ARCHS4-mouseGregorGEOBioQC-cache.RData",
+  "data/archs4/Jitao David Zhang - ARCHS4-humanEset-phenoData.txt",
+  "data/archs4/Jitao David Zhang - ARCHS4-humanGregorGEOBioQC-cache.RData",
+  "data/archs4/Jitao David Zhang - ARCHS4-mouseEset-phenoData.txt"
+]
 
 
 rule book:
@@ -13,6 +43,11 @@ rule book:
   input:
     # data
     # DATA_FILES,
+    # preprocessed files
+    "results/data_processed.RData",
+    "results/archs4/archs4_data_processed.RData",
+    "results/models.RData",
+    "results/archs4/archs4_models.RData",
     # content (Rmd files and related stuff)
     expand("notebooks/{rmd_files}.Rmd", rmd_files = RMD_FILES),
     "notebooks/bibliography.bib",
@@ -31,12 +66,13 @@ rule data:
    """download data from archive"""
    input:
      # TODO change to github once published
-     HTTP.remote("www.cip.ifi.lmu.de/~sturmg/data.tar.gz", allow_redirects=True)
+     HTTP.remote("www.cip.ifi.lmu.de/~sturmg/bioqc/data.tar.gz", allow_redirects=True)
    output:
      DATA_FILES
    shell:
      "mkdir -p data && "
      "tar -xvzf {input} -C data --strip-components 1"
+
 
 rule preprocess_archs:
     """preprocess archs4 data to be in a consisten format with
@@ -46,10 +82,10 @@ rule preprocess_archs:
       "data/bioqc_geo_oracle_dump/BIOQC_GSM_DATA_TABLE.csv",
       "data/bioqc_geo_oracle_dump/BIOQC_NORMALIZE_TISSUES_DATA_TABLE.csv",
       "data/bioqc_geo_oracle_dump/BIOQC_TISSUE_SET_DATA_TABLE.csv",
-      "data/archs4/Jitao David Zhang - ARCHS4-humanGregorGEOBioQC-cache.Rdata",
-      "data/archs4/Jitao David Zhang - ARCHS4-mouseGregorGEOBioQC-cache.Rdata",
+      "data/archs4/Jitao David Zhang - ARCHS4-humanGregorGEOBioQC-cache.RData",
+      "data/archs4/Jitao David Zhang - ARCHS4-mouseGregorGEOBioQC-cache.RData",
       "data/archs4/Jitao David Zhang - ARCHS4-humanEset-phenoData.txt",
-      "./data/archs4/Jitao David Zhang - ARCHS4-mouseEset-phenoData.txt"
+      "data/archs4/Jitao David Zhang - ARCHS4-mouseEset-phenoData.txt"
     output:
       "results/archs4/archs4_res.csv",
       "results/archs4/archs4_meta.csv"
@@ -65,7 +101,7 @@ rule process_geo:
   input:
     "scripts/process_data.R",
     "data/bioqc_geo_oracle_dump/BIOQC_RES_DATA_TABLE.csv",
-    "data/bioqc_geo_oracle_dump/materialized_views/BIOQC_SELECTED_SAMPLES_TSET_DATA_MATERIALIZED VIEW.csv"
+    "data/bioqc_geo_oracle_dump/BIOQC_SELECTED_SAMPLES_TSET_DATA_MATERIALIZED VIEW.csv"
   output:
     "results/data_processed.RData"
   conda:
