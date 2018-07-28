@@ -12,8 +12,11 @@
 ########################################################################################
 
 library(BioQC)
-library(stringr)
 library(dplyr)
+library(tibble)
+library(readr)
+library(magrittr)
+library(stringr)
 
 # Output file
 # BIOQC_RES_FILE = "data/bioqc_geo_oracle_dump/BIOQC_RES_DATA_TABLE.csv"

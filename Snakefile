@@ -5,36 +5,36 @@ RMD_FILES, = glob_wildcards("notebooks/{rmd_files}.Rmd")
 
 # all files in the data directory
 DATA_FILES = [
-  "data/bioqc_geo_oracle_dump/BIOQC_SIGNATURES_DATA_TABLE.csv",
-  "data/bioqc_geo_oracle_dump/BIOQC_TMP_TISSUE_SET_DATA_TABLE.csv",
-  "data/bioqc_geo_oracle_dump/BIOQC_NORMALIZE_TISSUES_DATA_TABLE.csv",
-  "data/bioqc_geo_oracle_dump/BIOQC_GSE_GSM_DATA_TABLE.csv",
-  "data/bioqc_geo_oracle_dump/BIOQC_GSM_DATA_TABLE.csv",
-  "data/bioqc_geo_oracle_dump/BIOQC_SMATRIX_DATA_TABLE.csv",
-  "data/bioqc_geo_oracle_dump/BIOQC_SIGNALS_DATA_TABLE.csv",
-  "data/bioqc_geo_oracle_dump/BIOQC_GEODB_COLUMN_DESC_DATA_TABLE.csv",
-  "data/bioqc_geo_oracle_dump/BIOQC_BIOQC_SUCCESS_DATA_TABLE.csv",
-  "data/bioqc_geo_oracle_dump/BIOQC_RES_DATA_TABLE.csv",
-  "data/bioqc_geo_oracle_dump/BIOQC_GPL_DATA_TABLE.csv",
-  "data/bioqc_geo_oracle_dump/BIOQC_SELECTED_SAMPLES_TSET_DATA_MATERIALIZED VIEW.csv",
-  "data/bioqc_geo_oracle_dump/BIOQC_METAINFO_DATA_TABLE.csv",
-  "data/bioqc_geo_oracle_dump/BIOQC_GSE_GPL_DATA_TABLE.csv",
-  "data/bioqc_geo_oracle_dump/BIOQC_GEOCONVERT_DATA_TABLE.csv",
-  "data/bioqc_geo_oracle_dump/BIOQC_TISSUES_DATA_TABLE.csv",
-  "data/bioqc_geo_oracle_dump/BIOQC_GDS_DATA_TABLE.csv",
-  "data/bioqc_geo_oracle_dump/BIOQC_GSE_DATA_TABLE.csv",
-  "data/bioqc_geo_oracle_dump/BIOQC_GDS_SUBSET_DATA_TABLE.csv",
-  "data/bioqc_geo_oracle_dump/BIOQC_TMP_GSE_GPL_DATA_TABLE.csv",
-  "data/bioqc_geo_oracle_dump/BIOQC_SIGNATURE_SYMBOL_DATA_TABLE.csv",
-  "data/bioqc_geo_oracle_dump/BIOQC_TISSUE_SET_DATA_TABLE.csv",
-  "data/paxdb/Jitao David Zhang - PAXDB-humanGregorGEOBioQC-cache.RData",
-  "data/paxdb/Jitao David Zhang - PAXDB-humanEset-phenoData.txt",
-  "data/paxdb/Jitao David Zhang - PAXDB-mouseGregorGEOBioQC-cache.RData",
-  "data/paxdb/Jitao David Zhang - PAXDB-mouseEset-phenoData.txt",
-  "data/archs4/Jitao David Zhang - ARCHS4-mouseGregorGEOBioQC-cache.RData",
-  "data/archs4/Jitao David Zhang - ARCHS4-humanEset-phenoData.txt",
-  "data/archs4/Jitao David Zhang - ARCHS4-humanGregorGEOBioQC-cache.RData",
-  "data/archs4/Jitao David Zhang - ARCHS4-mouseEset-phenoData.txt"
+    "data/bioqc_geo_oracle_dump/BIOQC_SIGNATURES_DATA_TABLE.csv",
+    "data/bioqc_geo_oracle_dump/BIOQC_TMP_TISSUE_SET_DATA_TABLE.csv",
+    "data/bioqc_geo_oracle_dump/BIOQC_NORMALIZE_TISSUES_DATA_TABLE.csv",
+    "data/bioqc_geo_oracle_dump/BIOQC_GSE_GSM_DATA_TABLE.csv",
+    "data/bioqc_geo_oracle_dump/BIOQC_GSM_DATA_TABLE.csv",
+    "data/bioqc_geo_oracle_dump/BIOQC_SMATRIX_DATA_TABLE.csv",
+    "data/bioqc_geo_oracle_dump/BIOQC_SIGNALS_DATA_TABLE.csv",
+    "data/bioqc_geo_oracle_dump/BIOQC_GEODB_COLUMN_DESC_DATA_TABLE.csv",
+    "data/bioqc_geo_oracle_dump/BIOQC_BIOQC_SUCCESS_DATA_TABLE.csv",
+    "data/bioqc_geo_oracle_dump/BIOQC_RES_DATA_TABLE.csv",
+    "data/bioqc_geo_oracle_dump/BIOQC_GPL_DATA_TABLE.csv",
+    "data/bioqc_geo_oracle_dump/BIOQC_SELECTED_SAMPLES_TSET_DATA_MATERIALIZED VIEW.csv",
+    "data/bioqc_geo_oracle_dump/BIOQC_METAINFO_DATA_TABLE.csv",
+    "data/bioqc_geo_oracle_dump/BIOQC_GSE_GPL_DATA_TABLE.csv",
+    "data/bioqc_geo_oracle_dump/BIOQC_GEOCONVERT_DATA_TABLE.csv",
+    "data/bioqc_geo_oracle_dump/BIOQC_TISSUES_DATA_TABLE.csv",
+    "data/bioqc_geo_oracle_dump/BIOQC_GDS_DATA_TABLE.csv",
+    "data/bioqc_geo_oracle_dump/BIOQC_GSE_DATA_TABLE.csv",
+    "data/bioqc_geo_oracle_dump/BIOQC_GDS_SUBSET_DATA_TABLE.csv",
+    "data/bioqc_geo_oracle_dump/BIOQC_TMP_GSE_GPL_DATA_TABLE.csv",
+    "data/bioqc_geo_oracle_dump/BIOQC_SIGNATURE_SYMBOL_DATA_TABLE.csv",
+    "data/bioqc_geo_oracle_dump/BIOQC_TISSUE_SET_DATA_TABLE.csv",
+    "data/paxdb/Jitao David Zhang - PAXDB-humanGregorGEOBioQC-cache.RData",
+    "data/paxdb/Jitao David Zhang - PAXDB-humanEset-phenoData.txt",
+    "data/paxdb/Jitao David Zhang - PAXDB-mouseGregorGEOBioQC-cache.RData",
+    "data/paxdb/Jitao David Zhang - PAXDB-mouseEset-phenoData.txt",
+    "data/archs4/Jitao David Zhang - ARCHS4-mouseGregorGEOBioQC-cache.RData",
+    "data/archs4/Jitao David Zhang - ARCHS4-humanEset-phenoData.txt",
+    "data/archs4/Jitao David Zhang - ARCHS4-humanGregorGEOBioQC-cache.RData",
+    "data/archs4/Jitao David Zhang - ARCHS4-mouseEset-phenoData.txt"
 ]
 
 
@@ -107,7 +107,7 @@ rule process_geo:
   conda:
     "envs/process_bioqc.yml"
   shell:
-    "Rscript {input} {output}"
+    "Rscript {input:q} {output:q}"
 
 
 rule process_archs:
@@ -122,7 +122,7 @@ rule process_archs:
   conda:
     "envs/process_bioqc.yml"
   shell:
-    "Rscript {input} {output}"
+    "Rscript {input:q} {output:q}"
 
 
 rule model_geo:
@@ -136,7 +136,7 @@ rule model_geo:
   conda:
     "envs/model_correlation.yml"
   shell:
-    "Rscript {input} {output}"
+    "Rscript {input:q} {output:q}"
 
 
 rule model_archs:
@@ -150,7 +150,7 @@ rule model_archs:
   conda:
     "envs/model_correlation.yml"
   shell:
-    "Rscript {input} {output}"
+    "Rscript {input:q} {output:q}"
 
 
 
@@ -158,8 +158,7 @@ rule model_archs:
 rule upload_book:
   """publish the book on github pages"""
   input:
-    "results/book/index.html",
-    "results/figures/spillover_migration_all.pdf"
+    "results/book/index.html"
   shell:
     """
     cd gh-pages && \

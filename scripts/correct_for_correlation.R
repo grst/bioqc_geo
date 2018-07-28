@@ -12,13 +12,17 @@
 #           the correlation-corrected p-value.
 ########################################################################################
 
+library(tidyr)
+library(dplyr)
+library(tibble)
+library(readr)
+library(magrittr)
+library(stringr)
 library(MASS)
 library(BioQC)
-library(stringr)
 library(foreach)
 library(doMC)
 registerDoMC(cores = parallel::detectCores())
-library(tidyverse)
 
 # Output file
 # MODEL_FILE = "results/archs4/archs4_models.RData"
