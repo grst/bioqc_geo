@@ -1,8 +1,7 @@
 # Setup Database {#setup-database}
 
 ```{r, include=FALSE}
-source("../lib/knitr.R")
-source("/lib/config.R")
+source("config.R")
 source("lib/db.R")
 source("lib/lib.R")
 source("lib/geo_annotation.R")
