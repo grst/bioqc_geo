@@ -1,5 +1,10 @@
 # Setup Database {#setup-database}
 
+In this chapter, we describe
+* how we use an SQL database system (DBS) to hold all data relevant for the study
+* the design of the database
+* how we load the data into the DBS
+
 ```{r, include=FALSE, eval=FALSE}
 source("../lib/config.R")
 source("../lib/db.R")
@@ -19,12 +24,15 @@ with tables to store signature scores generated with
 [BioQC](https://accio.github.io/BioQC) and manually curated annotations.
 
 If you want to reproduce the database, have a look at the additional repository
-[grst/Bioqc_GEO_Analysis](https://github.com/grst/BioQC_GEO_analysis).
+[grst/Bioqc_GEO_Analysis](https://github.com/grst/BioQC_GEO_analysis). A
+dump of the database as `csv` files is available within the resources of this
+document, which can also be found on GitHub:
+[grst/bioqc_geo](https://github.com/grst/bioqc_geo)
 
 The following figure shows the database scheme used for the study as entity-relationship (ER) diagram:
 
 ```{r, echo=FALSE, fig.cap="Entitiy relationship diagram of the *BioQC* database scheme. Click the [here](https://github.com/grst/BioQC_GEO_analysis/raw/master/db/design/er_diagram.pdf) for an enlarged version. Greenish tables are imported and adapted from GEOmetadb. Yellowish tables are additional tables designed for this study. Three dots (...) indicate columns from GEOmetadb which have been omitted in the visualisation because they are not relevant for this study."}
-knitr::include_graphics("db/design/er_diagram.png")
+knitr::include_graphics("../db/design/er_diagram.png")
 ```
 
 ## Tables explained

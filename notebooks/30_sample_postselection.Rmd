@@ -117,7 +117,7 @@ We will first filter samples by applying a cutoff-value to statistics on the gen
 
 On each study, we have calculated the mean of each gene over all samples. Of this series of means, we calculate the IQR. If a per-gene normalization has been applied, this value should be close to zero. This histogram shows a distribution of all IQRs over all remaining studies:
 
-```{r study_iqr, cache=TRUE}
+```{r study_iqr, cache=FALSE, fig.cap="Histogram of the distribution of all inter quartile ranges of all studies remaining at this filtering step. The vertical line shows the filtering cutoff used. "}
 tbl_hist = tmp_tbl5 %>%
   inner_join(bioqc_gse_gpl, by=c("GSE"="GSE", "GPL"="GPL")) %>%
   mutate(IQR=abs(STUDY_75-STUDY_25))
@@ -150,7 +150,6 @@ res = sqldf("select * from bioqc_signatures where id = 56184")
 str_replace_all(res$GENE_SYMBOLS, ",", ", ")
 ```
 
-The orange curve is the pvalue distribution of the housekeeping signature. The blue curve shows the distribution of a random control signature containing 100 randomly chosen genes.
 ```{r, cache=TRUE}
 tmp_bioqc_res = bioqc_signatures %>%
   filter(ID %in% c(56184, 56206)) %>% # awesome_housekeepers, random_100_0
@@ -160,7 +159,9 @@ tmp_bioqc_res = bioqc_signatures %>%
 tbl_hk = tmp_tbl6 %>%
   inner_join(tmp_bioqc_res, by=c("GSM"="GSM")) %>%
   mutate(SCORE=absLog10p(as.numeric(PVALUE)))
+```
 
+```{r, echo=FALSE, fig.cap="The orange curve is the pvalue distribution of the housekeeping signature. The blue curve shows the distribution of a random control signature containing 100 randomly chosen genes. The vertical line represents the p-value cutoff used in this filtering step"}
 ggplot(tbl_hk, aes(x=SCORE)) +
   geom_density(aes(color=NAME)) +
   geom_vline(xintercept = 5, color="blue") +

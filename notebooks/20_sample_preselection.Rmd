@@ -1,5 +1,11 @@
 # Sample Selection and processing {#sample-selection}
 
+In this chapter, we document how
+
+* we obtain samples from the Gene Expression Omnibus (GEO)
+* we filter the samples according the the availability of attributes and
+  certain quality criteria.
+
 ```{r setup, include=FALSE}
 library(sqldf)
 library(dplyr)
@@ -90,7 +96,7 @@ colnames(stats) = c("rn", "GSM", "GSE")
 setkey(stats,rn)
 ```
 
-```{r sample_filtering2, echo=FALSE, fig.height=3, fig.width=8, cache=TRUE}
+```{r sample_filtering2, echo=FALSE, fig.height=3, fig.width=8, cache=FALSE}
 categories = c("tissue", "annot pkg", "annot GPL")
 colors=c('red', 'green', 'blue')
 
