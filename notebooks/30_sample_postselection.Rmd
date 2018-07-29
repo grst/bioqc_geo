@@ -193,3 +193,24 @@ bioqc_selected_samples %>%
   arrange(-samples) %>%
   kable()
 ```
+
+## ARCHS4 RNA-seq data
+In addition to GEO, we used data from
+[ARCHS4](https://amp.pharm.mssm.edu/archs4/), a publicly available data
+collection of annotaed, consistently processed gene expression datasets based
+on RNA-sequencing.
+
+We downloaded all human and mouse RNA-sequencing-based gene expression studies
+that are available on SRA in which Illumina GA 2000 were used to sequence from
+website of the ARCHS4 project (version 1.0). We filtered samples by the
+following criteria: (1) transcriptomic cDNA library, (2) library strategy is
+RNA-seq, (3) either polyA or total RNA were extracted, and (4) no less than
+200,000 reads can be mapped to genes (or human orthologues in case of mouse
+samples) with valid Entrez Gene ID. The filter removed less than 10% of samples
+in either species (before/ after filtering: N=65429/ N=61455 for human, and
+N=72363/ N=65392 for mouse)
+
+The samples were processed in the same way as microarray studies from GEO (see
+\@ref(sample-processing)).
+Gene counts were normalised into FPKM values that were analysed by BioQC. Results were independently analysed using the same software pipeline in which the microarray data were processed. Reference tissues annotated by studies’ authors were compared with the predictions of BioQC.
+

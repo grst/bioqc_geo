@@ -42,7 +42,7 @@ We compare the two methods with respect to the amount of usable samples that we 
 We create the 'annotation statistics' using an  [sql script](https://github.com/grst/BioQC_GEO_analysis/blob/master/db/views/annotation_stats.sql) and calculate these Venn diagrams:
 
 
-```{r sample_filtering, echo=FALSE, fig.height=3, fig.width=8, cache=TRUE}
+```{r sample_filtering, fig.height=3, fig.width=8, cache=TRUE, include=FALSE}
 sqlStats = "
 select 'total', count(distinct gsm), count(distinct gse)
 from bioqc_studies_total
@@ -96,7 +96,7 @@ colnames(stats) = c("rn", "GSM", "GSE")
 setkey(stats,rn)
 ```
 
-```{r sample-filtering2, echo=FALSE, fig.height=3, fig.width=7, cache=FALSE, message=FALSE, fig.cap="Venn diagrams comparing two different approaches for annotating gene symbols. The left and right diagram show the numbers of samples (GSM) and studies (GSE) respectively."}
+```{r sample-filtering2, echo=FALSE, fig.height=3, fig.width=7, cache=FALSE, message=FALSE, warning=FALSE, fig.cap="Venn diagrams comparing two different approaches for annotating gene symbols. The left and right diagram show the numbers of samples (GSM) and studies (GSE) respectively."}
 categories = c("tissue", "annot pkg", "annot GPL")
 colors=c('red', 'green', 'blue')
 
