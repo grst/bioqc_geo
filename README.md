@@ -8,7 +8,7 @@ described in the paper.
 Running the pipeline will generate an interactive HTML report using
 [bookdown](https://bookdown.org/yihui/bookdown/), which is equivalent
 to the one available on
-[grst.github.io/immune_deconvolution_benchmark](https://grst.github.io/immune_deconvolution_benchmark)
+[grst.github.io/bioqc_geo](https://grst.github.io/bioqc_geo)
 
 ## Getting started
 Short version:
