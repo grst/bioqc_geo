@@ -5,11 +5,11 @@ library(stringr)
 
 # Materials and Methods
 ## Tissue signatures {#sec:signatures}
-The BioQC authors have taken three independent approaches to demonstrate the validity of their signatures: (1) They checked the results for batch effects using surrogate variable analysis (SVR), (2) they ensured that the signatures are biologically meaningful by relating them to biological knowledge, and (3) used an independent method to derive the signatures, which yields comparable results. 
+The BioQC authors have taken three independent approaches to demonstrate the validity of their signatures: (1) They checked the results for batch effects using surrogate variable analysis (SVR), (2) they ensured that the signatures are biologically meaningful by relating them to biological knowledge, and (3) used an independent method to derive the signatures, which yields comparable results.
 
-However, they do not quantify the performance of the signatures using standardized performance measures, such as sensitivity and specificity. In principle, one can think of three methods to achieve such a validation [Gönen2009]: (1) internal validation, *i.e.* using the same data for generating and testing signatures, (2) split-sample validation, *i.e.* dividing the dataset in a test and training dataset and (3) independent-sample validation, *i.e.* using entirely unrelated samples for training and testing. While method (2) might be acceptable if sufficient data is unavailable, only method (3) can ensure that the signature does not reflect experimental biases. 
+However, they do not quantify the performance of the signatures using standardized performance measures, such as sensitivity and specificity. In principle, one can think of three methods to achieve such a validation [Gönen2009]: (1) internal validation, *i.e.* using the same data for generating and testing signatures, (2) split-sample validation, *i.e.* dividing the dataset in a test and training dataset and (3) independent-sample validation, *i.e.* using entirely unrelated samples for training and testing. While method (2) might be acceptable if sufficient data is unavailable, only method (3) can ensure that the signature does not reflect experimental biases.
 
-We chose data from the Genotype-Tissue Expression (GTEx) project (human samples profiled with next generation sequencing (NGS)) [10.1038/ng.2653] for generating signatures and the GNF Mouse GeneAtlas (mouse samples profiled with Affymetrix microarrays) [??] to verify the signatures. Note that the two datasets are independent both in terms of organism and platform. 
+We chose data from the Genotype-Tissue Expression (GTEx) project (human samples profiled with next generation sequencing (NGS)) [10.1038/ng.2653] for generating signatures and the GNF Mouse GeneAtlas (mouse samples profiled with Affymetrix microarrays) [??] to verify the signatures. Note that the two datasets are independent both in terms of organism and platform.
 
 Using *pygenesig* [github:grst/pygenesig], a python toolbox for generating and validating signatures which we implemented for this purpose, we identified a set of 9 *reference signatures* (table \@ref(tab:refsig)) which unambiguously identify their corresponding tissue across platforms and species. The validation procedure is described in detail in [supplementary document 1](https://grst.github.io/BioQC_GEO_analysis/validating-signatures.html#cross-validation-of-signatures-on-the-gtex-dataset)
 
@@ -23,25 +23,10 @@ knitr::kable(tmp_ref_sig, caption="reference signatures")
 ## Data collection and curation {#sec:data_selection}
 We used GEOmetadb [10.1093/bioinformatics/btn520] and GEOquery [10.1093/bioinformatics/btm254] to select and download studies from GEO which have the tissue of origin and gene symbols annotated. As tissue annotation is not consistent within GEO, we manually mapped the most abundant tissues to a controlled vocabulary. We limited the analysis to the three most abundant organisms (*H.sapiens, M. musculus, R. norvegicus*) and excluded experiments based on two-channel microarray technology.
 
-A major issue with microarray data from GEO is that it is not consistently processed and raw data is unavailable for most of the studies. In particluar, if a per-gene normalization has been performed on the data, the within-sample ranking information of the genes is lost, which is required by BioQC to detect enriched signatures. To exclude samples BioQC cannot work with, we implemented a two-step quality control for the samples. We (1) excluded all samples that have a very low variance between genes (inter-quartile range of < 0.5) and (2) checked with BioQC if a signature of 'housekeeping genes' is enriched in every sample. We excluded all samples where the housekeeping signature does not result in an unadjusted p-value of less than 1e-5. Moreover we limited the analysis to samples from 9 tissues for which we have toroughly validated reference signatures (see section \@ref(sec:signatures). The sample selection process is described in detail in [supplementary document 1](https://grst.github.io/BioQC_GEO_analysis/sample-selection.html). Table \@ref(tab:filteringprocess) lists the remaining samples and studies after each filtering step. 
+A major issue with microarray data from GEO is that it is not consistently processed and raw data is unavailable for most of the studies. In particluar, if a per-gene normalization has been performed on the data, the within-sample ranking information of the genes is lost, which is required by BioQC to detect enriched signatures. To exclude samples BioQC cannot work with, we implemented a two-step quality control for the samples. We (1) excluded all samples that have a very low variance between genes (inter-quartile range of < 0.5) and (2) checked with BioQC if a signature of 'housekeeping genes' is enriched in every sample. We excluded all samples where the housekeeping signature does not result in an unadjusted p-value of less than 1e-5. Moreover we limited the analysis to samples from 9 tissues for which we have toroughly validated reference signatures (see section \@ref(sec:signatures). The sample selection process is described in detail in [supplementary document 1](https://grst.github.io/BioQC_GEO_analysis/sample-selection.html). Table \@ref(tab:filteringprocess) lists the remaining samples and studies after each filtering step.
 
 ```{r filteringprocess, echo=FALSE}
 filtering = read_excel("static/data_filtering.xls")
 knitr::kable(filtering, caption="Selecting samples from GEO")
 ```
 
-
-
-
-
-<!-- 
-We observe, that while this works excellent for some tissues, others are more difficult to distinguish. We therefore curated a list of ‘unambiguous’ signatures, that reliably identify the tissue of origin. 
- 
-We manually curated a mapping from both the BioQC signatures and the GTEx signatures to the respective tissue. 
-We applied BioQC [ref] to the samples using the signatures provided by the BioQC authors and signatures independently derived from the GTEx [10.1038/ng.2653] dataset. 
- 
- 
-Limitations of the method are that it is difficult to distinguish ‘close’ tissues, i.e. colon and jejunum. A possible future improvement could include ‘hierarchical models’, that stepwise distinguishes intestine from other organs and then further subdivides intestine into colon and jejunum.
- 
-
---> 
