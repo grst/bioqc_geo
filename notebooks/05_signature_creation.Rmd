@@ -1,8 +1,32 @@
 # Validating Tissue Signatures {#validating-signatures}
 
-The authors of *BioQC* have taken three independent approaches to show that their signatures are valid and biologically meaningful. However, they did not break down the predictive performance (*i.e.* is the signature able to identify its tissue) of each signature with quantitative performance measures.
+The authors of *BioQC* have taken three independent approaches
+to show that their signatures are valid and biologically meaningful.
+(1) They checked the results for batch effects using surrogate
+variable analysis (SVR), (2) they ensured that the signatures
+are biologically meaningful by relating them to biological knowledge,
+and (3) used an independent method to derive the signatures, which yields comparable results.
+However, they did not break down the predictive performance
+(*i.e.* is the signature able to identify its tissue) of each signature
+with quantitative performance measures.
 
-To address this, we independently derived signatures on the [GTEx](http://gtexportal.org) dataset using *gini-index*.  and performed both a 10-fold cross validation on the same dataset and a cross-species, cross-platform validation on the [mouseGNF](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE10246). To this end, we developed the python package [pygenesig](https://github.com/grst/pygenesig), a framework to create and validate signatures.
+However, they do not quantify the performance of the signatures using
+standardized performance measures, such as sensitivity and specificity.
+In principle, one can think of three methods to achieve such a
+validation [@Gonen2009]: (1) internal validation, *i.e.* using the same
+data for generating and testing signatures, (2) split-sample validation,
+*i.e.* dividing the dataset in a test and training dataset and (3)
+independent-sample validation, *i.e.* using entirely unrelated samples
+for training and testing. While method (2) might be acceptable if
+sufficient data is unavailable, only method (3) can ensure that the
+signature does not reflect experimental biases.
+
+To address this, we independently derived signatures on the
+[GTEx](http://gtexportal.org) dataset using *gini-index* and performed
+both a 10-fold cross validation on the same dataset and a cross-species,
+cross-platform validation on the [mouseGNF](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE10246).
+To this end, we developed the python package [pygenesig](https://github.com/grst/pygenesig),
+a framework to create and validate signatures.
 
 In this chapter, we
 
@@ -48,7 +72,7 @@ and summarized below.
 
 Again, the following heatmap shows the confusion matrix.
 
-```{r, echo=FALSE, fig.cp="Confusion matrix of rosubst signatures."}
+```{r, echo=FALSE, fig.cap="Confusion matrix of rosubst signatures."}
 knitr::include_graphics("signature_validation/gtex_v6_solid_xval_classification.png")
 ```
 

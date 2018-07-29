@@ -96,7 +96,7 @@ colnames(stats) = c("rn", "GSM", "GSE")
 setkey(stats,rn)
 ```
 
-```{r sample_filtering2, echo=FALSE, fig.height=3, fig.width=8, cache=FALSE}
+```{r sample-filtering2, echo=FALSE, fig.height=3, fig.width=7, cache=FALSE, message=FALSE, fig.cap="Venn diagrams comparing two different approaches for annotating gene symbols. The left and right diagram show the numbers of samples (GSM) and studies (GSE) respectively."}
 categories = c("tissue", "annot pkg", "annot GPL")
 colors=c('red', 'green', 'blue')
 
@@ -134,7 +134,7 @@ popViewport(1)
 The `getGEO` method appears to be the more powerful method. Ideal would be a combination of the two, however, for the sake of simplicity, we stick to `getGEO`, loosing `r as.integer(stats[rn=="tissue_package",GSE]-stats[rn=="annotation_tissue_package",GSE])` studies (`r as.integer(stats[rn=="tissue_package",GSM]-stats[rn=="annotation_tissue_package",GSM])` samples).
 
 This leaves us with the following filtering result:
-```{r sample_filtering3, cache=TRUE, echo=FALSE}
+```{r sample-filtering3, cache=TRUE, echo=FALSE}
 tab = stats[.(c("total", "tissue", "annotation", "tissue_annotation"))]
 tab = tab[,comment:=c("total", "tissue annotated", "annotation file available", "tissue and annotation file")]
 kable(tab[,c("comment","GSM","GSE"),with=FALSE])
