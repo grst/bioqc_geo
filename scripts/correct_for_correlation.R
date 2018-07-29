@@ -22,7 +22,7 @@ library(MASS)
 library(BioQC)
 library(foreach)
 library(doMC)
-registerDoMC(cores = parallel::detectCores())
+registerDoMC(cores = min(parallel::detectCores(), 8))
 
 # Output file
 # MODEL_FILE = "results/archs4/archs4_models.RData"
@@ -44,6 +44,7 @@ source(CONFIG_FILE)
 ## testis has too few values in archs4 -> ignore.
 #reference_signatures = reference_signatures %>% filter(TGROUP != "testis")
 
+message("loading data\n")
 # load preprocessed data
 load(DATA_FILE)
 
@@ -73,6 +74,7 @@ correlation_corrected_pvalue = Vectorize(function(tgroup, sig, ref_score, sig_sc
 
 
 # calculate the rlm models for each pair (signature, reference_signature)
+message("fitting models\n")
 models = foreach (ref_sig=reference_signatures$REF_SIG,
                   tgroup=reference_signatures$TGROUP,
                   .final = function(x) setNames(x, reference_signatures$TGROUP)) %dopar% {

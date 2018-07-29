@@ -147,6 +147,7 @@ rule model_geo:
     "results/models.RData"
   conda:
     "envs/model_correlation.yml"
+  threads: 8
   shell:
     "Rscript {input:q} {output:q}"
 
@@ -161,6 +162,7 @@ rule model_archs:
     "results/archs4/archs4_models.RData"
   conda:
     "envs/model_correlation.yml"
+  threads: 8
   shell:
     "Rscript {input:q} {output:q}"
 
