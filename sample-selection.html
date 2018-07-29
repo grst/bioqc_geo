@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>A prevalence of tissue heterogeneity in gene expression data: Supplementary Information</title>
+  <meta name="description" content="Systematically testing the GEO for tissue heterogeneity">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="A prevalence of tissue heterogeneity in gene expression data: Supplementary Information" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Systematically testing the GEO for tissue heterogeneity" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="A prevalence of tissue heterogeneity in gene expression data: Supplementary Information" />
+  
+  <meta name="twitter:description" content="Systematically testing the GEO for tissue heterogeneity" />
+  
+
+<meta name="author" content="Gregor Sturm, Jitao David Zhang">
+
+
+<meta name="date" content="2018-07-29">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="setup-database.html">
+<link rel="next" href="testing-for-tissue-heterogeneity.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> BioQC GEO Analysis</a></li>
+<li class="chapter" data-level="2" data-path="validating-signatures.html"><a href="validating-signatures.html"><i class="fa fa-check"></i><b>2</b> Validating Tissue Signatures</a><ul>
+<li class="chapter" data-level="2.1" data-path="validating-signatures.html"><a href="validating-signatures.html#data"><i class="fa fa-check"></i><b>2.1</b> Data</a></li>
+<li class="chapter" data-level="2.2" data-path="validating-signatures.html"><a href="validating-signatures.html#cross-validation-of-signatures-on-the-gtex-dataset"><i class="fa fa-check"></i><b>2.2</b> Cross-Validation of signatures on the GTEx dataset</a></li>
+<li class="chapter" data-level="2.3" data-path="validating-signatures.html"><a href="validating-signatures.html#solid-signatures"><i class="fa fa-check"></i><b>2.3</b> ‘solid’ signatures</a></li>
+<li class="chapter" data-level="2.4" data-path="validating-signatures.html"><a href="validating-signatures.html#cross-platform-cross-species-validation"><i class="fa fa-check"></i><b>2.4</b> Cross-Platform Cross-Species validation</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="curating-data.html"><a href="curating-data.html"><i class="fa fa-check"></i><b>3</b> Curating Data</a><ul>
+<li class="chapter" data-level="3.1" data-path="curating-data.html"><a href="curating-data.html#selecting-samples-by-metadata"><i class="fa fa-check"></i><b>3.1</b> Selecting Samples by Metadata</a></li>
+<li class="chapter" data-level="3.2" data-path="curating-data.html"><a href="curating-data.html#normalize-tissues"><i class="fa fa-check"></i><b>3.2</b> Normalize Tissues</a></li>
+<li class="chapter" data-level="3.3" data-path="curating-data.html"><a href="curating-data.html#tissue-signatures"><i class="fa fa-check"></i><b>3.3</b> Map tissues to signatures</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="setup-database.html"><a href="setup-database.html"><i class="fa fa-check"></i><b>4</b> Setup Database</a><ul>
+<li class="chapter" data-level="4.1" data-path="setup-database.html"><a href="setup-database.html#tables-explained"><i class="fa fa-check"></i><b>4.1</b> Tables explained</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="setup-database.html"><a href="setup-database.html#geometadb"><i class="fa fa-check"></i><b>4.1.1</b> GEOmetadb</a></li>
+<li class="chapter" data-level="4.1.2" data-path="setup-database.html"><a href="setup-database.html#bioqc"><i class="fa fa-check"></i><b>4.1.2</b> BioQC</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="setup-database.html"><a href="setup-database.html#import-geometadb"><i class="fa fa-check"></i><b>4.2</b> Import GEOmetadb</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="setup-database.html"><a href="setup-database.html#fix-foreign-key-constraints"><i class="fa fa-check"></i><b>4.2.1</b> Fix foreign key constraints</a></li>
+<li class="chapter" data-level="4.2.2" data-path="setup-database.html"><a href="setup-database.html#extract-tissue-annotation"><i class="fa fa-check"></i><b>4.2.2</b> Extract Tissue annotation</a></li>
+<li class="chapter" data-level="4.2.3" data-path="setup-database.html"><a href="setup-database.html#load-annotation-information"><i class="fa fa-check"></i><b>4.2.3</b> Load annotation information</a></li>
+<li class="chapter" data-level="4.2.4" data-path="setup-database.html"><a href="setup-database.html#import-summary-statistics-for-each-study"><i class="fa fa-check"></i><b>4.2.4</b> Import summary statistics for each study</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="setup-database.html"><a href="setup-database.html#import-bioqc-data"><i class="fa fa-check"></i><b>4.3</b> Import BioQC data</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="setup-database.html"><a href="setup-database.html#signatures"><i class="fa fa-check"></i><b>4.3.1</b> Signatures</a></li>
+<li class="chapter" data-level="4.3.2" data-path="setup-database.html"><a href="setup-database.html#tissue-annotation"><i class="fa fa-check"></i><b>4.3.2</b> Tissue Annotation</a></li>
+<li class="chapter" data-level="4.3.3" data-path="setup-database.html"><a href="setup-database.html#tissue-sets"><i class="fa fa-check"></i><b>4.3.3</b> Tissue Sets</a></li>
+<li class="chapter" data-level="4.3.4" data-path="setup-database.html"><a href="setup-database.html#import-bioqc-results"><i class="fa fa-check"></i><b>4.3.4</b> BioQC results</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="sample-selection.html"><a href="sample-selection.html"><i class="fa fa-check"></i><b>5</b> Sample Selection and processing</a><ul>
+<li class="chapter" data-level="5.1" data-path="sample-selection.html"><a href="sample-selection.html#sample-preselection"><i class="fa fa-check"></i><b>5.1</b> Sample Preselection</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="sample-selection.html"><a href="sample-selection.html#required-annotation"><i class="fa fa-check"></i><b>5.1.1</b> Required annotation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="sample-selection.html"><a href="sample-selection.html#sample-processing"><i class="fa fa-check"></i><b>5.2</b> Sample Processing with BioQC</a></li>
+<li class="chapter" data-level="5.3" data-path="sample-selection.html"><a href="sample-selection.html#sample-post-selection"><i class="fa fa-check"></i><b>5.3</b> Sample Post-selection</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="sample-selection.html"><a href="sample-selection.html#excluding-multi-channel-microarrays"><i class="fa fa-check"></i><b>5.3.1</b> Excluding multi-channel microarrays</a></li>
+<li class="chapter" data-level="5.3.2" data-path="sample-selection.html"><a href="sample-selection.html#exclude-non-mapped-tissues"><i class="fa fa-check"></i><b>5.3.2</b> Exclude non-mapped tissues</a></li>
+<li class="chapter" data-level="5.3.3" data-path="sample-selection.html"><a href="sample-selection.html#select-organisms"><i class="fa fa-check"></i><b>5.3.3</b> Select organisms</a></li>
+<li class="chapter" data-level="5.3.4" data-path="sample-selection.html"><a href="sample-selection.html#quality-control"><i class="fa fa-check"></i><b>5.3.4</b> Quality control</a></li>
+<li class="chapter" data-level="5.3.5" data-path="sample-selection.html"><a href="sample-selection.html#tissue-abundance"><i class="fa fa-check"></i><b>5.3.5</b> Tissue abundance</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="sample-selection.html"><a href="sample-selection.html#archs4-rna-seq-data"><i class="fa fa-check"></i><b>5.4</b> ARCHS4 RNA-seq data</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html"><i class="fa fa-check"></i><b>6</b> Testing for tissue heterogeneity</a><ul>
+<li class="chapter" data-level="6.1" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#sec:signatures"><i class="fa fa-check"></i><b>6.1</b> Tissue signatures</a></li>
+<li class="chapter" data-level="6.2" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#sec:data_selection"><i class="fa fa-check"></i><b>6.2</b> Data</a></li>
+<li class="chapter" data-level="6.3" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#testing-samples-for-heterogeneity"><i class="fa fa-check"></i><b>6.3</b> Testing samples for heterogeneity</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>7</b> Results</a></li>
+<li class="chapter" data-level="8" data-path="redo-analysis-for-archs4.html"><a href="redo-analysis-for-archs4.html"><i class="fa fa-check"></i><b>8</b> Redo analysis for ARCHS4</a><ul>
+<li class="chapter" data-level="8.1" data-path="redo-analysis-for-archs4.html"><a href="redo-analysis-for-archs4.html#quick-plots-to-check-if-everything-is-ok"><i class="fa fa-check"></i><b>8.1</b> Quick plots to check if everything is ok</a></li>
+<li class="chapter" data-level="8.2" data-path="redo-analysis-for-archs4.html"><a href="redo-analysis-for-archs4.html#sample-count-by-tissue"><i class="fa fa-check"></i><b>8.2</b> Sample count by tissue</a></li>
+<li class="chapter" data-level="8.3" data-path="redo-analysis-for-archs4.html"><a href="redo-analysis-for-archs4.html#same-analysis"><i class="fa fa-check"></i><b>8.3</b> same analysis…</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="figures-for-publication.html"><a href="figures-for-publication.html"><i class="fa fa-check"></i><b>9</b> Figures for publication</a><ul>
+<li class="chapter" data-level="9.1" data-path="figures-for-publication.html"><a href="figures-for-publication.html#contamination-heatmaps"><i class="fa fa-check"></i><b>9.1</b> Contamination heatmaps</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A prevalence of tissue heterogeneity in gene expression data: Supplementary Information</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="sample-selection" class="section level1">
+<h1><span class="header-section-number">5</span> Sample Selection and processing</h1>
+<p>In this chapter, we document how</p>
+<ul>
+<li>we obtain samples from the Gene Expression Omnibus (GEO)</li>
+<li>we filter the samples according the the availability of attributes and
+certain quality criteria.</li>
+</ul>
+<div id="sample-preselection" class="section level2">
+<h2><span class="header-section-number">5.1</span> Sample Preselection</h2>
+<p>Here, we document the sample selection process before running <em>BioQC</em>.</p>
+<div id="required-annotation" class="section level3">
+<h3><span class="header-section-number">5.1.1</span> Required annotation</h3>
+<p>A sample is <em>usable</em> for this study, if</p>
+<ul>
+<li>the gene symbos are annotated (requirement to run BioQC)</li>
+<li>the tissue of origin is annotated (requirment to draw conclusions about contamination)</li>
+</ul>
+<p>We consider two approaches for annotating gene symbols:</p>
+<ul>
+<li>Using the Bioconductor <a href="https://bioconductor.org/packages/release/bioc/html/AnnotationDbi.html">AnnotationDbi</a> package. The GEOmetadb provides a mapping of the GPL identifier to these packages.</li>
+<li>Using the <code>annotGPL=TRUE</code> option of <a href="https://bioconductor.org/packages/release/bioc/html/GEOquery.html">GEOquery</a>’s <code>getGEO</code>. This requires an annotation file being available for the respective platform. We retrieved a list of the available annotation files <a href="setup-database.html#load-annotation-information">in an earlier step</a>.</li>
+</ul>
+<p>We compare the two methods with respect to the amount of usable samples that we can get.</p>
+<p>We create the ‘annotation statistics’ using an <a href="https://github.com/grst/BioQC_GEO_analysis/blob/master/db/views/annotation_stats.sql">sql script</a> and calculate these Venn diagrams:</p>
+<div class="figure"><span id="fig:sample-filtering2"></span>
+<img src="20_sample_preselection_files/figure-html/sample-filtering2-1.png" alt="Venn diagrams comparing two different approaches for annotating gene symbols. The left and right diagram show the numbers of samples (GSM) and studies (GSE) respectively." width="672" />
+<p class="caption">
+Figure 5.1: Venn diagrams comparing two different approaches for annotating gene symbols. The left and right diagram show the numbers of samples (GSM) and studies (GSE) respectively.
+</p>
+</div>
+<p>The <code>getGEO</code> method appears to be the more powerful method. Ideal would be a combination of the two, however, for the sake of simplicity, we stick to <code>getGEO</code>, loosing 499 studies (35602 samples).</p>
+<p>This leaves us with the following filtering result:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">comment</th>
+<th align="right">GSM</th>
+<th align="right">GSE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">total</td>
+<td align="right">1945417</td>
+<td align="right">73719</td>
+</tr>
+<tr class="even">
+<td align="left">tissue annotated</td>
+<td align="right">760798</td>
+<td align="right">24267</td>
+</tr>
+<tr class="odd">
+<td align="left">annotation file available</td>
+<td align="right">768346</td>
+<td align="right">31579</td>
+</tr>
+<tr class="even">
+<td align="left">tissue and annotation file</td>
+<td align="right">275206</td>
+<td align="right">9632</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<div id="sample-processing" class="section level2">
+<h2><span class="header-section-number">5.2</span> Sample Processing with BioQC</h2>
+<p>The following processes are ressource intensive, therefore we execute them on a high performance cluster (HPC). We use <a href="https://github.com/grst/chunksub">chunksub</a> to distribute the <a href="#sample-list">list of sample ids</a> to the workers. This involves four major steps which are also documented in the project’s <a href="https://github.com/grst/BioQC_GEO_analysis/blob/master/Makefile">Makefile</a>.</p>
+<ol style="list-style-type: decimal">
+<li>We download the studies with <a href="https://bioconductor.org/packages/release/bioc/html/GEOquery.html">GEOquery</a> and store them as R <a href="https://bioconductor.org/packages/devel/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf">ExpressionSet</a> using the R script <a href="https://github.com/grst/BioQC_GEO_analysis/blob/master/scripts/geo_to_eset.R">geo_to_eset.R</a>. For some series, the download is not successful.</li>
+<li>We annotated human orthologous genes for all studies using <a href="https://github.com/Accio/ribios">ribiosAnnotation</a> in <a href="https://github.com/grst/BioQC_GEO_analysis/blob/master/scripts/annotate_eset.R">annotate_eset.R</a>. This is necessary as the tissue signatures are built on a human dataset. The annotation failes for species which are not in the <em>ribios</em> database.</li>
+<li>We run <em>BioQC</em> on these studies use <a href="https://github.com/grst/BioQC_GEO_analysis/blob/master/scripts/run_bioqc.R">run_bioqc.R</a>.</li>
+<li>Finally, <a href="setup-database.html#import-bioqc-results">import the BioQC results into the database</a>.</li>
+</ol>
+</div>
+<div id="sample-post-selection" class="section level2">
+<h2><span class="header-section-number">5.3</span> Sample Post-selection</h2>
+<p>The failures during download and annotation reduce the number of samples available to our study.</p>
+<!-- since there are muliple gpl and gsm in a gse, there might've been some gsm
+inserted, that don't have a tissue annotated, although the gse was selected. -->
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">count_gse_gsm =<span class="st"> </span><span class="cf">function</span>(tbl) {</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">  <span class="kw">summarise</span>(tbl, <span class="dt">GSM=</span><span class="kw">n_distinct</span>(GSM), <span class="dt">GSE=</span><span class="kw">n_distinct</span>(GSE))</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5">tmp_tbl =<span class="st"> </span>bioqc_bioqc_success <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="st">  </span><span class="kw">inner_join</span>(bioqc_gsm, <span class="dt">by=</span><span class="kw">c</span>(<span class="st">&quot;GSM&quot;</span>=<span class="st">&quot;GSM&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="st">  </span><span class="kw">inner_join</span>(bioqc_gse_gsm, <span class="dt">by=</span><span class="kw">c</span>(<span class="st">&quot;GSM&quot;</span>=<span class="st">&quot;GSM&quot;</span>))</a>
+<a class="sourceLine" id="cb10-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb10-9" data-line-number="9">tmp_tbl <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="st">  </span><span class="kw">count_gse_gsm</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="st">  </span><span class="kw">kable</span>()</a></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">GSM</th>
+<th align="right">GSE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">253210</td>
+<td align="right">8083</td>
+</tr>
+</tbody>
+</table>
+<div id="excluding-multi-channel-microarrays" class="section level3">
+<h3><span class="header-section-number">5.3.1</span> Excluding multi-channel microarrays</h3>
+<p>Multi channel microarrays date back to the early age of gene expression studies. They don’t provide absolute gene expression data and are not meaningful outside their experimental context. We therefore exclude these experiments:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">tmp_tbl2 =<span class="st"> </span>tmp_tbl <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(CHANNEL_COUNT <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4">tmp_tbl2 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="st">  </span><span class="kw">count_gse_gsm</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="st">  </span><span class="kw">kable</span>()</a></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">GSM</th>
+<th align="right">GSE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">235237</td>
+<td align="right">7561</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="exclude-non-mapped-tissues" class="section level3">
+<h3><span class="header-section-number">5.3.2</span> Exclude non-mapped tissues</h3>
+<p>We exclude samples that have a tissue annotated, but it is not mapped to a <a href="#tissue-normalization">normalized tissue</a>.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">tmp_tbl3 =<span class="st"> </span>tmp_tbl2 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">TISSUE_ORIG=</span><span class="kw">tolower</span>(TISSUE_ORIG)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="st">  </span><span class="kw">inner_join</span>(bioqc_normalize_tissues, <span class="dt">by=</span><span class="kw">c</span>(<span class="st">&quot;TISSUE_ORIG&quot;</span>=<span class="st">&quot;TISSUE_ORIG&quot;</span>))</a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb12-5" data-line-number="5">tmp_tbl3 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="st">  </span><span class="kw">count_gse_gsm</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="st">  </span><span class="kw">kable</span>()</a></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">GSM</th>
+<th align="right">GSE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">136230</td>
+<td align="right">3800</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="select-organisms" class="section level3">
+<h3><span class="header-section-number">5.3.3</span> Select organisms</h3>
+<p>We were interested in the organism distribution.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">tmp_tbl3 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(ORGANISM_CH1) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="st">  </span><span class="kw">count_gse_gsm</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="st">  </span><span class="kw">arrange</span>(<span class="op">-</span>GSM) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="st">  </span><span class="kw">kable</span>()</a></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">ORGANISM_CH1</th>
+<th align="right">GSM</th>
+<th align="right">GSE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Homo sapiens</td>
+<td align="right">66316</td>
+<td align="right">1228</td>
+</tr>
+<tr class="even">
+<td align="left">Mus musculus</td>
+<td align="right">38109</td>
+<td align="right">2270</td>
+</tr>
+<tr class="odd">
+<td align="left">Rattus norvegicus</td>
+<td align="right">29909</td>
+<td align="right">278</td>
+</tr>
+<tr class="even">
+<td align="left">Macaca mulatta</td>
+<td align="right">1082</td>
+<td align="right">24</td>
+</tr>
+<tr class="odd">
+<td align="left">Macaca fascicularis</td>
+<td align="right">259</td>
+<td align="right">7</td>
+</tr>
+<tr class="even">
+<td align="left">Mus musculus musculus x M. m. domesticus</td>
+<td align="right">202</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Cercocebus atys</td>
+<td align="right">80</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Oryctolagus cuniculus</td>
+<td align="right">57</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Chlorocebus aethiops</td>
+<td align="right">36</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Mus musculus domesticus</td>
+<td align="right">32</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="left">Pan troglodytes</td>
+<td align="right">25</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Papio cynocephalus</td>
+<td align="right">23</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Mus spretus</td>
+<td align="right">19</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Capra hircus</td>
+<td align="right">18</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Phodopus sungorus</td>
+<td align="right">16</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Mus musculus musculus x M. m. castaneus</td>
+<td align="right">12</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Papio hamadryas</td>
+<td align="right">12</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Macaca nemestrina</td>
+<td align="right">8</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Mus musculus castaneus</td>
+<td align="right">6</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Mus musculus musculus</td>
+<td align="right">6</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Mus sp.</td>
+<td align="right">3</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+<p>Results suggest that it makes sense to limit the analysis to the three main organisms: <em>H. sapiens</em>, <em>M. musculus</em>, <em>R. norvegicus</em>. This makes also sense as these species are closesly related and therefore the signatures are more likely to translate within these species.
+We are left with the following amount of samples:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">tmp_tbl5 =<span class="st"> </span>tmp_tbl3 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(ORGANISM_CH1 <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Homo sapiens&#39;</span>, <span class="st">&#39;Mus musculus&#39;</span>, <span class="st">&#39;Rattus norvegicus&#39;</span>))</a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb14-4" data-line-number="4">tmp_tbl5 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="st">  </span><span class="kw">count_gse_gsm</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="st">  </span><span class="kw">kable</span>()</a></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">GSM</th>
+<th align="right">GSE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">134334</td>
+<td align="right">3757</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="quality-control" class="section level3">
+<h3><span class="header-section-number">5.3.4</span> Quality control</h3>
+<p>In this step we seek to identify studies on which BioQC cannot work due to poor data quality or data processing steps that remove the relative expression of a gene within a sample, e.g. per-gene normalization.
+We will first filter samples by applying a cutoff-value to statistics on the gene expression data. Second, we will use an ubiquitous signature containing housekeeping genes as an indicator if BioQC returns a sensible result on the given sample.</p>
+<p>On each study, we have calculated the mean of each gene over all samples. Of this series of means, we calculate the IQR. If a per-gene normalization has been applied, this value should be close to zero. This histogram shows a distribution of all IQRs over all remaining studies:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">tbl_hist =<span class="st"> </span>tmp_tbl5 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="st">  </span><span class="kw">inner_join</span>(bioqc_gse_gpl, <span class="dt">by=</span><span class="kw">c</span>(<span class="st">&quot;GSE&quot;</span>=<span class="st">&quot;GSE&quot;</span>, <span class="st">&quot;GPL&quot;</span>=<span class="st">&quot;GPL&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">IQR=</span><span class="kw">abs</span>(STUDY_<span class="dv">75</span><span class="op">-</span>STUDY_<span class="dv">25</span>))</a>
+<a class="sourceLine" id="cb15-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb15-5" data-line-number="5">sm =<span class="st"> </span>tbl_hist<span class="op">$</span>IQR</a>
+<a class="sourceLine" id="cb15-6" data-line-number="6"><span class="kw">hist</span>(sm[sm <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span>sm <span class="op">&lt;</span><span class="st"> </span><span class="dv">25</span>],</a>
+<a class="sourceLine" id="cb15-7" data-line-number="7">     <span class="dt">breaks=</span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">25</span>, <span class="fl">.25</span>),</a>
+<a class="sourceLine" id="cb15-8" data-line-number="8">     <span class="dt">main=</span><span class="st">&quot;Variance between gene for each study (IQR)&quot;</span>,</a>
+<a class="sourceLine" id="cb15-9" data-line-number="9">     <span class="dt">xlab=</span><span class="st">&quot;median gene expression (only values up to 25)&quot;</span>)</a>
+<a class="sourceLine" id="cb15-10" data-line-number="10"><span class="kw">abline</span>(<span class="dt">v=</span>.<span class="dv">5</span>, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)</a>
+<a class="sourceLine" id="cb15-11" data-line-number="11"><span class="kw">minor.tick</span>(<span class="dt">nx=</span><span class="dv">5</span>)</a></code></pre></div>
+<div class="figure">
+<img src="30_sample_postselection_files/figure-html/study_iqr-1.png" alt="Histogram of the distribution of all inter quartile ranges of all studies remaining at this filtering step. The vertical line shows the filtering cutoff used. " width="672" />
+<p class="caption">
+(#fig:study_iqr)Histogram of the distribution of all inter quartile ranges of all studies remaining at this filtering step. The vertical line shows the filtering cutoff used.
+</p>
+</div>
+<p>We exclude all studies having a very low variance between genes (IQR &lt; 0.5). Remaining samples:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">tmp_tbl6 =<span class="st"> </span>tbl_hist <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(IQR <span class="op">&gt;=</span><span class="st"> </span><span class="fl">.5</span>)</a>
+<a class="sourceLine" id="cb16-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb16-4" data-line-number="4">tmp_tbl6 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="st">  </span><span class="kw">count_gse_gsm</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb16-6" data-line-number="6"><span class="st">  </span><span class="kw">kable</span>()</a></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">GSM</th>
+<th align="right">GSE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">94790</td>
+<td align="right">3128</td>
+</tr>
+</tbody>
+</table>
+<p>Now, we have a look at the p-value distribution of the signature we called <code>awesome_housekeepers</code> containing ubiquitous genes. The gene expression of these genes can be assumed to be more or less constant over all tissue types, therefore this signature should score high in every sample.</p>
+<p><strong>Awesome Housekeepers</strong></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">tmp_bioqc_res =<span class="st"> </span>bioqc_signatures <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(ID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">56184</span>, <span class="dv">56206</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># awesome_housekeepers, random_100_0</span></a>
+<a class="sourceLine" id="cb17-3" data-line-number="3"><span class="st">  </span><span class="kw">inner_join</span>(bioqc_res, <span class="dt">by=</span><span class="kw">c</span>(<span class="st">&quot;ID&quot;</span>=<span class="st">&quot;SIGNATURE&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb17-4" data-line-number="4"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">SIGNATURE=</span>ID)</a>
+<a class="sourceLine" id="cb17-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb17-6" data-line-number="6">tbl_hk =<span class="st"> </span>tmp_tbl6 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb17-7" data-line-number="7"><span class="st">  </span><span class="kw">inner_join</span>(tmp_bioqc_res, <span class="dt">by=</span><span class="kw">c</span>(<span class="st">&quot;GSM&quot;</span>=<span class="st">&quot;GSM&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb17-8" data-line-number="8"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">SCORE=</span><span class="kw">absLog10p</span>(<span class="kw">as.numeric</span>(PVALUE)))</a></code></pre></div>
+<div class="figure"><span id="fig:unnamed-chunk-2"></span>
+<img src="30_sample_postselection_files/figure-html/unnamed-chunk-2-1.png" alt="The orange curve is the pvalue distribution of the housekeeping signature. The blue curve shows the distribution of a random control signature containing 100 randomly chosen genes. The vertical line represents the p-value cutoff used in this filtering step" width="672" />
+<p class="caption">
+Figure 2.2: The orange curve is the pvalue distribution of the housekeeping signature. The blue curve shows the distribution of a random control signature containing 100 randomly chosen genes. The vertical line represents the p-value cutoff used in this filtering step
+</p>
+</div>
+<p>We exclude all samples for which <code>awesome_housekeepers</code> scores with &lt; 5, i.e. pvalue &gt;= 1e-5.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">tmp_tbl7 =<span class="st"> </span>tbl_hk <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(SIGNATURE <span class="op">==</span><span class="st"> </span><span class="dv">56184</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb18-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(PVALUE <span class="op">&lt;</span><span class="st"> </span><span class="fl">1e-5</span>)</a>
+<a class="sourceLine" id="cb18-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb18-5" data-line-number="5">tmp_tbl7 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb18-6" data-line-number="6"><span class="st">  </span><span class="kw">count_gse_gsm</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb18-7" data-line-number="7"><span class="st">  </span><span class="kw">kable</span>()</a></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">GSM</th>
+<th align="right">GSE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">81207</td>
+<td align="right">2925</td>
+</tr>
+</tbody>
+</table>
+<p>This is the ‘background’ of samples on which we test for tissue contamination.
+We store the selected samples alongside with meta information required for the analysis in the materialized view <code>BIOQC_SELECTED_SAMPLES</code> in our DBS. <a href="https://github.com/grst/BioQC_GEO_analysis/blob/master/db/views/sample_selection.sql">Here</a> is the SQL script generating the materialized view.</p>
+</div>
+<div id="tissue-abundance" class="section level3">
+<h3><span class="header-section-number">5.3.5</span> Tissue abundance</h3>
+<p>The following table shows how many samples are available for each tissue:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">bioqc_selected_samples <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(TISSUE) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">samples=</span><span class="kw">n_distinct</span>(GSM)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-4" data-line-number="4"><span class="st">  </span><span class="kw">arrange</span>(<span class="op">-</span>samples) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-5" data-line-number="5"><span class="st">  </span><span class="kw">kable</span>()</a></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">TISSUE</th>
+<th align="right">samples</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">blood</td>
+<td align="right">18064</td>
+</tr>
+<tr class="even">
+<td align="left">liver</td>
+<td align="right">12925</td>
+</tr>
+<tr class="odd">
+<td align="left">lung</td>
+<td align="right">7586</td>
+</tr>
+<tr class="even">
+<td align="left">bone marrow</td>
+<td align="right">3911</td>
+</tr>
+<tr class="odd">
+<td align="left">kidney</td>
+<td align="right">3540</td>
+</tr>
+<tr class="even">
+<td align="left">breast tumor</td>
+<td align="right">3465</td>
+</tr>
+<tr class="odd">
+<td align="left">brain</td>
+<td align="right">3452</td>
+</tr>
+<tr class="even">
+<td align="left">heart</td>
+<td align="right">2402</td>
+</tr>
+<tr class="odd">
+<td align="left">spleen</td>
+<td align="right">2302</td>
+</tr>
+<tr class="even">
+<td align="left">adipose</td>
+<td align="right">2214</td>
+</tr>
+<tr class="odd">
+<td align="left">skin</td>
+<td align="right">1927</td>
+</tr>
+<tr class="even">
+<td align="left">skeletal muscle</td>
+<td align="right">1830</td>
+</tr>
+<tr class="odd">
+<td align="left">hippocampus</td>
+<td align="right">1573</td>
+</tr>
+<tr class="even">
+<td align="left">colon</td>
+<td align="right">1463</td>
+</tr>
+<tr class="odd">
+<td align="left">lymph node</td>
+<td align="right">1120</td>
+</tr>
+<tr class="even">
+<td align="left">cerebellum</td>
+<td align="right">1094</td>
+</tr>
+<tr class="odd">
+<td align="left">hepatocyte</td>
+<td align="right">1094</td>
+</tr>
+<tr class="even">
+<td align="left">tumor</td>
+<td align="right">1036</td>
+</tr>
+<tr class="odd">
+<td align="left">breast</td>
+<td align="right">795</td>
+</tr>
+<tr class="even">
+<td align="left">frontal cortex</td>
+<td align="right">729</td>
+</tr>
+<tr class="odd">
+<td align="left">placenta</td>
+<td align="right">678</td>
+</tr>
+<tr class="even">
+<td align="left">pbmc</td>
+<td align="right">665</td>
+</tr>
+<tr class="odd">
+<td align="left">white blood cells</td>
+<td align="right">664</td>
+</tr>
+<tr class="even">
+<td align="left">testis</td>
+<td align="right">627</td>
+</tr>
+<tr class="odd">
+<td align="left">retina</td>
+<td align="right">596</td>
+</tr>
+<tr class="even">
+<td align="left">pancreas</td>
+<td align="right">586</td>
+</tr>
+<tr class="odd">
+<td align="left">thymus</td>
+<td align="right">551</td>
+</tr>
+<tr class="even">
+<td align="left">pancreatic islets</td>
+<td align="right">488</td>
+</tr>
+<tr class="odd">
+<td align="left">ovary</td>
+<td align="right">455</td>
+</tr>
+<tr class="even">
+<td align="left">mammary gland</td>
+<td align="right">395</td>
+</tr>
+<tr class="odd">
+<td align="left">jejunum</td>
+<td align="right">380</td>
+</tr>
+<tr class="even">
+<td align="left">prostate</td>
+<td align="right">330</td>
+</tr>
+<tr class="odd">
+<td align="left">hypothalamus</td>
+<td align="right">271</td>
+</tr>
+<tr class="even">
+<td align="left">cortex</td>
+<td align="right">256</td>
+</tr>
+<tr class="odd">
+<td align="left">prefrontal cortex</td>
+<td align="right">249</td>
+</tr>
+<tr class="even">
+<td align="left">synovial tissue</td>
+<td align="right">234</td>
+</tr>
+<tr class="odd">
+<td align="left">uterus</td>
+<td align="right">232</td>
+</tr>
+<tr class="even">
+<td align="left">embryo</td>
+<td align="right">217</td>
+</tr>
+<tr class="odd">
+<td align="left">monocyte</td>
+<td align="right">162</td>
+</tr>
+<tr class="even">
+<td align="left">stomach</td>
+<td align="right">127</td>
+</tr>
+<tr class="odd">
+<td align="left">bladder</td>
+<td align="right">123</td>
+</tr>
+<tr class="even">
+<td align="left">cervix</td>
+<td align="right">95</td>
+</tr>
+<tr class="odd">
+<td align="left">ventral midbrain</td>
+<td align="right">74</td>
+</tr>
+<tr class="even">
+<td align="left">eye</td>
+<td align="right">69</td>
+</tr>
+<tr class="odd">
+<td align="left">salivary gland</td>
+<td align="right">48</td>
+</tr>
+<tr class="even">
+<td align="left">neuroblastoma</td>
+<td align="right">45</td>
+</tr>
+<tr class="odd">
+<td align="left">adrenal gland</td>
+<td align="right">39</td>
+</tr>
+<tr class="even">
+<td align="left">fibroblast</td>
+<td align="right">21</td>
+</tr>
+<tr class="odd">
+<td align="left">synovial fibroblast</td>
+<td align="right">8</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="archs4-rna-seq-data" class="section level2">
+<h2><span class="header-section-number">5.4</span> ARCHS4 RNA-seq data</h2>
+<p>In addition to GEO, we used data from
+<a href="https://amp.pharm.mssm.edu/archs4/">ARCHS4</a>, a publicly available data
+collection of annotaed, consistently processed gene expression datasets based
+on RNA-sequencing.</p>
+<p>We downloaded all human and mouse RNA-sequencing-based gene expression studies
+that are available on SRA in which Illumina GA 2000 were used to sequence from
+website of the ARCHS4 project (version 1.0). We filtered samples by the
+following criteria: (1) transcriptomic cDNA library, (2) library strategy is
+RNA-seq, (3) either polyA or total RNA were extracted, and (4) no less than
+200,000 reads can be mapped to genes (or human orthologues in case of mouse
+samples) with valid Entrez Gene ID. The filter removed less than 10% of samples
+in either species (before/ after filtering: N=65429/ N=61455 for human, and
+N=72363/ N=65392 for mouse)</p>
+<p>The samples were processed in the same way as microarray studies from GEO (see
+<a href="sample-selection.html#sample-processing">5.2</a>).
+Gene counts were normalised into FPKM values that were analysed by BioQC. Results were independently analysed using the same software pipeline in which the microarray data were processed. Reference tissues annotated by studies’ authors were compared with the predictions of BioQC.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="setup-database.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="testing-for-tissue-heterogeneity.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
