@@ -179,7 +179,7 @@ rule upload_book:
     cp -R ../results/book/* ./ && \
     git add --all * && \
     git commit --allow-empty -m "update docs" && \
-    git push github gh-pages
+    git push origin gh-pages
     """
 
 
