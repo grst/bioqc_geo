@@ -2,19 +2,16 @@
 library(MASS)
 library(BioQC)
 library(stringr)
-library(foreach)
-library(doMC)
-registerDoMC(cores = parallel::detectCores())
 library(gridExtra)
 library(dplyr)
 library(readr)
 library(cowplot)
-source("../config.R")
+source("../scripts/config.R")
 ```
 
 ```{r load_data, message=FALSE, include=FALSE, cache=TRUE}
-load('results/data_processed.RData')
-load('results/models.RData')
+load('../results/data_processed.RData')
+load('../results/models.RData')
 ```
 
 ## Testing samples for heterogeneity

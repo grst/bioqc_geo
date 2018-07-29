@@ -14,7 +14,7 @@ We chose data from the Genotype-Tissue Expression (GTEx) project (human samples 
 Using *pygenesig* [github:grst/pygenesig], a python toolbox for generating and validating signatures which we implemented for this purpose, we identified a set of 9 *reference signatures* (table \@ref(tab:refsig)) which unambiguously identify their corresponding tissue across platforms and species. The validation procedure is described in detail in [supplementary document 1](https://grst.github.io/BioQC_GEO_analysis/validating-signatures.html#cross-validation-of-signatures-on-the-gtex-dataset)
 
 ```{r refsig, cache=TRUE, echo=FALSE}
-load('results/data_processed.RData')
+load('../results/data_processed.RData')
 tmp_ref_sig = reference_signatures
 colnames(tmp_ref_sig) = c("Reference Signature", "Tissue")
 knitr::kable(tmp_ref_sig, caption="reference signatures")
@@ -26,7 +26,7 @@ We used GEOmetadb [10.1093/bioinformatics/btn520] and GEOquery [10.1093/bioinfor
 A major issue with microarray data from GEO is that it is not consistently processed and raw data is unavailable for most of the studies. In particluar, if a per-gene normalization has been performed on the data, the within-sample ranking information of the genes is lost, which is required by BioQC to detect enriched signatures. To exclude samples BioQC cannot work with, we implemented a two-step quality control for the samples. We (1) excluded all samples that have a very low variance between genes (inter-quartile range of < 0.5) and (2) checked with BioQC if a signature of 'housekeeping genes' is enriched in every sample. We excluded all samples where the housekeeping signature does not result in an unadjusted p-value of less than 1e-5. Moreover we limited the analysis to samples from 9 tissues for which we have toroughly validated reference signatures (see section \@ref(sec:signatures). The sample selection process is described in detail in [supplementary document 1](https://grst.github.io/BioQC_GEO_analysis/sample-selection.html). Table \@ref(tab:filteringprocess) lists the remaining samples and studies after each filtering step.
 
 ```{r filteringprocess, echo=FALSE}
-filtering = read_excel("static/data_filtering.xls")
+filtering = read_excel("../tables/data_filtering.xls")
 knitr::kable(filtering, caption="Selecting samples from GEO")
 ```
 

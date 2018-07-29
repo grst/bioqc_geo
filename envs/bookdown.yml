@@ -27,6 +27,8 @@ dependencies:
   - r-data.table=1.10.4
   - r-gridextra=2.2.1
   - r-venndiagram=1.6.18
+  - r-codetools=0.2_15
+  - r-hmisc=4.0_3
   # - bioconductor-biobase=2.38.0
   # - r-ggpubr=0.1.7
   # - r-testit=0.7

@@ -90,6 +90,7 @@ models = foreach (ref_sig=reference_signatures$REF_SIG,
                   }
 
 # add correlation corrected p-value and correct for multiple testing.
+message("computing correlation-corrected pvalues\n")
 data_corr = data2 %>%
   filter(qvalue < FDR_THRES) %>%
   mutate(pcorr = correlation_corrected_pvalue(TGROUP, SIGNATURE, ref_score, score)) %>%

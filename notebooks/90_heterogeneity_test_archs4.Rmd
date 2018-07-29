@@ -2,19 +2,17 @@
 library(MASS)
 library(BioQC)
 library(stringr)
-library(foreach)
-library(doMC)
-registerDoMC(cores = parallel::detectCores())
 library(gridExtra)
-library(tidyverse)
+library(dplyr)
+library(readr)
 library(cowplot)
-source("config.R")
+source("../scripts/config.R")
 ```
 # Redo analysis for ARCHS4
 
 ```{r load_data45, message=FALSE, include=FALSE, cache=TRUE}
-load('results/archs4/archs4_data_processed.RData')
-load('results/archs4/archs4_models.RData')
+load('../results/archs4/archs4_data_processed.RData')
+load('../results/archs4/archs4_models.RData')
 ```
 
 ## Quick plots to check if everything is ok
@@ -44,14 +42,14 @@ contam_count = data_corr %>%
 #   group_by(TGROUP, SIGNATURE) %>%
 #   summarise(cnt = n_distinct(GSM))
 
-contam_count %>% 
+contam_count %>%
   filter(SIGNATURE %in% reference_signatures$REF_SIG) %>%
-  ggplot(aes(x=factor(SIGNATURE, levels=reference_signatures$REF_SIG), y=TGROUP)) + 
+  ggplot(aes(x=factor(SIGNATURE, levels=reference_signatures$REF_SIG), y=TGROUP)) +
       geom_tile(aes(fill = cnt)) +
       geom_text(aes(label=cnt)) +
-      theme(axis.text.x = element_text(angle = 90, hjust = 1)) + 
-      scale_x_discrete(drop=FALSE) + 
-      ylab("reference tissue") + 
+      theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+      scale_x_discrete(drop=FALSE) +
+      ylab("reference tissue") +
       xlab("detected signature")
 ```
 
@@ -61,36 +59,36 @@ chunks = cut_interval(1:length(bioqc_signatures), length=15, labels=FALSE)
 
 plots = lapply(unique(chunks), function(i) {
   tmp_signatures = bioqc_signatures[chunks==i]
-  contam_count %>% 
+  contam_count %>%
   filter(SIGNATURE %in% tmp_signatures) %>%
-  ggplot(aes(x=factor(SIGNATURE, levels=tmp_signatures), y=factor(TGROUP, levels=reference_signatures$TGROUP))) + 
+  ggplot(aes(x=factor(SIGNATURE, levels=tmp_signatures), y=factor(TGROUP, levels=reference_signatures$TGROUP))) +
       geom_tile(aes(fill = cnt)) +
       geom_text(aes(label=cnt)) +
-      theme(axis.text.x = element_text(angle = 90, hjust = 1)) + 
-      scale_x_discrete(drop=FALSE) + 
-      ylab("reference tissue") + 
+      theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+      scale_x_discrete(drop=FALSE) +
+      ylab("reference tissue") +
       xlab("detected signature") +
-      theme(axis.text.x = element_text(angle = 45, hjust = 1, size=10)) + 
-      background_grid(major = "xy", minor="xy") + 
+      theme(axis.text.x = element_text(angle = 45, hjust = 1, size=10)) +
+      background_grid(major = "xy", minor="xy") +
     scale_y_discrete(drop=FALSE)
 })
 
-plot_grid(plotlist = plots, ncol=1, nrow = length(plots)) 
+plot_grid(plotlist = plots, ncol=1, nrow = length(plots))
 ```
 
 ```{r heterogeneitybar, echo=FALSE, cache=TRUE, fig.cap="Fraction of heterogenous samples per tissue. Heterogeneity has been assessed using both the reference signatures and the signatures from BioQC. A sample only counts once to the fraction, even if multiple signatures are found to be enriched. "}
 heterogenous_samples = data_corr %>%
-                          filter(pcorr_adj < P_THRES) %>% 
+                          filter(pcorr_adj < P_THRES) %>%
                           pull(GSM) %>%
                           unique()
 
-bioqc_meta %>% 
-  mutate(heterogenous = ifelse(GSM %in% heterogenous_samples, TRUE, FALSE)) %>% 
-  group_by(TGROUP) %>% 
-  summarise(total = n(), heterogenous = sum(heterogenous)) %>% 
+bioqc_meta %>%
+  mutate(heterogenous = ifelse(GSM %in% heterogenous_samples, TRUE, FALSE)) %>%
+  group_by(TGROUP) %>%
+  summarise(total = n(), heterogenous = sum(heterogenous)) %>%
   mutate(fraction = heterogenous/total) %>%
   ggplot(aes(x=TGROUP, y=fraction)) + geom_bar(stat='identity')
-              
-  
- 
+
+
+
 ```
