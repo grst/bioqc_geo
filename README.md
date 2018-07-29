@@ -1,9 +1,9 @@
 # A prevalence of tissue heterogeneity in gene expression studies
 
-> Sturm, G and Zhang JD, *Manuscript in preparation* 
+> Sturm, G and Zhang JD, *Manuscript in preparation*
 
 The source code in this project can be used to reproduce the results
-described in the paper. 
+described in the paper.
 
 Running the pipeline will generate an interactive HTML report using
 [bookdown](https://bookdown.org/yihui/bookdown/), which is equivalent
@@ -56,6 +56,24 @@ The pipeline will generate a `results` folder.
 The HTML report with all figures and results will be available in
 `results/book`.
 
+
+### Performance and caching
+Building the entire project can take a long time (multiple hours).
+You can speed up the build process by enabling parallel processing:
+
+```
+snakemake --use-conda --cores 16
+```
+
+Up to 16 cores will lead to a speedup, most of the pipeline is sequential,
+though.
+
+**Memory requirements**: You need about 4GB of memory per core and at least
+16GB of total memory to run the pipeline.
+
+To speed up repetitive builds, `bookdown` will automatically create caches.
+To remove all caches and results, use `snakemake wipe`.
+
 ### Useful Snakemake targets.
 Have a look at the `Snakefile`, it is self-explanatory.
 
@@ -68,12 +86,12 @@ snakemake wipe                   # cleans everything, including all caches.
 ```
 
 ### preprocessed data
-This pipeline makes use of the preprocesse BioQC results. 
-Downloading the entire GEO and running BioQC on all samples 
-takes a lot of computational resources. Therefore, 
-we provide pre-calculated intermediate results, that 
-are used by this pipeline. 
+This pipeline makes use of the preprocesse BioQC results.
+Downloading the entire GEO and running BioQC on all samples
+takes a lot of computational resources. Therefore,
+we provide pre-calculated intermediate results, that
+are used by this pipeline.
 
 If you are interested in reproducing these files and
-building the BioQC-GEO database from scratch, hava a look 
-at [grst/BioQC_GEO_analysis](https://github.com/grst/BioQC_GEO_analysis). 
+building the BioQC-GEO database from scratch, hava a look
+at [grst/BioQC_GEO_analysis](https://github.com/grst/BioQC_GEO_analysis).
