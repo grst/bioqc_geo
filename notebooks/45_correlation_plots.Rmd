@@ -1,0 +1,101 @@
+```{r, include=FALSE, message=FALSE}
+library(MASS)
+library(BioQC)
+library(stringr)
+library(gridExtra)
+library(dplyr)
+library(readr)
+library(cowplot)
+library(readxl)
+library(tidyr)
+library(foreach)
+library(doMC)
+registerDoMC()
+source("../scripts/config.R")
+```
+
+```{r load_data, message=FALSE, include=FALSE, cache=TRUE}
+# load('../results/data_processed.RData')
+load('../results/archs4/archs4_models.RData')
+data_corr_archs4 = data_corr
+load('../results/models.RData')
+data_corr_geo = data_corr
+
+data_corr_datasets = list(
+  "GEO"=data_corr_geo,
+  "ARCHS4"= data_corr_archs4
+)
+```
+
+```{r data-corr-pvalues}
+data_corr_datasets = foreach(
+  dataset = data_corr_datasets,
+  .final = function(x) setNames(x, names(data_corr_datasets))) %dopar% {
+    dataset %>%
+      filter(str_detect(SIGNATURE, "^BIOQC") | str_detect(SIGNATURE, "^GTEX")) %>%
+      mutate(q_corr = p.adjust(p_corr, method = "fdr")) %>%
+      mutate(
+        score_significant = qvalue < FDR_THRES,
+        score_corr_significant = q_corr < FDR_THRES
+      ) %>%
+      mutate(sig_color = if_else(
+        score_significant & score_corr_significant,
+        "both",
+        if_else(score_significant,
+                "score_significant",
+                "none")
+      ))
+  }
+
+
+```
+
+
+```{r raw-scores, fig.width=48, fig.height=24}
+foreach(dataset = data_corr_datasets,
+        name = names(data_corr_datasets)) %dopar% {
+          dataset %>% 
+            ggplot(aes(y=score, x=SIGNATURE)) + 
+              geom_boxplot() + 
+              facet_grid(REF_SIG ~ ., scales = "free_x") + 
+              theme_bw() + 
+              theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+              ggtitle(str_c("Scores for ", name))
+          
+          ggsave(str_c("../results/figures/scores_", name, ".png"), width=48, height=24, dpi=300, limitsize=FALSE)
+        }
+```
+
+
+```{r raw-corr-plots, fig.width=200, fig.height=18}
+# tmp_cutoff = 0.05 / 10000 
+# ci = function(x, intercept, slope, sigma, sign=1) {
+#  x * slope + intercept + sign * qnorm(1-tmp_cutoff, mean=0, sd=sigma) 
+# }
+foreach(dataset = data_corr_datasets,
+        name = names(data_corr_datasets)) %dopar% {
+          dataset %>% 
+            ggplot(aes(x=ref_score, y=score)) + 
+            geom_point(alpha=.35, size=.5, aes(color=sig_color)) + 
+            facet_grid(TGROUP~SIGNATURE) + 
+            geom_abline(aes(slope=slope, intercept=intercept), colour="red") + 
+            # geom_ribbon(aes(color="interval", ymax=ci(ref_score, intercept, slope, sigma, 1), ymin=ci(ref_score, intercept, slope, sigma, -1), alpha=.2, show.legend = TRUE)) +
+            theme_bw() + 
+            ggtitle(str_c("Correlations for ", name))
+          
+          ggsave(str_c("../results/figures/correlations_", name, ".png"), width=299, height=20, dpi=72, limitsize=FALSE)
+        }
+
+```
+
+
+
+
+
+
+
+
+
+
+
+

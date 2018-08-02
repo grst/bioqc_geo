@@ -16,7 +16,9 @@ library(dplyr)
 library(tibble)
 library(readr)
 library(magrittr)
+library(readxl)
 library(stringr)
+library(tidyr)
 
 # Output file
 # BIOQC_RES_FILE = "data/bioqc_geo_oracle_dump/BIOQC_RES_DATA_TABLE.csv"
@@ -33,7 +35,6 @@ BIOQC_RES_FILE = args[1]
 BIOQC_META_FILE = args[2]
 DATA_FILE = args[3]
 
-
 #' prefix signature names with their source to make the names unique.
 #'
 #' for this analysis, for simplicity, we make the signature name a unique primary key
@@ -42,6 +43,7 @@ DATA_FILE = args[3]
 #' @param df dataframe with a SIG_SOURCE and a SIG_NAME column
 prefix_signatures = function(df) {
   df %>%
+    mutate(ORIG_NAME = SIG_NAME) %>% 
     mutate(SIG_NAME = ifelse(SIG_SOURCE == "gtex_v6_gini_solid.gmt",
                              str_c("GTEX", SIG_NAME, sep="_"),
                              SIG_NAME)) %>%
@@ -52,6 +54,11 @@ prefix_signatures = function(df) {
                              str_c("BASELINE", SIG_NAME, sep="_"),
                              SIG_NAME))
 }
+
+bioqc_all = read_excel("tables/tissue_annotation.xlsx", sheet="set bioqc_all") %>%
+  select(signature, signature_source, tgroup=group, tissue)
+gtex_solid = read_excel("tables/tissue_annotation.xlsx", sheet="set gtex_solid") %>%
+  select(signature, signature_source, tgroup=group, tissue)
 
 
 # List of (sample, signature, pvalue) pairs
@@ -67,9 +74,9 @@ bioqc_meta = read_csv(BIOQC_META_FILE) %>%
   filter(TISSUE_SET == 'gtex_solid') %>%  # only gtex solid, as we require to have the reference signatures.
   select(GSM, GPL, TISSUE, TGROUP) # drop tissue set, as it is unique
 
-# table organizeing signatures in tissue-sets (e.g. bioqc_solid, gtex_solid, ...)
-bioqc_tissue_set = read_csv("data/bioqc_geo_oracle_dump/BIOQC_TISSUE_SET_DATA_TABLE.csv") %>%
-  inner_join(bioqc_signatures, by = c("SIGNATURE"="ID"))
+# # table organizeing signatures in tissue-sets (e.g. bioqc_solid, gtex_solid, ...)
+# bioqc_tissue_set = read_csv("data/bioqc_geo_oracle_dump/BIOQC_TISSUE_SET_DATA_TABLE.csv") %>%
+#   inner_join(bioqc_signatures, by = c("SIGNATURE"="ID"))
 
 # Full-blown join. Save intermediate result due to runtime.
 data = bioqc_res %>%
@@ -80,23 +87,25 @@ bioqc_res = NULL # free RAM
 
 ###############################################
 ## Select signatures of interest
-selected_signatures = bioqc_tissue_set %>%
-  filter(TISSUE_SET == 'gtex_solid' | TISSUE_SET == 'bioqc_solid') %>%
-  select(SIGNATURE = SIG_NAME) %>%
+selected_signatures = bioqc_all %>%
+  bind_rows(gtex_solid) %>% 
+  inner_join(bioqc_signatures, by=c("signature_source"="SIG_SOURCE", "signature"="ORIG_NAME")) %>%
+  drop_na() %>% 
+  select(SIGNATURE=SIG_NAME) %>%
   distinct()
 
 # random control signature
 random_signature = bioqc_signatures %>%
   filter(SIG_NAME == 'BASELINE_random_100_0' | SIG_NAME == 'BASELINE_awesome_housekeepers') %>%
-  select(SIGNATURE = SIG_NAME)
+  select(SIGNATURE=SIG_NAME)
 
-selected_signatures = rbind(selected_signatures, random_signature)
+selected_signatures = bind_rows(selected_signatures, random_signature)
 
 # reference signatures based on 'gtex_solid' for a a selected set of tissues.
-reference_signatures = bioqc_tissue_set %>%
-  filter(TISSUE_SET == 'gtex_solid') %>%
-  select(REF_SIG = SIG_NAME, TGROUP) %>%
-  distinct()
+reference_signatures = gtex_solid %>%
+  drop_na() %>% 
+  mutate(signature = str_c("GTEX_", signature)) %>%
+  select(REF_SIG = signature, TGROUP=tgroup)
 
 # bind signature names, reference signatures and adjusted pvalues to data
 data2 = data %>%

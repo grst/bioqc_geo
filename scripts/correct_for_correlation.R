@@ -48,30 +48,22 @@ message("loading data\n")
 # load preprocessed data
 load(DATA_FILE)
 
-
 #' calculate a correlation corrected pvalue for a signature (compare signature scores against the scores
 #' of the reference signature)
-#' @param tgroup annotated tissue (-> used to find reference signature)
-#' @param sig signature of interest
-#' @param ref_score for the given sample, score of the reference signature
-#' @param sig_score for the given sample, score of the signature of interest
-correlation_corrected_pvalue = Vectorize(function(tgroup, sig, ref_score, sig_score) {
-  tryCatch({
-    model = models[[tgroup]][[sig]]
-    # ref_scores = variable name of linear model; see chunk above
-    predicted = predict(model, newdata=data.frame(ref_scores=c(ref_score)))
-    # if positive residue -> more than expected -> likely heterogenous (test with normal distribution)
-    residue = sig_score - predicted
-    # minimal sigma to avoid numerical problems with perfect correlations (reference against itself)
-    sd = max(sigma(model), 0.01)
-    return(pnorm(residue, mean=0, sd=sd, lower.tail = FALSE))
-  }, error = function(e) {
-    print(e)
-    print(paste(tgroup, sig))
-  })
-})
-
-
+process_tgroup = function(df) {
+  tgroup = df$TGROUP[1]
+  signature = df$SIGNATURE[1]
+  model = models[[tgroup]][[signature]]
+  df$sigma = sigma(model)
+  df$slope = model$coefficients[[2]]
+  df$intercept = model$coefficients[[1]]
+  predicted = predict(model, newdata=dplyr::select(df, ref_score))
+  residues = df$score - predicted
+  df$residues = residues
+  # minimal sigma to avoid numerical problems with perfect correlations
+  df$p_corr = pnorm(residues, mean=0, sd=max(sigma(model), 0.01), lower.tail=FALSE)
+  df
+}
 
 # calculate the rlm models for each pair (signature, reference_signature)
 message("fitting models\n")
@@ -92,9 +84,7 @@ models = foreach (ref_sig=reference_signatures$REF_SIG,
 # add correlation corrected p-value and correct for multiple testing.
 message("computing correlation-corrected pvalues\n")
 data_corr = data2 %>%
-  filter(qvalue < FDR_THRES) %>%
-  mutate(pcorr = correlation_corrected_pvalue(TGROUP, SIGNATURE, ref_score, score)) %>%
-  mutate(pcorr_adj = p.adjust(pcorr, method="bonferroni")) %>%
-  mutate(pcorr_qvalue = p.adjust(pcorr, method="fdr"))
-
+  group_by(TGROUP, SIGNATURE) %>%
+  do(process_tgroup(.))
+  
 save(models, data_corr, file=MODEL_FILE)

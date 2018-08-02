@@ -7,6 +7,7 @@ library(dplyr)
 library(readr)
 library(cowplot)
 library(readxl)
+library(tidyr)
 source("../scripts/config.R")
 ```
 
@@ -15,10 +16,22 @@ load('../results/data_processed.RData')
 load('../results/models.RData')
 ```
 
-# Results
-Results suggest, that between 2 and 6 percent of all samples in GEO show tissue heterogeneity. A major source of heterogeneity appear to be blood mononuclear cells.
+```{r raw-corr-plots, fig.width=200, fig.height=24}
+tmp_cutoff = 0.05 / 2000
+ci = function(x, intercept, slope, sigma, sign=1) {
+ x * slope + intercept + sign * qnorm(1-tmp_cutoff, mean=0, sd=sigma) 
+}
+data_corr %>% 
+  filter(str_detect(SIGNATURE, "^BIOQC") | str_detect(SIGNATURE, "^GTEX")) %>% 
+  ggplot(aes(x=ref_score, y=score)) + 
+  geom_point(alpha=.25, size=1) + 
+  facet_grid(TGROUP~SIGNATURE) + 
+  geom_abline(aes(slope=slope, intercept=intercept), colour="red") + 
+  geom_ribbon(aes(color="interval", ymax=ci(ref_score, intercept, slope, sigma, 1), ymin=ci(ref_score, intercept, slope, sigma, -1), alpha=.2, show.legend = TRUE)) +
+  theme_bw()
 
-Figure \@ref(fig:heterogeneitygtex) shows the number of samples detected as heterogenous with the reference signatures only. Figure \@ref(fig:heterogeneityall) shows the number of samples classified as heterogeneous with the signatures provided by BioQC. Figure \@ref(fig:heterogeneitybar) shows the fraction of heterogenous samples per tissue, taking all signatures into account.
+```
+
 
 ```{r heterogeneitygtex, cache=TRUE, echo=FALSE, fig.cap="Tissue heterogeneity assessed with the reference signatures. The annotated tissues are listed in rows, the significantly enriched signatures in columns. If a signature has been found to be significantly enriched in a sample, the sample will count towards the number indicated in the matrix. All contaminations per sample are included, *i.e.* a sample can appear multiple times in a row. "}
 contam_count = data_corr %>%
