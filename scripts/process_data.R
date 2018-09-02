@@ -43,7 +43,7 @@ DATA_FILE = args[3]
 #' @param df dataframe with a SIG_SOURCE and a SIG_NAME column
 prefix_signatures = function(df) {
   df %>%
-    mutate(ORIG_NAME = SIG_NAME) %>% 
+    mutate(ORIG_NAME = SIG_NAME) %>%
     mutate(SIG_NAME = ifelse(SIG_SOURCE == "gtex_v6_gini_solid.gmt",
                              str_c("GTEX", SIG_NAME, sep="_"),
                              SIG_NAME)) %>%
@@ -88,9 +88,9 @@ bioqc_res = NULL # free RAM
 ###############################################
 ## Select signatures of interest
 selected_signatures = bioqc_all %>%
-  bind_rows(gtex_solid) %>% 
+  bind_rows(gtex_solid) %>%
   inner_join(bioqc_signatures, by=c("signature_source"="SIG_SOURCE", "signature"="ORIG_NAME")) %>%
-  drop_na() %>% 
+  drop_na() %>%
   select(SIGNATURE=SIG_NAME) %>%
   distinct()
 
@@ -103,7 +103,7 @@ selected_signatures = bind_rows(selected_signatures, random_signature)
 
 # reference signatures based on 'gtex_solid' for a a selected set of tissues.
 reference_signatures = gtex_solid %>%
-  drop_na() %>% 
+  drop_na() %>%
   mutate(signature = str_c("GTEX_", signature)) %>%
   select(REF_SIG = signature, TGROUP=tgroup)
 

@@ -33,8 +33,8 @@ registerDoMC(cores = min(parallel::detectCores(), 8))
 
 args = commandArgs(TRUE)
 
-DATA_FILE = args[2]
-MODEL_FILE = args[3]
+DATA_FILE = args[1]
+MODEL_FILE = args[2]
 
 ## testis has too few values in archs4 -> ignore.
 #reference_signatures = reference_signatures %>% filter(TGROUP != "testis")
