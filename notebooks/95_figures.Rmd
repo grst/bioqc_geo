@@ -2,7 +2,7 @@
 library(dplyr)
 library(stringr)
 library(readr)
-source("../scripts/config.R")
+source("config.R")
 library(cowplot)
 ```
 

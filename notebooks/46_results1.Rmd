@@ -8,7 +8,7 @@ library(readr)
 library(cowplot)
 library(readxl)
 library(tidyr)
-source("../scripts/config.R")
+source("config.R")
 ```
 
 ```{r load_data, message=FALSE, include=FALSE, cache=TRUE}

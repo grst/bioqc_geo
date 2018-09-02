@@ -6,7 +6,7 @@ library(gridExtra)
 library(dplyr)
 library(readr)
 library(cowplot)
-source("../scripts/config.R")
+source("config.R")
 ```
 # Redo analysis for ARCHS4
 
@@ -35,13 +35,13 @@ data2 %>% select(GSM, TGROUP) %>% group_by(TGROUP) %>% summarise(count = n_disti
 #   filter(p_corr < P_THRES) %>%
 #   group_by(TGROUP, SIGNATURE) %>%
 #   summarise(cnt = n_distinct(GSM))
-# 
+#
 # ## disabled correlation correction...
 # # contam_count = data_corr %>%
 # #   filter(qvalue < P_THRES) %>%
 # #   group_by(TGROUP, SIGNATURE) %>%
 # #   summarise(cnt = n_distinct(GSM))
-# 
+#
 # contam_count %>%
 #   filter(SIGNATURE %in% reference_signatures$REF_SIG) %>%
 #   ggplot(aes(x=factor(SIGNATURE, levels=reference_signatures$REF_SIG), y=TGROUP)) +
@@ -56,7 +56,7 @@ data2 %>% select(GSM, TGROUP) %>% group_by(TGROUP) %>% summarise(count = n_disti
 ```{r heterogeneityall2, fig.width=8, fig.height=35, cache=TRUE, echo=FALSE, fig.cap="Tissue heterogeneity assessed with the BioQC signatures. The annotated tissues are listed in rows, the significantly enriched signatures in columns. If a signature has been found to be significantly enriched in a sample, the sample will count towards the number indicated in the matrix. All contaminations per sample are included, *i.e.* a sample can appear multiple times in a row."}
 # bioqc_signatures = selected_signatures %>% filter(str_detect(SIGNATURE, 'BIOQC')) %>% pull("SIGNATURE")
 # chunks = cut_interval(1:length(bioqc_signatures), length=15, labels=FALSE)
-# 
+#
 # plots = lapply(unique(chunks), function(i) {
 #   tmp_signatures = bioqc_signatures[chunks==i]
 #   contam_count %>%
@@ -72,7 +72,7 @@ data2 %>% select(GSM, TGROUP) %>% group_by(TGROUP) %>% summarise(count = n_disti
 #       background_grid(major = "xy", minor="xy") +
 #     scale_y_discrete(drop=FALSE)
 # })
-# 
+#
 # plot_grid(plotlist = plots, ncol=1, nrow = length(plots))
 ```
 
@@ -81,7 +81,7 @@ data2 %>% select(GSM, TGROUP) %>% group_by(TGROUP) %>% summarise(count = n_disti
 #                           filter(p_corr < P_THRES) %>%
 #                           pull(GSM) %>%
 #                           unique()
-# 
+#
 # bioqc_meta %>%
 #   mutate(heterogenous = ifelse(GSM %in% heterogenous_samples, TRUE, FALSE)) %>%
 #   group_by(TGROUP) %>%

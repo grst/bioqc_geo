@@ -33,13 +33,8 @@ registerDoMC(cores = min(parallel::detectCores(), 8))
 
 args = commandArgs(TRUE)
 
-CONFIG_FILE = args[1]
 DATA_FILE = args[2]
 MODEL_FILE = args[3]
-
-# load pvalue cutoffs
-source(CONFIG_FILE)
-
 
 ## testis has too few values in archs4 -> ignore.
 #reference_signatures = reference_signatures %>% filter(TGROUP != "testis")
@@ -86,5 +81,5 @@ message("computing correlation-corrected pvalues\n")
 data_corr = data2 %>%
   group_by(TGROUP, SIGNATURE) %>%
   do(process_tgroup(.))
-  
+
 save(models, data_corr, file=MODEL_FILE)

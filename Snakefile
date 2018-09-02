@@ -64,7 +64,8 @@ rule book:
     expand("notebooks/{rmd_files}.Rmd", rmd_files = RMD_FILES),
     "notebooks/bibliography.bib",
     "notebooks/_bookdown.yml",
-    "notebooks/_output.yml"
+    "notebooks/_output.yml",
+    "notebooks/config.R"
   output:
     "results/book/index.html"
   conda:
@@ -141,7 +142,6 @@ rule model_geo:
   """correct for correlation of the signatures by fitting `rlm` models. """
   input:
     "scripts/correct_for_correlation.R",
-    "scripts/config.R",
     "results/data_processed.RData",
   output:
     "results/models.RData"
@@ -156,7 +156,6 @@ rule model_archs:
   """correct for correlation of the signatures by fitting `rlm` models. """
   input:
     "scripts/correct_for_correlation.R",
-    "scripts/config.R",
     "results/archs4/archs4_data_processed.RData",
   output:
     "results/archs4/archs4_models.RData"

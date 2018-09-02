@@ -7,7 +7,7 @@ library(dplyr)
 library(readr)
 library(cowplot)
 library(readxl)
-source("../scripts/config.R")
+source("config.R")
 ```
 
 ```{r load_data, message=FALSE, include=FALSE, cache=TRUE}
@@ -77,7 +77,7 @@ false-positives, even if a signature is characteristic for a tissue
 histologically close to the annotated tissue.
 
 We therefore take the following approach to account for the correlation of signatures:
-A given sample $s$ annotated as tissue $t$ is tested for enrichment with signature $k_{\text{test}}$ resulting in a p-value $p_{\text{test}}$. Let $k_{\text{ref}}$ be the reference signature associated with tissue $t$ and $p_{\text{ref}}$ the p-value of testing $s$ for enrichment of $k_{\text{ref}}$. Let $\tau$ be a certain false discovery rate (FDR)-threshold. 
+A given sample $s$ annotated as tissue $t$ is tested for enrichment with signature $k_{\text{test}}$ resulting in a p-value $p_{\text{test}}$. Let $k_{\text{ref}}$ be the reference signature associated with tissue $t$ and $p_{\text{ref}}$ the p-value of testing $s$ for enrichment of $k_{\text{ref}}$. Let $\tau$ be a certain false discovery rate (FDR)-threshold.
 
 (1) If the Benjamini-Hochberg (BH)-adjusted $p_{\text{test}} >= \tau$, we
 assume that $s$ is not heterogenous; else continue.
@@ -94,14 +94,14 @@ hypothesis that $k_{\text{test}}$ is enriched only due to correlation and label
 the sample as heterogenous.
 
 ### Determining $\tau$.
-We desire an overall FDR of `r FDR_THRES`. Since we test in a two-step procedure, we choose a threshold $\tau$, such that the 
-overall FDR equals `r FDR_THRES`. 
+We desire an overall FDR of `r FDR_THRES`. Since we test in a two-step procedure, we choose a threshold $\tau$, such that the
+overall FDR equals `r FDR_THRES`.
 
 $$
 \text{FDR} = \tau + (1-\tau) \tau
 $$
-Explanation: 
-Of all positives in step 1, there are, per definition, a fraction of $\tau$ false-positives and $1-\tau$ true-positives. 
+Explanation:
+Of all positives in step 1, there are, per definition, a fraction of $\tau$ false-positives and $1-\tau$ true-positives.
 To all positives, the step 2 test is applied. In addition to the false-positives from step 1, there is a fraction of $\tau(1-\tau)$ false-positives among the true-positives from step 1.
 
 Solving the equation yields:

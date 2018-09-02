@@ -11,7 +11,7 @@ library(tidyr)
 library(foreach)
 library(doMC)
 registerDoMC()
-source("../scripts/config.R")
+source("config.R")
 ```
 
 ```{r load_data, message=FALSE, include=FALSE, cache=TRUE}
@@ -35,8 +35,8 @@ data_corr_datasets = foreach(
       filter(str_detect(SIGNATURE, "^BIOQC") | str_detect(SIGNATURE, "^GTEX")) %>%
       mutate(q_corr = p.adjust(p_corr, method = "fdr")) %>%
       mutate(
-        score_significant = qvalue < FDR_THRES,
-        score_corr_significant = q_corr < FDR_THRES
+        score_significant = qvalue < TAU,
+        score_corr_significant = q_corr < TAU
       ) %>%
       mutate(sig_color = if_else(
         score_significant & score_corr_significant,
@@ -52,18 +52,18 @@ data_corr_datasets = foreach(
 
 
 ```{r raw-scores, fig.width=48, fig.height=24}
-# foreach(dataset = data_corr_datasets,
-#         name = names(data_corr_datasets)) %dopar% {
-#           dataset %>% 
-#             ggplot(aes(y=score, x=SIGNATURE)) + 
-#               geom_boxplot() + 
-#               facet_grid(REF_SIG ~ ., scales = "free_x") + 
-#               theme_bw() + 
-#               theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-#               ggtitle(str_c("Scores for ", name))
-#           
-#           ggsave(str_c("../results/figures/scores_", name, ".png"), width=48, height=24, dpi=300, limitsize=FALSE)
-#         }
+foreach(dataset = data_corr_datasets,
+        name = names(data_corr_datasets)) %dopar% {
+          dataset %>%
+            ggplot(aes(y=score, x=SIGNATURE)) +
+              geom_boxplot() +
+              facet_grid(REF_SIG ~ ., scales = "free_x") +
+              theme_bw() +
+              theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+              ggtitle(str_c("Scores for ", name))
+
+          ggsave(str_c("../results/figures/scores_", name, ".png"), width=48, height=24, dpi=300, limitsize=FALSE)
+        }
 ```
 
 

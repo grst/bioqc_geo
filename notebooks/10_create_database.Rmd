@@ -7,7 +7,6 @@ In this chapter, we describe
 * how we load the data into the DBS
 
 ```{r, include=FALSE, eval=FALSE}
-source("../lib/config.R")
 source("../lib/db.R")
 source("../lib/lib.R")
 source("../lib/geo_annotation.R")
