@@ -16,26 +16,10 @@ load('../results/data_processed.RData')
 load('../results/models.RData')
 ```
 
-```{r raw-corr-plots, fig.width=200, fig.height=24}
-tmp_cutoff = 0.05 / 2000
-ci = function(x, intercept, slope, sigma, sign=1) {
- x * slope + intercept + sign * qnorm(1-tmp_cutoff, mean=0, sd=sigma) 
-}
-data_corr %>% 
-  filter(str_detect(SIGNATURE, "^BIOQC") | str_detect(SIGNATURE, "^GTEX")) %>% 
-  ggplot(aes(x=ref_score, y=score)) + 
-  geom_point(alpha=.25, size=1) + 
-  facet_grid(TGROUP~SIGNATURE) + 
-  geom_abline(aes(slope=slope, intercept=intercept), colour="red") + 
-  geom_ribbon(aes(color="interval", ymax=ci(ref_score, intercept, slope, sigma, 1), ymin=ci(ref_score, intercept, slope, sigma, -1), alpha=.2, show.legend = TRUE)) +
-  theme_bw()
-
-```
-
 
 ```{r heterogeneitygtex, cache=TRUE, echo=FALSE, fig.cap="Tissue heterogeneity assessed with the reference signatures. The annotated tissues are listed in rows, the significantly enriched signatures in columns. If a signature has been found to be significantly enriched in a sample, the sample will count towards the number indicated in the matrix. All contaminations per sample are included, *i.e.* a sample can appear multiple times in a row. "}
 contam_count = data_corr %>%
-  filter(pcorr_adj < P_THRES) %>%
+  filter(p_corr < P_THRES) %>% #!TODO Adjust pvalue!!
   group_by(TGROUP, SIGNATURE) %>%
   summarise(cnt = n_distinct(GSM))
 
@@ -82,7 +66,7 @@ plot_grid(plotlist = plots, ncol=1, nrow = length(plots))
 
 ```{r heterogeneitybar, echo=FALSE, cache=TRUE, fig.cap="Fraction of heterogenous samples per tissue. Heterogeneity has been assessed using both the reference signatures and the signatures from BioQC. A sample only counts once to the fraction, even if multiple signatures are found to be enriched. "}
 heterogenous_samples = data_corr %>%
-                          filter(pcorr_adj < P_THRES) %>%
+                          filter(p_corr < P_THRES) %>% # TODO!! adjust pvalue
                           pull(GSM) %>%
                           unique()
 

@@ -52,22 +52,22 @@ data_corr_datasets = foreach(
 
 
 ```{r raw-scores, fig.width=48, fig.height=24}
-foreach(dataset = data_corr_datasets,
-        name = names(data_corr_datasets)) %dopar% {
-          dataset %>% 
-            ggplot(aes(y=score, x=SIGNATURE)) + 
-              geom_boxplot() + 
-              facet_grid(REF_SIG ~ ., scales = "free_x") + 
-              theme_bw() + 
-              theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-              ggtitle(str_c("Scores for ", name))
-          
-          ggsave(str_c("../results/figures/scores_", name, ".png"), width=48, height=24, dpi=300, limitsize=FALSE)
-        }
+# foreach(dataset = data_corr_datasets,
+#         name = names(data_corr_datasets)) %dopar% {
+#           dataset %>% 
+#             ggplot(aes(y=score, x=SIGNATURE)) + 
+#               geom_boxplot() + 
+#               facet_grid(REF_SIG ~ ., scales = "free_x") + 
+#               theme_bw() + 
+#               theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+#               ggtitle(str_c("Scores for ", name))
+#           
+#           ggsave(str_c("../results/figures/scores_", name, ".png"), width=48, height=24, dpi=300, limitsize=FALSE)
+#         }
 ```
 
 
-```{r raw-corr-plots, fig.width=200, fig.height=18}
+```{r raw-corr-plots, fig.width=48, fig.height=24}
 # tmp_cutoff = 0.05 / 10000 
 # ci = function(x, intercept, slope, sigma, sign=1) {
 #  x * slope + intercept + sign * qnorm(1-tmp_cutoff, mean=0, sd=sigma) 
