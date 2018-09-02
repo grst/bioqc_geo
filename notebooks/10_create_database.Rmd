@@ -1,6 +1,7 @@
 # Setup Database {#setup-database}
 
 In this chapter, we describe
+
 * how we use an SQL database system (DBS) to hold all data relevant for the study
 * the design of the database
 * how we load the data into the DBS

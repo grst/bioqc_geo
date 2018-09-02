@@ -77,9 +77,9 @@ false-positives, even if a signature is characteristic for a tissue
 histologically close to the annotated tissue.
 
 We therefore take the following approach to account for the correlation of signatures:
-A given sample $s$ annotated as tissue $t$ is tested for enrichment with signature $k_{\text{test}}$ resulting in a p-value $p_{\text{test}}$. Let $k_{\text{ref}}$ be the reference signature associated with tissue $t$ and $p_{\text{ref}}$ the p-value of testing $s$ for enrichment of $k_{\text{ref}}$.
+A given sample $s$ annotated as tissue $t$ is tested for enrichment with signature $k_{\text{test}}$ resulting in a p-value $p_{\text{test}}$. Let $k_{\text{ref}}$ be the reference signature associated with tissue $t$ and $p_{\text{ref}}$ the p-value of testing $s$ for enrichment of $k_{\text{ref}}$. Let $\tau$ be a certain false discovery rate (FDR)-threshold. 
 
-(1) If the Benjamini-Hochberg-adjusted $p_{\text{test}} >= `r FDR_THRES`$, we
+(1) If the Benjamini-Hochberg (BH)-adjusted $p_{\text{test}} >= \tau$, we
 assume that $s$ is not heterogenous; else continue.
 (2) We fit a linear model using `rlm` from the `R` `MASS` package of
 $|log10(p_{\text{test}})|$ against $|log10(p_{\text{ref}})|$ for all samples
@@ -89,11 +89,30 @@ standard deviation of the residuals.
 (3) We extract the residual $r$ corresponding to sample $s$. We calculate the
 p-value $p_{\text{corr}} = 1 - \text{CDF}_R(r)$ where $\text{CDF}_R$ is the
 cumulative density function of $\mathcal{N}(0, \sigma^2)$.
-(4) If the Bonferroni-adjusted $p_{\text{corr}} < `r P_THRES`$, we reject the
+(4) If the BH-adjusted $p_{\text{corr}} < \tau$, we reject the
 hypothesis that $k_{\text{test}}$ is enriched only due to correlation and label
 the sample as heterogenous.
 
-```{r correlationexample, fig.width=12, fig.height=9, echo=FALSE, cache=TRUE, fig.cap="Examples of signature correlation. Panels A-C: correlation of the signature scores (y-axis) against the scores of a reference signature (x-axis). The purple line indicates the model fitted to the data, the shaded area the 3*sigma confidence interval. Points are colored according to whether they would be discarded already in the FDR-filtering step. (A) Brain scores of kidney samples against the scores of the kidney signature. There is virtually no correlation, nor are there outliers. Appraently, no kidney samples are contaminated with neuronal cells. (B) Liver scores of kidney samples against scores of the kidney signature. The samples are not correlated, however some outliers are detected which are samples potentially containing liver cells. (C) Cardiac muscle scores of skeletal muscle samples against skeletal muscle scores. The scores are highly correlated. While most of the poinst exceed the FDR threshold, they will not be classified as outliers because the elevated score can be explained with the correlation. Panels D and E show the boxplots of the scores of various signatures on kidney and heart samples respectively. "}
+### Determining $\tau$.
+We desire an overall FDR of `r FDR_THRES`. Since we test in a two-step procedure, we choose a threshold $\tau$, such that the 
+overall FDR equals `r FDR_THRES`. 
+
+$$
+\text{FDR} = \tau + (1-\tau) \tau
+$$
+Explanation: 
+Of all positives in step 1, there are, per definition, a fraction of $\tau$ false-positives and $1-\tau$ true-positives. 
+To all positives, the step 2 test is applied. In addition to the false-positives from step 1, there is a fraction of $\tau(1-\tau)$ false-positives among the true-positives from step 1.
+
+Solving the equation yields:
+$$
+`r FDR_THRES` = \tau + (1-\tau)\tau \Leftrightarrow 0 = \tau^2 - 2\tau + `r FDR_THRES`
+$$
+```{r get-tau}
+tau = polyroot(c(FDR_THRES, -2, 1))[1]
+```
+
+```{r correlationexample, fig.width=12, fig.height=9, echo=FALSE, cache=FALSE, fig.cap="Examples of signature correlation. Panels A-C: correlation of the signature scores (y-axis) against the scores of a reference signature (x-axis). The purple line indicates the model fitted to the data, the shaded area the 3*sigma confidence interval. Points are colored according to whether they would be discarded already in the FDR-filtering step. (A) Brain scores of kidney samples against the scores of the kidney signature. There is virtually no correlation, nor are there outliers. Appraently, no kidney samples are contaminated with neuronal cells. (B) Liver scores of kidney samples against scores of the kidney signature. The samples are not correlated, however some outliers are detected which are samples potentially containing liver cells. (C) Cardiac muscle scores of skeletal muscle samples against skeletal muscle scores. The scores are highly correlated. While most of the poinst exceed the FDR threshold, they will not be classified as outliers because the elevated score can be explained with the correlation. Panels D and E show the boxplots of the scores of various signatures on kidney and heart samples respectively. "}
 # pairs of signatures we investigate.
 pairs = list(c('GTEX_Brain', 'GTEX_Kidney'),
              c('GTEX_Liver', 'GTEX_Kidney'),

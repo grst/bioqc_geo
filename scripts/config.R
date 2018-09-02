@@ -1,2 +1,2 @@
-FDR_THRES = 0.01 # for baseline BioQC p-value (signature enrichment)
-P_THRES = 0.01 # for deviation from linear model
+FDR_THRES = 0.01 # overall false-discovery rate
+TAU = polyroot(c(FDR_THRES, -2, 1))[1]  # see 'heterogeneity_test.Rmd'. FDR cutoff for the individual tests.
