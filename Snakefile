@@ -72,7 +72,7 @@ rule book:
     "results/figures/scores_ARCHS4.png",
     "results/figures/correlations_GEO.png",
     "results/figures/correlations_ARCHS4.png",
-    "results/figures/heterogeneity_main_res.pdf",
+    "results/figures/heterogeneity_main.pdf",
     "results/figures/heterogeneity_fractions.pdf",
   conda:
     "envs/bookdown.yml"

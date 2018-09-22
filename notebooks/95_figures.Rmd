@@ -1,10 +1,12 @@
 ```{r}
 library(stringr)
 library(readr)
+library(MASS)
 source("config.R")
 library(cowplot)
 library(boot)
 library(dplyr)
+select = dplyr::select
 ```
 
 
@@ -27,7 +29,10 @@ total_ngs = data_corr$GSM %>% unique() %>% length()
 
 ```
 
-same as in the section before, but all bioqc signatures aggregated by tissue groups.
+Same as in the section before, but all bioqc signatures aggregated by tissue groups.
+Additional, we define samples as being "severely heterogeneous", if the reference signature,
+i.e. the signature that should be present according to the annotation, is not enriched at 
+an unadjusted p-value < `r SEVERE_THRES`.
 ```{r, include=FALSE}
 bioqc_tissue_set = read_csv("../data/bioqc_geo_oracle_dump/BIOQC_TISSUE_SET_DATA_TABLE.csv") %>%
   filter(TISSUE_SET == 'bioqc_all') %>%
@@ -72,7 +77,7 @@ heterogeneity_res %>%
 
 ```{r, fig.width=8, fig.height=5, echo=FALSE, warning=FALSE, message=FALSE, fig.cap="Absolute number of samples per tissue in which certain signature is detected as significantly enriched. "}
 tgroups = bioqc_tissue_set$DETECTED_TGROUP %>% unique()
-contam_all %>%
+p2 = contam_all %>%
   filter(is_contaminated == TRUE) %>%
   group_by(dataset, TGROUP, DETECTED_TGROUP) %>%
   summarise(cnt=n_distinct(GSM)) %>%
@@ -88,47 +93,64 @@ contam_all %>%
       facet_grid(dataset~.) + 
       scale_fill_distiller(palette = "Blues", direction=1, guide=FALSE)
 
-ggsave("../results/figures/heterogeneity_main_res.pdf")
-ggsave("../results/figures/heterogeneity_main_res.png")
 ```
 
 
 We use bootstrapping (R package `boot`) to derive confidence intervals. 
 ```{r, include=FALSE}
-stat_fun = function(df, i) {
+stat_fun_contam = function(df, i) {
   df = df[i, ]
   total = nrow(df)
   contaminated = sum(df$sample_is_contaminated)
   contaminated/total
 }
 
+stat_fun_severe = function(df, i) {
+  df = df[i, ]
+  total = nrow(df)
+  contaminated = sum(df$sample_is_severe)
+  contaminated/total
+}
+
 bootstrap = function(df_group) {
-  boot_obj = boot(df_group, statistic=stat_fun, R=999)
-  ci = boot.ci(boot_obj, conf=0.95, type="basic")
-  tibble(fraction=boot_obj$t0, ci_low = ci$basic[1,4], ci_high = ci$basic[1, 5])
+  boot_obj_contam = boot(df_group, statistic=stat_fun_contam, R=999)
+  ci_comtam = boot.ci(boot_obj_contam, conf=0.95, type="basic")
+  boot_obj_severe = boot(df_group, statistic=stat_fun_severe, R=999)
+  ci_severe = boot.ci(boot_obj_severe, conf=0.95, type="basic")
+  tibble(type=c("heterogeneity", "severe heterogeneity"),
+         fraction=c(boot_obj_contam$t0, boot_obj_severe$t0),
+         ci_low = c(ci_comtam$basic[1,4], ci_severe$basic[1,4]),
+         ci_high = c(ci_comtam$basic[1, 5], ci_severe$basic[1,5])) 
 }
 
 contam_frac = contam_all %>%
   bind_rows(contam_all %>% mutate(TGROUP = "all")) %>% 
   group_by(dataset, TGROUP, GSM) %>%
-  summarise(sample_is_contaminated=any(is_contaminated)) %>% 
+  summarise(sample_is_contaminated=any(is_contaminated), sample_is_severe=any(is_severe)) %>% 
   group_by(dataset, TGROUP) %>% 
-  do(bootstrap(.))
+  do(bootstrap(.)) 
 ```
 
-```{r, echo=FALSE, warning=FALSE, fig.cap="fraction of heterogenous samples per tissue. "}
-contam_frac %>%
-  mutate(ci_low = max(ci_low, 0)) %>% 
+```{r, fig.width=8, fig.height=4.5, echo=FALSE, warning=FALSE, fig.cap="fraction of heterogenous samples per tissue. "}
+p1 = contam_frac %>%
+  ungroup() %>% 
   ggplot(aes(y=fraction, x=TGROUP)) + 
     geom_bar(aes(fill=dataset), stat="identity", position = "dodge") + 
-    geom_errorbar(aes(ymin=ci_low, ymax=ci_high, fill=dataset), position='dodge') + 
+    geom_errorbar(aes(ymin=if_else(ci_low < 0, 0, ci_low), ymax=ci_high, fill=dataset), position='dodge') + 
     scale_fill_brewer(palette="Set1") + 
-    theme(axis.text.x = element_text(angle = 90, hjust=1, vjust=.5)) + 
-    xlab("tissue") + 
-    ylab("frac. heterogeneous samples") + 
+    theme(axis.text.x = element_text(angle = 90, hjust=1, vjust=.5),
+          legend.position = "top",
+          axis.title=element_blank()) + 
+    facet_wrap(~type) + 
+    ylab("frac. heterogeneous samples") 
 
 ggsave("../results/figures/heterogeneity_fractions.pdf")
 ggsave("../results/figures/heterogeneity_fractions.png")
 write_tsv(contam_frac, path = "../results/heterogeneity_fractions.tsv")
 ```
 
+```{r, fig.width=8, fig.height=9}
+plot_grid(p1, p2, align = "v", nrow=2, rel_heights = c(.5, .6), labels = "AUTO", axis="lr")
+ggsave("../results/figures/heterogeneity_main.pdf")
+ggsave("../results/figures/heterogeneity_main.png")
+```
