@@ -67,7 +67,13 @@ rule book:
     "notebooks/_output.yml",
     "notebooks/config.R"
   output:
-    "results/book/index.html"
+    "results/book/index.html",
+    "results/figures/scores_geo.png",
+    "results/figures/scores_archs4.png",
+    "results/figures/correlations_geo.png",
+    "results/figures/correlations_archs4.png",
+    "results/figures/heterogeneity_main_res.pdf",
+    "results/figures/heterogeneity_fractions.pdf",
   conda:
     "envs/bookdown.yml"
   shell:

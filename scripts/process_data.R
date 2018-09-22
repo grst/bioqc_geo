@@ -4,7 +4,7 @@
 # OUTPUT
 #    saves RDATA object to DATA_FILE containing
 #       * `data2` essentially contains (study, signature, pvalue) pairs
-#         combined with the tissue annotation and the reference signature
+#         combined with the tissue annotation and the reference signature. 
 #       * `bioqc_meta` contains information for each sample (platform, tissue, tissue_group)
 #       * `selected_signatures` list of names of signatures selected for
 #         this study
@@ -133,5 +133,6 @@ save(data2,
      selected_signatures,
      reference_signatures,
      bioqc_signatures,
-     file = DATA_FILE)
+     file = DATA_FILE, 
+     compress = FALSE)
 

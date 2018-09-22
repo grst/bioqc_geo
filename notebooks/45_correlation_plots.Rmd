@@ -33,7 +33,6 @@ data_corr_datasets = foreach(
   .final = function(x) setNames(x, names(data_corr_datasets))) %dopar% {
     dataset %>%
       filter(str_detect(SIGNATURE, "^BIOQC") | str_detect(SIGNATURE, "^GTEX")) %>%
-      mutate(q_corr = p.adjust(p_corr, method = "fdr")) %>%
       mutate(
         score_significant = qvalue < TAU,
         score_corr_significant = q_corr < TAU

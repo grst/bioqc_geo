@@ -9,7 +9,15 @@
 #    saves RDATA object to MODEL_FILE containing
 #       * `models` a list[[reference_tissue]][[signature]] containing `rlm` models
 #       * `data_corr` a dataframe derived from data2 containing additionally
-#           the correlation-corrected p-value.
+#           the correlation-corrected p-value. It contains
+#           the following columns
+#            - PVALUE the original BioQC Pvalue of the signature
+#            - score absLog10p of PVALUE
+#            - qvalue: FDR-adjusted PVALUE
+#            - REF_PVALUE: the original BioQC pvalue of the reference signature
+#            - p_corr: P-value generated from linear model
+#            - q_corr: fdr-adjusted p_corr
+# 
 ########################################################################################
 
 library(tidyr)
@@ -80,6 +88,7 @@ models = foreach (ref_sig=reference_signatures$REF_SIG,
 message("computing correlation-corrected pvalues\n")
 data_corr = data2 %>%
   group_by(TGROUP, SIGNATURE) %>%
-  do(process_tgroup(.))
+  do(process_tgroup(.)) %>% 
+  mutate(q_corr = p.adjust(p_corr, method = "fdr"))
 
-save(models, data_corr, file=MODEL_FILE)
+save(models, data_corr, file=MODEL_FILE, compress = FALSE)

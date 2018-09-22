@@ -29,7 +29,8 @@ dependencies:
   - r-venndiagram=1.6.18
   - r-codetools=0.2_15
   - r-hmisc=4.0_3
-  # - bioconductor-biobase=2.38.0
+  - r-boot=1.3_20=r341_0
+  - bioconductor-biobase=2.38.0
   # - r-ggpubr=0.1.7
   # - r-testit=0.7
   # - r-dbi=1.0.0

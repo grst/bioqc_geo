@@ -4,84 +4,111 @@ library(stringr)
 library(readr)
 source("config.R")
 library(cowplot)
+library(boot)
 ```
 
 
-<!-- # Figures for publication -->
+# Figures for publication
 
-<!-- ## Contamination heatmaps -->
+## Contamination heatmaps
 
-<!-- ```{r} -->
-<!-- load('../results/data_processed.RData') -->
-<!-- load('../results/models.RData') -->
+```{r}
+load('../results/data_processed.RData')
+load('../results/models.RData')
 
-<!-- contam_count_array = data_corr %>% -->
-<!--   filter(p_corr < P_THRES) %>% -->
-<!--   group_by(TGROUP, SIGNATURE) %>% -->
-<!--   summarise(cnt = n_distinct(GSM)) -->
-<!-- data_corr_array = data_corr -->
+data_corr_array = data_corr 
+total_array = data_corr$GSM %>% unique() %>% length()
 
-<!-- load('../results/archs4/archs4_data_processed.RData') -->
-<!-- load('../results/archs4/archs4_models.RData') -->
+load('../results/archs4/archs4_data_processed.RData')
+load('../results/archs4/archs4_models.RData')
 
-<!-- contam_count_ngs = data_corr %>% -->
-<!--   filter(p_corr < P_THRES) %>% -->
-<!--   group_by(TGROUP, SIGNATURE) %>% -->
-<!--   summarise(cnt = n_distinct(GSM)) -->
-<!-- data_corr_ngs = data_corr -->
+data_corr_ngs = data_corr 
+total_ngs = data_corr$GSM %>% unique() %>% length()
 
-<!-- ``` -->
+```
 
-<!-- same as in the section before, but all bioqc signatures aggregated by tissue groups. -->
-<!-- ```{r} -->
-<!-- bioqc_tissue_set = read_csv("../data/bioqc_geo_oracle_dump/BIOQC_TISSUE_SET_DATA_TABLE.csv") %>% -->
-<!--   filter(TISSUE_SET == 'bioqc_all') %>% -->
-<!--   select(SIG_ID=SIGNATURE, DETECTED_TGROUP=TGROUP) -->
-<!-- bioqc_all = selected_signatures %>% -->
-<!--   filter(str_detect(SIGNATURE, 'BIOQC')) %>% -->
-<!--   pull("SIGNATURE") -->
+same as in the section before, but all bioqc signatures aggregated by tissue groups.
+```{r}
+bioqc_tissue_set = read_csv("../data/bioqc_geo_oracle_dump/BIOQC_TISSUE_SET_DATA_TABLE.csv") %>%
+  filter(TISSUE_SET == 'bioqc_all') %>%
+  select(SIG_ID=SIGNATURE, DETECTED_TGROUP=TGROUP)
+bioqc_all = selected_signatures %>%
+  filter(str_detect(SIGNATURE, 'BIOQC')) %>%
+  pull("SIGNATURE")
 
-<!-- contam_count_ngs_tgroup = data_corr_ngs %>% -->
-<!--   inner_join(bioqc_signatures, by=c("SIGNATURE"="SIG_NAME")) %>% -->
-<!--   rename(SIG_ID=ID) %>% -->
-<!--   inner_join(bioqc_tissue_set) %>% -->
-<!--   filter(pcorr_adj < P_THRES) %>% -->
-<!--   group_by(TGROUP, DETECTED_TGROUP) %>% -->
-<!--   summarise(cnt = n_distinct(GSM)) -->
+contam_ngs_tgroup = data_corr_ngs %>%
+  inner_join(bioqc_signatures, by=c("SIGNATURE"="SIG_NAME")) %>%
+  rename(SIG_ID=ID) %>%
+  inner_join(bioqc_tissue_set) %>%
+  mutate(is_contaminated=qvalue < TAU & q_corr < TAU & TGROUP != DETECTED_TGROUP) %>% 
+  mutate(dataset = "ARCHS4")
 
-<!-- contam_count_array_tgroup = data_corr_array %>% -->
-<!--   inner_join(bioqc_signatures, by=c("SIGNATURE"="SIG_NAME")) %>% -->
-<!--   rename(SIG_ID=ID) %>% -->
-<!--   inner_join(bioqc_tissue_set) %>% -->
-<!--   filter(pcorr_adj < P_THRES) %>% -->
-<!--   group_by(TGROUP, DETECTED_TGROUP) %>% -->
-<!--   summarise(cnt = n_distinct(GSM)) -->
-<!-- ``` -->
+contam_array_tgroup = data_corr_array %>%
+  inner_join(bioqc_signatures, by=c("SIGNATURE"="SIG_NAME")) %>%
+  rename(SIG_ID=ID) %>%
+  inner_join(bioqc_tissue_set) %>%
+  mutate(is_contaminated=qvalue < TAU & q_corr < TAU & TGROUP != DETECTED_TGROUP) %>% 
+  mutate(dataset = "GEO")
 
-<!-- ```{r} -->
-<!-- tgroups = bioqc_tissue_set$DETECTED_TGROUP %>% unique() -->
-<!-- contam_count_ngs_tgroup %>% -->
-<!--   ggplot(aes(x=factor(DETECTED_TGROUP, levels=tgroups), y=TGROUP)) + -->
-<!--       geom_tile(aes(fill = cnt > 0)) + -->
-<!--       geom_text(aes(label=cnt)) + -->
-<!--       theme(axis.text.x = element_text(angle = 90, hjust = 1)) + -->
-<!--       scale_x_discrete(drop=FALSE) + -->
-<!--       ylab("reference tissue") + -->
-<!--       xlab("detected signature") + -->
-<!--       background_grid() + -->
-<!--       scale_fill_manual(values=c("#ececff")) -->
+contam_all = bind_rows(contam_ngs_tgroup, contam_array_tgroup)
+```
 
-<!-- tgroups = bioqc_tissue_set$DETECTED_TGROUP %>% unique() -->
-<!-- contam_count_array_tgroup %>% -->
-<!--   ggplot(aes(x=factor(DETECTED_TGROUP, levels=tgroups), y=TGROUP)) + -->
-<!--       geom_tile(aes(fill = cnt > 0)) + -->
-<!--       geom_text(aes(label=cnt)) + -->
-<!--       theme(axis.text.x = element_text(angle = 90, hjust = 1)) + -->
-<!--       scale_x_discrete(drop=FALSE) + -->
-<!--       ylab("reference tissue") + -->
-<!--       xlab("detected signature") + -->
-<!--       background_grid() + -->
-<!--       scale_fill_manual(values=c("#ececff")) -->
-<!-- ``` -->
+```{r, fig.width=10, fig.height=5}
+tgroups = bioqc_tissue_set$DETECTED_TGROUP %>% unique()
+contam_all %>%
+  filter(is_contaminated == TRUE) %>%
+  group_by(dataset, TGROUP, DETECTED_TGROUP) %>%
+  summarise(cnt=n_distinct(GSM)) %>%
+  ggplot(aes(x=factor(DETECTED_TGROUP, levels=tgroups), y=TGROUP)) +
+      geom_tile(aes(fill=cnt)) +
+      geom_text(aes(label=cnt), size=3) +
+      theme_bw() + 
+      theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust=.5, size=10)) +
+      scale_x_discrete(drop=FALSE) +
+      ylab("reference tissue") +
+      xlab("detected signature") +
+      background_grid() +
+      facet_grid(dataset~.) + 
+      scale_fill_distiller(palette = "Blues", direction=1)
 
+ggsave("../results/figures/heterogeneity_main_res.pdf")
+ggsave("../results/figures/heterogeneity_main_res.png")
+```
+
+
+```{r}
+stat_fun = function(df, i) {
+  df = df[i, ]
+  total = nrow(df)
+  contaminated = sum(df$sample_is_contaminated)
+  contaminated/total
+}
+
+bootstrap = function(df_group) {
+  boot_obj = boot(df_group, statistic=stat_fun, R=999)
+  ci = boot.ci(boot_obj, conf=0.95, type="basic")
+  tibble(fraction=boot_obj$t0, ci_low = ci$basic[1,4], ci_high = ci$basic[1, 5])
+}
+
+contam_frac = contam_all %>%
+  group_by(dataset, TGROUP, GSM) %>%
+  summarise(sample_is_contaminated=any(is_contaminated)) %>% 
+  group_by(dataset, TGROUP) %>% 
+  do(bootstrap(.))
+```
+
+```{r}
+contam_frac %>%
+  ggplot(aes(y=fraction, x=TGROUP)) + 
+    geom_bar(aes(fill=dataset), stat="identity", position = "dodge") + 
+    geom_errorbar(aes(ymin=ci_low, ymax=ci_high, fill=dataset), position='dodge') + 
+    scale_fill_brewer(palette="Set1") + 
+    theme(axis.text.x = element_text(angle = 90, hjust=1, vjust=.5)) + 
+    xlab("tissue") + 
+    ylab("frac. heterogeneous samples")
+
+ggsave("../results/figures/heterogeneity_fractions.pdf")
+ggsave("../results/figures/heterogeneity_fractions.png")
+
+```
 
