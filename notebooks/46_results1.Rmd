@@ -8,6 +8,9 @@ library(readr)
 library(cowplot)
 library(readxl)
 library(tidyr)
+library(foreach)
+library(doMC)
+registerDoMC(cores=8)
 source("config.R")
 ```
 
@@ -30,7 +33,7 @@ datasets = list(
 )
 ```
 
-```{r heterogeneitygtex, cache=TRUE}
+```{r heterogeneitygtex, cache=TRUE, include=FALSE}
 contam_count = foreach(dataset_name = names(datasets),
         dataset = datasets,
         .combine=bind_rows) %do% {

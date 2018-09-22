@@ -68,10 +68,10 @@ rule book:
     "notebooks/config.R"
   output:
     "results/book/index.html",
-    "results/figures/scores_geo.png",
-    "results/figures/scores_archs4.png",
-    "results/figures/correlations_geo.png",
-    "results/figures/correlations_archs4.png",
+    "results/figures/scores_GEO.png",
+    "results/figures/scores_ARCHS4.png",
+    "results/figures/correlations_GEO.png",
+    "results/figures/correlations_ARCHS4.png",
     "results/figures/heterogeneity_main_res.pdf",
     "results/figures/heterogeneity_fractions.pdf",
   conda:

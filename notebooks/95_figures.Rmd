@@ -1,10 +1,10 @@
 ```{r}
-library(dplyr)
 library(stringr)
 library(readr)
 source("config.R")
 library(cowplot)
 library(boot)
+library(dplyr)
 ```
 
 
@@ -12,7 +12,7 @@ library(boot)
 
 ## Contamination heatmaps
 
-```{r}
+```{r load_data, include=FALSE}
 load('../results/data_processed.RData')
 load('../results/models.RData')
 
@@ -28,10 +28,11 @@ total_ngs = data_corr$GSM %>% unique() %>% length()
 ```
 
 same as in the section before, but all bioqc signatures aggregated by tissue groups.
-```{r}
+```{r, include=FALSE}
 bioqc_tissue_set = read_csv("../data/bioqc_geo_oracle_dump/BIOQC_TISSUE_SET_DATA_TABLE.csv") %>%
   filter(TISSUE_SET == 'bioqc_all') %>%
   select(SIG_ID=SIGNATURE, DETECTED_TGROUP=TGROUP)
+
 bioqc_all = selected_signatures %>%
   filter(str_detect(SIGNATURE, 'BIOQC')) %>%
   pull("SIGNATURE")
@@ -41,6 +42,7 @@ contam_ngs_tgroup = data_corr_ngs %>%
   rename(SIG_ID=ID) %>%
   inner_join(bioqc_tissue_set) %>%
   mutate(is_contaminated=qvalue < TAU & q_corr < TAU & TGROUP != DETECTED_TGROUP) %>% 
+  mutate(is_severe=is_contaminated & REF_PVALUE >= SEVERE_THRES) %>% 
   mutate(dataset = "ARCHS4")
 
 contam_array_tgroup = data_corr_array %>%
@@ -48,12 +50,27 @@ contam_array_tgroup = data_corr_array %>%
   rename(SIG_ID=ID) %>%
   inner_join(bioqc_tissue_set) %>%
   mutate(is_contaminated=qvalue < TAU & q_corr < TAU & TGROUP != DETECTED_TGROUP) %>% 
+  mutate(is_severe=is_contaminated & REF_PVALUE >= SEVERE_THRES) %>% 
   mutate(dataset = "GEO")
 
-contam_all = bind_rows(contam_ngs_tgroup, contam_array_tgroup)
+contam_all = bind_rows(contam_ngs_tgroup, contam_array_tgroup) %>% ungroup()
 ```
 
-```{r, fig.width=10, fig.height=5}
+```{r export_files, include=FALSE}
+heterogeneity_res = contam_all %>% 
+  select(dataset, GSM, TGROUP, REF_SIG, DETECTED_TGROUP, SIGNATURE, REF_PVALUE, PVALUE, qvalue, p_corr, q_corr, is_contaminated, is_severe) %>%
+  distinct() 
+
+heterogeneity_res %>%  
+  write_tsv("../results/heterogeneity_results.tsv")
+
+heterogeneity_res %>%  
+  select(dataset, GSM, TGROUP, DETECTED_TGROUP, is_contaminated, is_severe) %>% 
+  distinct() %>%
+  write_tsv("../results/heterogeneity_results_summary.tsv")
+```
+
+```{r, fig.width=8, fig.height=5, echo=FALSE, warning=FALSE, message=FALSE, fig.cap="Absolute number of samples per tissue in which certain signature is detected as significantly enriched. "}
 tgroups = bioqc_tissue_set$DETECTED_TGROUP %>% unique()
 contam_all %>%
   filter(is_contaminated == TRUE) %>%
@@ -69,14 +86,15 @@ contam_all %>%
       xlab("detected signature") +
       background_grid() +
       facet_grid(dataset~.) + 
-      scale_fill_distiller(palette = "Blues", direction=1)
+      scale_fill_distiller(palette = "Blues", direction=1, guide=FALSE)
 
 ggsave("../results/figures/heterogeneity_main_res.pdf")
 ggsave("../results/figures/heterogeneity_main_res.png")
 ```
 
 
-```{r}
+We use bootstrapping (R package `boot`) to derive confidence intervals. 
+```{r, include=FALSE}
 stat_fun = function(df, i) {
   df = df[i, ]
   total = nrow(df)
@@ -91,24 +109,26 @@ bootstrap = function(df_group) {
 }
 
 contam_frac = contam_all %>%
+  bind_rows(contam_all %>% mutate(TGROUP = "all")) %>% 
   group_by(dataset, TGROUP, GSM) %>%
   summarise(sample_is_contaminated=any(is_contaminated)) %>% 
   group_by(dataset, TGROUP) %>% 
   do(bootstrap(.))
 ```
 
-```{r}
+```{r, echo=FALSE, warning=FALSE, fig.cap="fraction of heterogenous samples per tissue. "}
 contam_frac %>%
+  mutate(ci_low = max(ci_low, 0)) %>% 
   ggplot(aes(y=fraction, x=TGROUP)) + 
     geom_bar(aes(fill=dataset), stat="identity", position = "dodge") + 
     geom_errorbar(aes(ymin=ci_low, ymax=ci_high, fill=dataset), position='dodge') + 
     scale_fill_brewer(palette="Set1") + 
     theme(axis.text.x = element_text(angle = 90, hjust=1, vjust=.5)) + 
     xlab("tissue") + 
-    ylab("frac. heterogeneous samples")
+    ylab("frac. heterogeneous samples") + 
 
 ggsave("../results/figures/heterogeneity_fractions.pdf")
 ggsave("../results/figures/heterogeneity_fractions.png")
-
+write_tsv(contam_frac, path = "../results/heterogeneity_fractions.tsv")
 ```
 
