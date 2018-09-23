@@ -12,8 +12,6 @@ select = dplyr::select
 
 # Figures for publication
 
-## Contamination heatmaps
-
 ```{r load_data, include=FALSE}
 load('../results/data_processed.RData')
 load('../results/models.RData')

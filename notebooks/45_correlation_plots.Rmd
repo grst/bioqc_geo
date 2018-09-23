@@ -27,7 +27,9 @@ data_corr_datasets = list(
 )
 ```
 
-```{r data-corr-pvalues}
+# Results
+## Plots of scores for manual inspection 
+```{r data-corr-pvalues, include=FALSE}
 data_corr_datasets = foreach(
   dataset = data_corr_datasets,
   .final = function(x) setNames(x, names(data_corr_datasets))) %dopar% {
@@ -49,8 +51,7 @@ data_corr_datasets = foreach(
 
 ```
 
-
-```{r raw-scores, fig.width=48, fig.height=24}
+```{r raw-scores, fig.width=48, fig.height=24, include=FALSE}
 foreach(dataset = data_corr_datasets,
         name = names(data_corr_datasets)) %dopar% {
           dataset %>%
@@ -66,7 +67,7 @@ foreach(dataset = data_corr_datasets,
 ```
 
 
-```{r raw-corr-plots, fig.width=48, fig.height=24}
+```{r raw-corr-plots, fig.width=48, fig.height=24, include=FALSE}
 # tmp_cutoff = 0.05 / 10000 
 # ci = function(x, intercept, slope, sigma, sign=1) {
 #  x * slope + intercept + sign * qnorm(1-tmp_cutoff, mean=0, sd=sigma) 
@@ -87,7 +88,8 @@ foreach(dataset = data_corr_datasets,
 
 ```
 
-
+* Scores per tissue [[GEO](figures/scores_geo.png)] [[ARCHS4](figures/scores_archs4.png)]
+* Correlations per tissue [[GEO](figures/correlations_geo.png)] [[ARCHS4](figures/corrleations_archs4.png)]
 
 
 

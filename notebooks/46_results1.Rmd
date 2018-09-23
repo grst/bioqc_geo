@@ -33,6 +33,7 @@ datasets = list(
 )
 ```
 
+## Heterogeneity using GTEX signatures only
 ```{r heterogeneitygtex, cache=TRUE, include=FALSE}
 contam_count = foreach(dataset_name = names(datasets),
         dataset = datasets,
@@ -60,6 +61,7 @@ contam_count %>%
       background_grid()
 ```
 
+## Heterogeneity using all signatures
 ```{r heterogeneityall, fig.width=8, fig.height=24, echo=FALSE, fig.cap="Tissue heterogeneity assessed with the BioQC signatures. The annotated tissues are listed in rows, the significantly enriched signatures in columns. If a signature has been found to be significantly enriched in a sample, the sample will count towards the number indicated in the matrix. All contaminations per sample are included, *i.e.* a sample can appear multiple times in a row."}
 bioqc_signatures = selected_signatures %>% filter(str_detect(SIGNATURE, 'BIOQC')) %>% pull("SIGNATURE")
 chunks = cut_interval(1:length(bioqc_signatures), length=25, labels=FALSE)

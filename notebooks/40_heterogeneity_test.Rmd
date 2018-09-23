@@ -110,6 +110,7 @@ $$
 $$
 ```{r get-tau}
 tau = polyroot(c(FDR_THRES, -2, 1))[1]
+tau
 ```
 
 ```{r correlationexample, fig.width=12, fig.height=9, echo=FALSE, cache=FALSE, fig.cap="Examples of signature correlation. Panels A-C: correlation of the signature scores (y-axis) against the scores of a reference signature (x-axis). The purple line indicates the model fitted to the data, the shaded area the 3*sigma confidence interval. Points are colored according to whether they would be discarded already in the FDR-filtering step. (A) Brain scores of kidney samples against the scores of the kidney signature. There is virtually no correlation, nor are there outliers. Appraently, no kidney samples are contaminated with neuronal cells. (B) Liver scores of kidney samples against scores of the kidney signature. The samples are not correlated, however some outliers are detected which are samples potentially containing liver cells. (C) Cardiac muscle scores of skeletal muscle samples against skeletal muscle scores. The scores are highly correlated. While most of the poinst exceed the FDR threshold, they will not be classified as outliers because the elevated score can be explained with the correlation. Panels D and E show the boxplots of the scores of various signatures on kidney and heart samples respectively. "}

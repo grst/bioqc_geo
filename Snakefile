@@ -77,6 +77,8 @@ rule book:
   conda:
     "envs/bookdown.yml"
   shell:
+    "rm -f results/book/figures \n"
+    "ln -s ../figures results/book/figures \n"
     "cd notebooks && "
     "Rscript -e \"bookdown::render_book('index.Rmd')\""
 
@@ -181,7 +183,7 @@ rule upload_book:
   shell:
     """
     cd gh-pages && \
-    cp -R ../results/book/* ./ && \
+    cp -RL ../results/book/* ./ && \
     git add --all * && \
     git commit --allow-empty -m "update docs" && \
     git push origin gh-pages
