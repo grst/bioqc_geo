@@ -25,14 +25,14 @@
 <meta name="author" content="Gregor Sturm, Jitao David Zhang">
 
 
-<meta name="date" content="2018-07-29">
+<meta name="date" content="2018-09-22">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="redo-analysis-for-archs4.html">
+<link rel="prev" href="results.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -172,17 +172,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html"><i class="fa fa-check"></i><b>6</b> Testing for tissue heterogeneity</a><ul>
 <li class="chapter" data-level="6.1" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#sec:signatures"><i class="fa fa-check"></i><b>6.1</b> Tissue signatures</a></li>
 <li class="chapter" data-level="6.2" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#sec:data_selection"><i class="fa fa-check"></i><b>6.2</b> Data</a></li>
-<li class="chapter" data-level="6.3" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#testing-samples-for-heterogeneity"><i class="fa fa-check"></i><b>6.3</b> Testing samples for heterogeneity</a></li>
+<li class="chapter" data-level="6.3" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#testing-samples-for-heterogeneity"><i class="fa fa-check"></i><b>6.3</b> Testing samples for heterogeneity</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#determining-tau."><i class="fa fa-check"></i><b>6.3.1</b> Determining <span class="math inline">\(\tau\)</span>.</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>7</b> Results</a></li>
-<li class="chapter" data-level="8" data-path="redo-analysis-for-archs4.html"><a href="redo-analysis-for-archs4.html"><i class="fa fa-check"></i><b>8</b> Redo analysis for ARCHS4</a><ul>
-<li class="chapter" data-level="8.1" data-path="redo-analysis-for-archs4.html"><a href="redo-analysis-for-archs4.html#quick-plots-to-check-if-everything-is-ok"><i class="fa fa-check"></i><b>8.1</b> Quick plots to check if everything is ok</a></li>
-<li class="chapter" data-level="8.2" data-path="redo-analysis-for-archs4.html"><a href="redo-analysis-for-archs4.html#sample-count-by-tissue"><i class="fa fa-check"></i><b>8.2</b> Sample count by tissue</a></li>
-<li class="chapter" data-level="8.3" data-path="redo-analysis-for-archs4.html"><a href="redo-analysis-for-archs4.html#same-analysis"><i class="fa fa-check"></i><b>8.3</b> same analysis…</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="figures-for-publication.html"><a href="figures-for-publication.html"><i class="fa fa-check"></i><b>9</b> Figures for publication</a><ul>
-<li class="chapter" data-level="9.1" data-path="figures-for-publication.html"><a href="figures-for-publication.html#contamination-heatmaps"><i class="fa fa-check"></i><b>9.1</b> Contamination heatmaps</a></li>
+<li class="chapter" data-level="7" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>7</b> Results</a><ul>
+<li class="chapter" data-level="7.1" data-path="results.html"><a href="results.html#plots-of-scores-for-manual-inspection"><i class="fa fa-check"></i><b>7.1</b> Plots of scores for manual inspection</a></li>
+<li class="chapter" data-level="7.2" data-path="results.html"><a href="results.html#heterogeneity-using-gtex-signatures-only"><i class="fa fa-check"></i><b>7.2</b> Heterogeneity using GTEX signatures only</a></li>
+<li class="chapter" data-level="7.3" data-path="results.html"><a href="results.html#heterogeneity-using-all-signatures"><i class="fa fa-check"></i><b>7.3</b> Heterogeneity using all signatures</a></li>
 </ul></li>
+<li class="chapter" data-level="8" data-path="figures-for-publication.html"><a href="figures-for-publication.html"><i class="fa fa-check"></i><b>8</b> Figures for publication</a></li>
 </ul>
 
       </nav>
@@ -201,86 +200,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="figures-for-publication" class="section level1">
-<h1><span class="header-section-number">9</span> Figures for publication</h1>
-<div id="contamination-heatmaps" class="section level2">
-<h2><span class="header-section-number">9.1</span> Contamination heatmaps</h2>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="kw">load</span>(<span class="st">&#39;../results/data_processed.RData&#39;</span>)</a>
-<a class="sourceLine" id="cb34-2" data-line-number="2"><span class="kw">load</span>(<span class="st">&#39;../results/models.RData&#39;</span>)</a>
-<a class="sourceLine" id="cb34-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb34-4" data-line-number="4">contam_count_array =<span class="st"> </span>data_corr <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb34-5" data-line-number="5"><span class="st">  </span><span class="kw">filter</span>(pcorr_adj <span class="op">&lt;</span><span class="st"> </span>P_THRES) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb34-6" data-line-number="6"><span class="st">  </span><span class="kw">group_by</span>(TGROUP, SIGNATURE) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb34-7" data-line-number="7"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">cnt =</span> <span class="kw">n_distinct</span>(GSM))</a>
-<a class="sourceLine" id="cb34-8" data-line-number="8">data_corr_array =<span class="st"> </span>data_corr</a>
-<a class="sourceLine" id="cb34-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb34-10" data-line-number="10"><span class="kw">load</span>(<span class="st">&#39;../results/archs4/archs4_data_processed.RData&#39;</span>)</a>
-<a class="sourceLine" id="cb34-11" data-line-number="11"><span class="kw">load</span>(<span class="st">&#39;../results/archs4/archs4_models.RData&#39;</span>)</a>
-<a class="sourceLine" id="cb34-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb34-13" data-line-number="13">contam_count_ngs =<span class="st"> </span>data_corr <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb34-14" data-line-number="14"><span class="st">  </span><span class="kw">filter</span>(pcorr_adj <span class="op">&lt;</span><span class="st"> </span>P_THRES) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb34-15" data-line-number="15"><span class="st">  </span><span class="kw">group_by</span>(TGROUP, SIGNATURE) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb34-16" data-line-number="16"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">cnt =</span> <span class="kw">n_distinct</span>(GSM))</a>
-<a class="sourceLine" id="cb34-17" data-line-number="17">data_corr_ngs =<span class="st"> </span>data_corr</a></code></pre></div>
-<p>same as in the section before, but all bioqc signatures aggregated by tissue groups.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1">bioqc_tissue_set =<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;../data/bioqc_geo_oracle_dump/BIOQC_TISSUE_SET_DATA_TABLE.csv&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb35-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(TISSUE_SET <span class="op">==</span><span class="st"> &#39;bioqc_all&#39;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb35-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(<span class="dt">SIG_ID=</span>SIGNATURE, <span class="dt">DETECTED_TGROUP=</span>TGROUP)</a></code></pre></div>
-<pre><code>## Parsed with column specification:
-## cols(
-##   SIGNATURE = col_integer(),
-##   TISSUE = col_character(),
-##   TGROUP = col_character(),
-##   TISSUE_SET = col_character()
-## )</code></pre>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">bioqc_all =<span class="st"> </span>selected_signatures <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb37-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(SIGNATURE, <span class="st">&#39;BIOQC&#39;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb37-3" data-line-number="3"><span class="st">  </span><span class="kw">pull</span>(<span class="st">&quot;SIGNATURE&quot;</span>)</a>
-<a class="sourceLine" id="cb37-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb37-5" data-line-number="5">contam_count_ngs_tgroup =<span class="st"> </span>data_corr_ngs <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb37-6" data-line-number="6"><span class="st">  </span><span class="kw">inner_join</span>(bioqc_signatures, <span class="dt">by=</span><span class="kw">c</span>(<span class="st">&quot;SIGNATURE&quot;</span>=<span class="st">&quot;SIG_NAME&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb37-7" data-line-number="7"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">SIG_ID=</span>ID) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb37-8" data-line-number="8"><span class="st">  </span><span class="kw">inner_join</span>(bioqc_tissue_set) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb37-9" data-line-number="9"><span class="st">  </span><span class="kw">filter</span>(pcorr_adj <span class="op">&lt;</span><span class="st"> </span>P_THRES) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb37-10" data-line-number="10"><span class="st">  </span><span class="kw">group_by</span>(TGROUP, DETECTED_TGROUP) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb37-11" data-line-number="11"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">cnt =</span> <span class="kw">n_distinct</span>(GSM))</a></code></pre></div>
-<pre><code>## Joining, by = &quot;SIG_ID&quot;</code></pre>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">contam_count_array_tgroup =<span class="st"> </span>data_corr_array <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb39-2" data-line-number="2"><span class="st">  </span><span class="kw">inner_join</span>(bioqc_signatures, <span class="dt">by=</span><span class="kw">c</span>(<span class="st">&quot;SIGNATURE&quot;</span>=<span class="st">&quot;SIG_NAME&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb39-3" data-line-number="3"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">SIG_ID=</span>ID) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb39-4" data-line-number="4"><span class="st">  </span><span class="kw">inner_join</span>(bioqc_tissue_set) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb39-5" data-line-number="5"><span class="st">  </span><span class="kw">filter</span>(pcorr_adj <span class="op">&lt;</span><span class="st"> </span>P_THRES) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb39-6" data-line-number="6"><span class="st">  </span><span class="kw">group_by</span>(TGROUP, DETECTED_TGROUP) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb39-7" data-line-number="7"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">cnt =</span> <span class="kw">n_distinct</span>(GSM))</a></code></pre></div>
-<pre><code>## Joining, by = &quot;SIG_ID&quot;</code></pre>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">tgroups =<span class="st"> </span>bioqc_tissue_set<span class="op">$</span>DETECTED_TGROUP <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unique</span>()</a>
-<a class="sourceLine" id="cb41-2" data-line-number="2">contam_count_ngs_tgroup <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb41-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">factor</span>(DETECTED_TGROUP, <span class="dt">levels=</span>tgroups), <span class="dt">y=</span>TGROUP)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb41-4" data-line-number="4"><span class="st">      </span><span class="kw">geom_tile</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> cnt <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb41-5" data-line-number="5"><span class="st">      </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label=</span>cnt)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb41-6" data-line-number="6"><span class="st">      </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">hjust =</span> <span class="dv">1</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb41-7" data-line-number="7"><span class="st">      </span><span class="kw">scale_x_discrete</span>(<span class="dt">drop=</span><span class="ot">FALSE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb41-8" data-line-number="8"><span class="st">      </span><span class="kw">ylab</span>(<span class="st">&quot;reference tissue&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb41-9" data-line-number="9"><span class="st">      </span><span class="kw">xlab</span>(<span class="st">&quot;detected signature&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb41-10" data-line-number="10"><span class="st">      </span><span class="kw">background_grid</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb41-11" data-line-number="11"><span class="st">      </span><span class="kw">scale_fill_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;#ececff&quot;</span>))</a></code></pre></div>
-<p><img src="95_figures_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">tgroups =<span class="st"> </span>bioqc_tissue_set<span class="op">$</span>DETECTED_TGROUP <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unique</span>()</a>
-<a class="sourceLine" id="cb42-2" data-line-number="2">contam_count_array_tgroup <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb42-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">factor</span>(DETECTED_TGROUP, <span class="dt">levels=</span>tgroups), <span class="dt">y=</span>TGROUP)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb42-4" data-line-number="4"><span class="st">      </span><span class="kw">geom_tile</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> cnt <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb42-5" data-line-number="5"><span class="st">      </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label=</span>cnt)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb42-6" data-line-number="6"><span class="st">      </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">hjust =</span> <span class="dv">1</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb42-7" data-line-number="7"><span class="st">      </span><span class="kw">scale_x_discrete</span>(<span class="dt">drop=</span><span class="ot">FALSE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb42-8" data-line-number="8"><span class="st">      </span><span class="kw">ylab</span>(<span class="st">&quot;reference tissue&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb42-9" data-line-number="9"><span class="st">      </span><span class="kw">xlab</span>(<span class="st">&quot;detected signature&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb42-10" data-line-number="10"><span class="st">      </span><span class="kw">background_grid</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb42-11" data-line-number="11"><span class="st">      </span><span class="kw">scale_fill_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;#ececff&quot;</span>))</a></code></pre></div>
-<p><img src="95_figures_files/figure-html/unnamed-chunk-4-2.png" width="672" /></p>
+<h1><span class="header-section-number">8</span> Figures for publication</h1>
+<p>Same as in the section before, but all bioqc signatures aggregated by tissue groups.
+Additional, we define samples as being “severely heterogeneous”, if the reference signature,
+i.e. the signature that should be present according to the annotation, is not enriched at
+an unadjusted p-value &lt; 0.05.</p>
+<p>We use bootstrapping (R package <code>boot</code>) to derive confidence intervals.</p>
+<pre><code>## Saving 8 x 4.5 in image
+## Saving 8 x 4.5 in image</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">plot_grid</span>(p1, p2, <span class="dt">align =</span> <span class="st">&quot;v&quot;</span>, <span class="dt">nrow=</span><span class="dv">2</span>, <span class="dt">rel_heights =</span> <span class="kw">c</span>(.<span class="dv">5</span>, <span class="fl">.6</span>), <span class="dt">labels =</span> <span class="st">&quot;AUTO&quot;</span>, <span class="dt">axis=</span><span class="st">&quot;lr&quot;</span>)</a></code></pre></div>
+<p><img src="95_figures_files/figure-html/unnamed-chunk-6-1.png" width="768" /></p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="kw">ggsave</span>(<span class="st">&quot;../results/figures/heterogeneity_main.pdf&quot;</span>)</a></code></pre></div>
+<pre><code>## Saving 8 x 9 in image</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="kw">ggsave</span>(<span class="st">&quot;../results/figures/heterogeneity_main.png&quot;</span>)</a></code></pre></div>
+<pre><code>## Saving 8 x 9 in image</code></pre>
 
 <div id="refs" class="references">
 <div>
 <p>Gönen, Mithat. 2009. “Statistical aspects of gene signatures and molecular targets.” <em>Gastrointest Cancer Res</em> 3 (2 Suppl): 19–21. <a href="http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=2684735{\&amp;}tool=pmcentrez{\&amp;}rendertype=abstract" class="uri">http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=2684735{\&amp;}tool=pmcentrez{\&amp;}rendertype=abstract</a>.</p>
-</div>
 </div>
 </div>
 </div>
@@ -295,7 +232,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="redo-analysis-for-archs4.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="results.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>

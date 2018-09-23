@@ -25,7 +25,7 @@
 <meta name="author" content="Gregor Sturm, Jitao David Zhang">
 
 
-<meta name="date" content="2018-07-29">
+<meta name="date" content="2018-09-22">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -172,17 +172,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html"><i class="fa fa-check"></i><b>6</b> Testing for tissue heterogeneity</a><ul>
 <li class="chapter" data-level="6.1" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#sec:signatures"><i class="fa fa-check"></i><b>6.1</b> Tissue signatures</a></li>
 <li class="chapter" data-level="6.2" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#sec:data_selection"><i class="fa fa-check"></i><b>6.2</b> Data</a></li>
-<li class="chapter" data-level="6.3" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#testing-samples-for-heterogeneity"><i class="fa fa-check"></i><b>6.3</b> Testing samples for heterogeneity</a></li>
+<li class="chapter" data-level="6.3" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#testing-samples-for-heterogeneity"><i class="fa fa-check"></i><b>6.3</b> Testing samples for heterogeneity</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#determining-tau."><i class="fa fa-check"></i><b>6.3.1</b> Determining <span class="math inline">\(\tau\)</span>.</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>7</b> Results</a></li>
-<li class="chapter" data-level="8" data-path="redo-analysis-for-archs4.html"><a href="redo-analysis-for-archs4.html"><i class="fa fa-check"></i><b>8</b> Redo analysis for ARCHS4</a><ul>
-<li class="chapter" data-level="8.1" data-path="redo-analysis-for-archs4.html"><a href="redo-analysis-for-archs4.html#quick-plots-to-check-if-everything-is-ok"><i class="fa fa-check"></i><b>8.1</b> Quick plots to check if everything is ok</a></li>
-<li class="chapter" data-level="8.2" data-path="redo-analysis-for-archs4.html"><a href="redo-analysis-for-archs4.html#sample-count-by-tissue"><i class="fa fa-check"></i><b>8.2</b> Sample count by tissue</a></li>
-<li class="chapter" data-level="8.3" data-path="redo-analysis-for-archs4.html"><a href="redo-analysis-for-archs4.html#same-analysis"><i class="fa fa-check"></i><b>8.3</b> same analysis…</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="figures-for-publication.html"><a href="figures-for-publication.html"><i class="fa fa-check"></i><b>9</b> Figures for publication</a><ul>
-<li class="chapter" data-level="9.1" data-path="figures-for-publication.html"><a href="figures-for-publication.html#contamination-heatmaps"><i class="fa fa-check"></i><b>9.1</b> Contamination heatmaps</a></li>
+<li class="chapter" data-level="7" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>7</b> Results</a><ul>
+<li class="chapter" data-level="7.1" data-path="results.html"><a href="results.html#plots-of-scores-for-manual-inspection"><i class="fa fa-check"></i><b>7.1</b> Plots of scores for manual inspection</a></li>
+<li class="chapter" data-level="7.2" data-path="results.html"><a href="results.html#heterogeneity-using-gtex-signatures-only"><i class="fa fa-check"></i><b>7.2</b> Heterogeneity using GTEX signatures only</a></li>
+<li class="chapter" data-level="7.3" data-path="results.html"><a href="results.html#heterogeneity-using-all-signatures"><i class="fa fa-check"></i><b>7.3</b> Heterogeneity using all signatures</a></li>
 </ul></li>
+<li class="chapter" data-level="8" data-path="figures-for-publication.html"><a href="figures-for-publication.html"><i class="fa fa-check"></i><b>8</b> Figures for publication</a></li>
 </ul>
 
       </nav>
@@ -202,10 +201,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="setup-database" class="section level1">
 <h1><span class="header-section-number">4</span> Setup Database</h1>
-<p>In this chapter, we describe
-* how we use an SQL database system (DBS) to hold all data relevant for the study
-* the design of the database
-* how we load the data into the DBS</p>
+<p>In this chapter, we describe</p>
+<ul>
+<li>how we use an SQL database system (DBS) to hold all data relevant for the study</li>
+<li>the design of the database</li>
+<li>how we load the data into the DBS</li>
+</ul>
 <p>We store meta information for GEO samples and BioQC p-values in
 an Oracle 11g database. We combine the metadata from <a href="https://www.bioconductor.org/packages/release/bioc/vignettes/GEOmetadb/inst/doc/GEOmetadb.html">GEOmetadb</a>
 with tables to store signature scores generated with

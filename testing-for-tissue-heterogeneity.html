@@ -25,7 +25,7 @@
 <meta name="author" content="Gregor Sturm, Jitao David Zhang">
 
 
-<meta name="date" content="2018-07-29">
+<meta name="date" content="2018-09-22">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -172,17 +172,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html"><i class="fa fa-check"></i><b>6</b> Testing for tissue heterogeneity</a><ul>
 <li class="chapter" data-level="6.1" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#sec:signatures"><i class="fa fa-check"></i><b>6.1</b> Tissue signatures</a></li>
 <li class="chapter" data-level="6.2" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#sec:data_selection"><i class="fa fa-check"></i><b>6.2</b> Data</a></li>
-<li class="chapter" data-level="6.3" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#testing-samples-for-heterogeneity"><i class="fa fa-check"></i><b>6.3</b> Testing samples for heterogeneity</a></li>
+<li class="chapter" data-level="6.3" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#testing-samples-for-heterogeneity"><i class="fa fa-check"></i><b>6.3</b> Testing samples for heterogeneity</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#determining-tau."><i class="fa fa-check"></i><b>6.3.1</b> Determining <span class="math inline">\(\tau\)</span>.</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>7</b> Results</a></li>
-<li class="chapter" data-level="8" data-path="redo-analysis-for-archs4.html"><a href="redo-analysis-for-archs4.html"><i class="fa fa-check"></i><b>8</b> Redo analysis for ARCHS4</a><ul>
-<li class="chapter" data-level="8.1" data-path="redo-analysis-for-archs4.html"><a href="redo-analysis-for-archs4.html#quick-plots-to-check-if-everything-is-ok"><i class="fa fa-check"></i><b>8.1</b> Quick plots to check if everything is ok</a></li>
-<li class="chapter" data-level="8.2" data-path="redo-analysis-for-archs4.html"><a href="redo-analysis-for-archs4.html#sample-count-by-tissue"><i class="fa fa-check"></i><b>8.2</b> Sample count by tissue</a></li>
-<li class="chapter" data-level="8.3" data-path="redo-analysis-for-archs4.html"><a href="redo-analysis-for-archs4.html#same-analysis"><i class="fa fa-check"></i><b>8.3</b> same analysis…</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="figures-for-publication.html"><a href="figures-for-publication.html"><i class="fa fa-check"></i><b>9</b> Figures for publication</a><ul>
-<li class="chapter" data-level="9.1" data-path="figures-for-publication.html"><a href="figures-for-publication.html#contamination-heatmaps"><i class="fa fa-check"></i><b>9.1</b> Contamination heatmaps</a></li>
+<li class="chapter" data-level="7" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>7</b> Results</a><ul>
+<li class="chapter" data-level="7.1" data-path="results.html"><a href="results.html#plots-of-scores-for-manual-inspection"><i class="fa fa-check"></i><b>7.1</b> Plots of scores for manual inspection</a></li>
+<li class="chapter" data-level="7.2" data-path="results.html"><a href="results.html#heterogeneity-using-gtex-signatures-only"><i class="fa fa-check"></i><b>7.2</b> Heterogeneity using GTEX signatures only</a></li>
+<li class="chapter" data-level="7.3" data-path="results.html"><a href="results.html#heterogeneity-using-all-signatures"><i class="fa fa-check"></i><b>7.3</b> Heterogeneity using all signatures</a></li>
 </ul></li>
+<li class="chapter" data-level="8" data-path="figures-for-publication.html"><a href="figures-for-publication.html"><i class="fa fa-check"></i><b>8</b> Figures for publication</a></li>
 </ul>
 
       </nav>
@@ -237,12 +236,12 @@ identify their corresponding tissue across platforms and species.</p>
 <td align="left">liver</td>
 </tr>
 <tr class="even">
-<td align="left">GTEX_Pancreas</td>
-<td align="left">pancreas</td>
-</tr>
-<tr class="odd">
 <td align="left">GTEX_Muscle_Skeletal</td>
 <td align="left">skeletal muscle</td>
+</tr>
+<tr class="odd">
+<td align="left">GTEX_Pancreas</td>
+<td align="left">pancreas</td>
 </tr>
 <tr class="even">
 <td align="left">GTEX_Skin</td>
@@ -327,12 +326,12 @@ the remaining samples and studies after each filtering step.</p>
 <div id="testing-samples-for-heterogeneity" class="section level2">
 <h2><span class="header-section-number">6.3</span> Testing samples for heterogeneity</h2>
 <p>We tested for enrichment of
-97
+120
 selected signatures provided by BioQC, the
 9
 reference signatures generated by us and one random control signature of
 100 randomly drawn genes on all 51948 selected samples
-resulting in a list of 5610384 (sample, signature, pvalue) pairs.
+resulting in a list of 6805188 (sample, signature, pvalue) pairs.
 This process is described in detail in section <a href="sample-selection.html#sample-processing">5.2</a>.</p>
 <p>Our intention is to identify samples that show <em>tissue heterogeneity</em>,
 <em>i.e.</em> unintentional profiling of cells of other origin than the target tissue
@@ -359,9 +358,9 @@ for correlation with the reference signatures, we can still avoid
 false-positives, even if a signature is characteristic for a tissue
 histologically close to the annotated tissue.</p>
 <p>We therefore take the following approach to account for the correlation of signatures:
-A given sample <span class="math inline">\(s\)</span> annotated as tissue <span class="math inline">\(t\)</span> is tested for enrichment with signature <span class="math inline">\(k_{\text{test}}\)</span> resulting in a p-value <span class="math inline">\(p_{\text{test}}\)</span>. Let <span class="math inline">\(k_{\text{ref}}\)</span> be the reference signature associated with tissue <span class="math inline">\(t\)</span> and <span class="math inline">\(p_{\text{ref}}\)</span> the p-value of testing <span class="math inline">\(s\)</span> for enrichment of <span class="math inline">\(k_{\text{ref}}\)</span>.</p>
+A given sample <span class="math inline">\(s\)</span> annotated as tissue <span class="math inline">\(t\)</span> is tested for enrichment with signature <span class="math inline">\(k_{\text{test}}\)</span> resulting in a p-value <span class="math inline">\(p_{\text{test}}\)</span>. Let <span class="math inline">\(k_{\text{ref}}\)</span> be the reference signature associated with tissue <span class="math inline">\(t\)</span> and <span class="math inline">\(p_{\text{ref}}\)</span> the p-value of testing <span class="math inline">\(s\)</span> for enrichment of <span class="math inline">\(k_{\text{ref}}\)</span>. Let <span class="math inline">\(\tau\)</span> be a certain false discovery rate (FDR)-threshold.</p>
 <ol style="list-style-type: decimal">
-<li>If the Benjamini-Hochberg-adjusted <span class="math inline">\(p_{\text{test}} &gt;= 0.01\)</span>, we
+<li>If the Benjamini-Hochberg (BH)-adjusted <span class="math inline">\(p_{\text{test}} &gt;= \tau\)</span>, we
 assume that <span class="math inline">\(s\)</span> is not heterogenous; else continue.</li>
 <li>We fit a linear model using <code>rlm</code> from the <code>R</code> <code>MASS</code> package of
 <span class="math inline">\(|log10(p_{\text{test}})|\)</span> against <span class="math inline">\(|log10(p_{\text{ref}})|\)</span> for all samples
@@ -371,10 +370,27 @@ standard deviation of the residuals.</li>
 <li>We extract the residual <span class="math inline">\(r\)</span> corresponding to sample <span class="math inline">\(s\)</span>. We calculate the
 p-value <span class="math inline">\(p_{\text{corr}} = 1 - \text{CDF}_R(r)\)</span> where <span class="math inline">\(\text{CDF}_R\)</span> is the
 cumulative density function of <span class="math inline">\(\mathcal{N}(0, \sigma^2)\)</span>.</li>
-<li>If the Bonferroni-adjusted <span class="math inline">\(p_{\text{corr}} &lt; 0.01\)</span>, we reject the
+<li>If the BH-adjusted <span class="math inline">\(p_{\text{corr}} &lt; \tau\)</span>, we reject the
 hypothesis that <span class="math inline">\(k_{\text{test}}\)</span> is enriched only due to correlation and label
 the sample as heterogenous.</li>
 </ol>
+<div id="determining-tau." class="section level3">
+<h3><span class="header-section-number">6.3.1</span> Determining <span class="math inline">\(\tau\)</span>.</h3>
+<p>We desire an overall FDR of 0.01. Since we test in a two-step procedure, we choose a threshold <span class="math inline">\(\tau\)</span>, such that the
+overall FDR equals 0.01.</p>
+<p><span class="math display">\[
+\text{FDR} = \tau + (1-\tau) \tau
+\]</span>
+Explanation:
+Of all positives in step 1, there are, per definition, a fraction of <span class="math inline">\(\tau\)</span> false-positives and <span class="math inline">\(1-\tau\)</span> true-positives.
+To all positives, the step 2 test is applied. In addition to the false-positives from step 1, there is a fraction of <span class="math inline">\(\tau(1-\tau)\)</span> false-positives among the true-positives from step 1.</p>
+<p>Solving the equation yields:
+<span class="math display">\[
+0.01 = \tau + (1-\tau)\tau \Leftrightarrow 0 = \tau^2 - 2\tau + 0.01
+\]</span></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">tau =<span class="st"> </span><span class="kw">polyroot</span>(<span class="kw">c</span>(FDR_THRES, <span class="dv">-2</span>, <span class="dv">1</span>))[<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb20-2" data-line-number="2">tau</a></code></pre></div>
+<pre><code>## [1] 0.005012563-0i</code></pre>
 <div class="figure"><span id="fig:correlationexample"></span>
 <img src="40_heterogeneity_test_files/figure-html/correlationexample-1.png" alt="Examples of signature correlation. Panels A-C: correlation of the signature scores (y-axis) against the scores of a reference signature (x-axis). The purple line indicates the model fitted to the data, the shaded area the 3*sigma confidence interval. Points are colored according to whether they would be discarded already in the FDR-filtering step. (A) Brain scores of kidney samples against the scores of the kidney signature. There is virtually no correlation, nor are there outliers. Appraently, no kidney samples are contaminated with neuronal cells. (B) Liver scores of kidney samples against scores of the kidney signature. The samples are not correlated, however some outliers are detected which are samples potentially containing liver cells. (C) Cardiac muscle scores of skeletal muscle samples against skeletal muscle scores. The scores are highly correlated. While most of the poinst exceed the FDR threshold, they will not be classified as outliers because the elevated score can be explained with the correlation. Panels D and E show the boxplots of the scores of various signatures on kidney and heart samples respectively. " width="1152" />
 <p class="caption">
@@ -382,6 +398,7 @@ Figure 6.1: Examples of signature correlation. Panels A-C: correlation of the si
 </p>
 </div>
 
+</div>
 </div>
 </div>
             </section>
