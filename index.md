@@ -1,7 +1,7 @@
 ---
 title: "A prevalence of tissue heterogeneity in gene expression data: Supplementary Information"
 author: Gregor Sturm, Jitao David Zhang
-date: "2018-09-22"
+date: "2018-09-23"
 documentclass: book
 bibliography: bibliography.bib
 biblio-style: apalike
