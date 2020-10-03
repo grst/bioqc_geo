@@ -4,7 +4,7 @@ library(readr)
 library(MASS)
 source("config.R")
 library(cowplot)
-library(ggplot)
+library(ggplot2)
 library(boot)
 library(dplyr)
 select = dplyr::select
