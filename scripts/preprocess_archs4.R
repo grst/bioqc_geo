@@ -12,7 +12,7 @@ library(data.table)
 ## Make the data look the same like the dumps from the oracle database.
 
 ### Normalize tissue names.
-bioqc_gsm = read_csv("./data/bioqc_geo_oracle_dump/BIOQC_GSM_DATA_TABLE.csv")
+bioqc_gsm = read_csv("./data/bioqc_geo_oracle_dump/BIOQC_GSM_DATA_TABLE.csv", guess_max=1e6)
 normalize_tissue = read_csv("./data/bioqc_geo_oracle_dump/BIOQC_NORMALIZE_TISSUES_DATA_TABLE.csv")
 bioqc_tissue_set = read_csv("./data/bioqc_geo_oracle_dump/BIOQC_TISSUE_SET_DATA_TABLE.csv") %>%
   select(TISSUE, TGROUP, TISSUE_SET) %>%

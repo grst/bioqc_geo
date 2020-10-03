@@ -1,6 +1,7 @@
 ```{r, include=FALSE, message=FALSE}
 library(MASS)
 library(BioQC)
+library(ggplot2)
 library(stringr)
 library(gridExtra)
 library(dplyr)

@@ -9,6 +9,7 @@ library(cowplot)
 library(readxl)
 library(tidyr)
 library(foreach)
+library(ggplot)
 library(doMC)
 registerDoMC(cores=8)
 source("config.R")
@@ -18,13 +19,13 @@ source("config.R")
 load('../results/data_processed.RData')
 load('../results/models.RData')
 
-data_corr_array = data_corr 
+data_corr_array = data_corr
 total_array = data_corr$GSM %>% unique() %>% length()
 
 load('../results/archs4/archs4_data_processed.RData')
 load('../results/archs4/archs4_models.RData')
 
-data_corr_ngs = data_corr 
+data_corr_ngs = data_corr
 total_ngs = data_corr$GSM %>% unique() %>% length()
 
 datasets = list(
@@ -39,7 +40,7 @@ contam_count = foreach(dataset_name = names(datasets),
         dataset = datasets,
         .combine=bind_rows) %do% {
           contam_count = dataset %>%
-            filter(q_corr < TAU, qvalue < TAU) %>% 
+            filter(q_corr < TAU, qvalue < TAU) %>%
             group_by(TGROUP, SIGNATURE) %>%
             summarise(cnt = n_distinct(GSM)) %>%
             mutate(dataset=dataset_name)
@@ -54,10 +55,10 @@ contam_count %>%
       geom_text(aes(label=cnt)) +
       theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust=.5)) +
       scale_x_discrete(drop=FALSE) +
-      facet_wrap(~dataset) + 
+      facet_wrap(~dataset) +
       ylab("reference tissue") +
-      xlab("detected signature") + 
-      scale_fill_distiller(palette = "Blues", direction=1) + 
+      xlab("detected signature") +
+      scale_fill_distiller(palette = "Blues", direction=1) +
       background_grid()
 ```
 
@@ -70,18 +71,18 @@ foreach(dataset_name = names(datasets)) %do% {
           plots = lapply(unique(chunks), function(i) {
             tmp_signatures = bioqc_signatures[chunks==i]
             p = contam_count %>%
-              filter(dataset == dataset_name) %>% 
+              filter(dataset == dataset_name) %>%
               filter(SIGNATURE %in% tmp_signatures) %>%
               ggplot(aes(x=factor(SIGNATURE, levels=tmp_signatures), y=TGROUP)) +
               geom_tile(aes(fill = cnt)) +
               geom_text(aes(label=cnt), size=3) +
-              theme_bw() + 
+              theme_bw() +
               theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
               scale_x_discrete(drop=FALSE) +
               ylab("reference tissue") +
               xlab("detected signature") +
               theme(axis.text.x = element_text(angle = 45, hjust = 1, size=10)) +
-              background_grid(major = "xy", minor="xy") + 
+              background_grid(major = "xy", minor="xy") +
               scale_fill_distiller(palette = "Blues", direction=1, guide = FALSE)
             if(i ==  1) {
               p = p + ggtitle(dataset_name)

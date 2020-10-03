@@ -1,18 +1,15 @@
 channels:
   - conda-forge
-  - r
   - bioconda
-  - grst
 dependencies:
   # base packages
-  - r-base=3.4.1=4
-  - r-rcpp=0.12.15
+  - r-base<4
   # tidyverse
-  - r-tidyr=0.8.1
-  - r-dplyr=0.7.4
-  - r-tibble=1.4.2
-  - r-readr=1.1.1
-  - r-magrittr=1.5
+  - r-tidyr
+  - r-dplyr
+  - r-tibble
+  - r-readr
+  - r-magrittr
   # other
-  - r-data.table=1.11.4
+  - r-data.table
 

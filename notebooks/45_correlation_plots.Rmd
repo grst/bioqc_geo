@@ -9,6 +9,7 @@ library(cowplot)
 library(readxl)
 library(tidyr)
 library(foreach)
+library(ggplot2)
 library(doMC)
 registerDoMC()
 source("config.R")
@@ -28,7 +29,7 @@ data_corr_datasets = list(
 ```
 
 # Results
-## Plots of scores for manual inspection 
+## Plots of scores for manual inspection
 ```{r data-corr-pvalues, include=FALSE}
 data_corr_datasets = foreach(
   dataset = data_corr_datasets,
@@ -68,21 +69,21 @@ foreach(dataset = data_corr_datasets,
 
 
 ```{r raw-corr-plots, fig.width=48, fig.height=24, include=FALSE}
-# tmp_cutoff = 0.05 / 10000 
+# tmp_cutoff = 0.05 / 10000
 # ci = function(x, intercept, slope, sigma, sign=1) {
-#  x * slope + intercept + sign * qnorm(1-tmp_cutoff, mean=0, sd=sigma) 
+#  x * slope + intercept + sign * qnorm(1-tmp_cutoff, mean=0, sd=sigma)
 # }
 foreach(dataset = data_corr_datasets,
         name = names(data_corr_datasets)) %dopar% {
-          dataset %>% 
-            ggplot(aes(x=ref_score, y=score)) + 
-            geom_point(alpha=.35, size=.5, aes(color=sig_color)) + 
-            facet_grid(TGROUP~SIGNATURE) + 
-            geom_abline(aes(slope=slope, intercept=intercept), colour="red") + 
+          dataset %>%
+            ggplot(aes(x=ref_score, y=score)) +
+            geom_point(alpha=.35, size=.5, aes(color=sig_color)) +
+            facet_grid(TGROUP~SIGNATURE) +
+            geom_abline(aes(slope=slope, intercept=intercept), colour="red") +
             # geom_ribbon(aes(color="interval", ymax=ci(ref_score, intercept, slope, sigma, 1), ymin=ci(ref_score, intercept, slope, sigma, -1), alpha=.2, show.legend = TRUE)) +
-            theme_bw() + 
+            theme_bw() +
             ggtitle(str_c("Correlations for ", name))
-          
+
           ggsave(str_c("../results/figures/correlations_", name, ".png"), width=299, height=20, dpi=72, limitsize=FALSE)
         }
 

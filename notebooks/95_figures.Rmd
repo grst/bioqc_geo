@@ -4,6 +4,7 @@ library(readr)
 library(MASS)
 source("config.R")
 library(cowplot)
+library(ggplot)
 library(boot)
 library(dplyr)
 select = dplyr::select
@@ -16,20 +17,20 @@ select = dplyr::select
 load('../results/data_processed.RData')
 load('../results/models.RData')
 
-data_corr_array = data_corr 
+data_corr_array = data_corr
 total_array = data_corr$GSM %>% unique() %>% length()
 
 load('../results/archs4/archs4_data_processed.RData')
 load('../results/archs4/archs4_models.RData')
 
-data_corr_ngs = data_corr 
+data_corr_ngs = data_corr
 total_ngs = data_corr$GSM %>% unique() %>% length()
 
 ```
 
 Same as in the section before, but all bioqc signatures aggregated by tissue groups.
 Additional, we define samples as being "severely heterogeneous", if the reference signature,
-i.e. the signature that should be present according to the annotation, is not enriched at 
+i.e. the signature that should be present according to the annotation, is not enriched at
 an unadjusted p-value < `r SEVERE_THRES`.
 ```{r, include=FALSE}
 bioqc_tissue_set = read_csv("../data/bioqc_geo_oracle_dump/BIOQC_TISSUE_SET_DATA_TABLE.csv") %>%
@@ -44,31 +45,31 @@ contam_ngs_tgroup = data_corr_ngs %>%
   inner_join(bioqc_signatures, by=c("SIGNATURE"="SIG_NAME")) %>%
   rename(SIG_ID=ID) %>%
   inner_join(bioqc_tissue_set) %>%
-  mutate(is_contaminated=qvalue < TAU & q_corr < TAU & TGROUP != DETECTED_TGROUP) %>% 
-  mutate(is_severe=is_contaminated & REF_PVALUE >= SEVERE_THRES) %>% 
+  mutate(is_contaminated=qvalue < TAU & q_corr < TAU & TGROUP != DETECTED_TGROUP) %>%
+  mutate(is_severe=is_contaminated & REF_PVALUE >= SEVERE_THRES) %>%
   mutate(dataset = "ARCHS4")
 
 contam_array_tgroup = data_corr_array %>%
   inner_join(bioqc_signatures, by=c("SIGNATURE"="SIG_NAME")) %>%
   rename(SIG_ID=ID) %>%
   inner_join(bioqc_tissue_set) %>%
-  mutate(is_contaminated=qvalue < TAU & q_corr < TAU & TGROUP != DETECTED_TGROUP) %>% 
-  mutate(is_severe=is_contaminated & REF_PVALUE >= SEVERE_THRES) %>% 
+  mutate(is_contaminated=qvalue < TAU & q_corr < TAU & TGROUP != DETECTED_TGROUP) %>%
+  mutate(is_severe=is_contaminated & REF_PVALUE >= SEVERE_THRES) %>%
   mutate(dataset = "GEO")
 
 contam_all = bind_rows(contam_ngs_tgroup, contam_array_tgroup) %>% ungroup()
 ```
 
 ```{r export_files, include=FALSE}
-heterogeneity_res = contam_all %>% 
+heterogeneity_res = contam_all %>%
   select(dataset, GSM, TGROUP, REF_SIG, DETECTED_TGROUP, SIGNATURE, REF_PVALUE, PVALUE, qvalue, p_corr, q_corr, is_contaminated, is_severe) %>%
-  distinct() 
+  distinct()
 
-heterogeneity_res %>%  
+heterogeneity_res %>%
   write_tsv("../results/heterogeneity_results.tsv")
 
-heterogeneity_res %>%  
-  select(dataset, GSM, TGROUP, DETECTED_TGROUP, is_contaminated, is_severe) %>% 
+heterogeneity_res %>%
+  select(dataset, GSM, TGROUP, DETECTED_TGROUP, is_contaminated, is_severe) %>%
   distinct() %>%
   write_tsv("../results/heterogeneity_results_summary.tsv")
 ```
@@ -82,19 +83,19 @@ p2 = contam_all %>%
   ggplot(aes(x=factor(DETECTED_TGROUP, levels=tgroups), y=TGROUP)) +
       geom_tile(aes(fill=cnt)) +
       geom_text(aes(label=cnt), size=3) +
-      theme_bw() + 
+      theme_bw() +
       theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust=.5, size=10)) +
       scale_x_discrete(drop=FALSE) +
       ylab("reference tissue") +
       xlab("detected signature") +
       background_grid() +
-      facet_grid(dataset~.) + 
+      facet_grid(dataset~.) +
       scale_fill_distiller(palette = "Blues", direction=1, guide=FALSE)
 
 ```
 
 
-We use bootstrapping (R package `boot`) to derive confidence intervals. 
+We use bootstrapping (R package `boot`) to derive confidence intervals.
 ```{r, include=FALSE}
 stat_fun_contam = function(df, i) {
   df = df[i, ]
@@ -118,29 +119,29 @@ bootstrap = function(df_group) {
   tibble(type=c("heterogeneity", "severe heterogeneity"),
          fraction=c(boot_obj_contam$t0, boot_obj_severe$t0),
          ci_low = c(ci_comtam$basic[1,4], ci_severe$basic[1,4]),
-         ci_high = c(ci_comtam$basic[1, 5], ci_severe$basic[1,5])) 
+         ci_high = c(ci_comtam$basic[1, 5], ci_severe$basic[1,5]))
 }
 
 contam_frac = contam_all %>%
-  bind_rows(contam_all %>% mutate(TGROUP = "all")) %>% 
+  bind_rows(contam_all %>% mutate(TGROUP = "all")) %>%
   group_by(dataset, TGROUP, GSM) %>%
-  summarise(sample_is_contaminated=any(is_contaminated), sample_is_severe=any(is_severe)) %>% 
-  group_by(dataset, TGROUP) %>% 
-  do(bootstrap(.)) 
+  summarise(sample_is_contaminated=any(is_contaminated), sample_is_severe=any(is_severe)) %>%
+  group_by(dataset, TGROUP) %>%
+  do(bootstrap(.))
 ```
 
 ```{r, fig.width=8, fig.height=4.5, echo=FALSE, warning=FALSE, fig.cap="fraction of heterogenous samples per tissue. "}
 p1 = contam_frac %>%
-  ungroup() %>% 
-  ggplot(aes(y=fraction, x=TGROUP)) + 
-    geom_bar(aes(fill=dataset), stat="identity", position = "dodge") + 
-    geom_errorbar(aes(ymin=if_else(ci_low < 0, 0, ci_low), ymax=ci_high, fill=dataset), position='dodge') + 
-    scale_fill_brewer(palette="Set1") + 
+  ungroup() %>%
+  ggplot(aes(y=fraction, x=TGROUP)) +
+    geom_bar(aes(fill=dataset), stat="identity", position = "dodge") +
+    geom_errorbar(aes(ymin=if_else(ci_low < 0, 0, ci_low), ymax=ci_high, fill=dataset), position='dodge') +
+    scale_fill_brewer(palette="Set1") +
     theme(axis.text.x = element_text(angle = 90, hjust=1, vjust=.5),
           legend.position = "top",
-          axis.title=element_blank()) + 
-    facet_wrap(~type) + 
-    ylab("frac. heterogeneous samples") 
+          axis.title=element_blank()) +
+    facet_wrap(~type) +
+    ylab("frac. heterogeneous samples")
 
 ggsave("../results/figures/heterogeneity_fractions.pdf")
 ggsave("../results/figures/heterogeneity_fractions.png")
