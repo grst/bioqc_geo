@@ -39,14 +39,9 @@ DATA_FILES = [
   "data/bioqc_geo_oracle_dump/BIOQC_TMP_GSE_GPL_DATA_TABLE.csv",
   "data/bioqc_geo_oracle_dump/BIOQC_SIGNATURE_SYMBOL_DATA_TABLE.csv",
   "data/bioqc_geo_oracle_dump/BIOQC_TISSUE_SET_DATA_TABLE.csv",
-  "data/paxdb/Jitao David Zhang - PAXDB-humanGregorGEOBioQC-cache.RData",
-  "data/paxdb/Jitao David Zhang - PAXDB-humanEset-phenoData.txt",
-  "data/paxdb/Jitao David Zhang - PAXDB-mouseGregorGEOBioQC-cache.RData",
-  "data/paxdb/Jitao David Zhang - PAXDB-mouseEset-phenoData.txt",
-  "data/archs4/Jitao David Zhang - ARCHS4-mouseGregorGEOBioQC-cache.RData",
-  "data/archs4/Jitao David Zhang - ARCHS4-humanEset-phenoData.txt",
-  "data/archs4/Jitao David Zhang - ARCHS4-humanGregorGEOBioQC-cache.RData",
-  "data/archs4/Jitao David Zhang - ARCHS4-mouseEset-phenoData.txt"
+  "data/archs4/archs4_meta_human.tsv",
+  "data/archs4/archs4_meta_mouse.tsv",
+  "data/archs4/bioqc_res_all.tsv"
 ]
 
 
@@ -103,10 +98,9 @@ rule preprocess_archs:
       "data/bioqc_geo_oracle_dump/BIOQC_GSM_DATA_TABLE.csv",
       "data/bioqc_geo_oracle_dump/BIOQC_NORMALIZE_TISSUES_DATA_TABLE.csv",
       "data/bioqc_geo_oracle_dump/BIOQC_TISSUE_SET_DATA_TABLE.csv",
-      "data/archs4/Jitao David Zhang - ARCHS4-humanGregorGEOBioQC-cache.RData",
-      "data/archs4/Jitao David Zhang - ARCHS4-mouseGregorGEOBioQC-cache.RData",
-      "data/archs4/Jitao David Zhang - ARCHS4-humanEset-phenoData.txt",
-      "data/archs4/Jitao David Zhang - ARCHS4-mouseEset-phenoData.txt"
+      "data/archs4/archs4_meta_human.tsv",
+      "data/archs4/archs4_meta_mouse.tsv",
+      "data/archs4/bioqc_res_all.tsv"
     output:
       "results/archs4/archs4_res.csv",
       "results/archs4/archs4_meta.csv"
@@ -209,11 +203,11 @@ rule _data_archive:
     Generate a data.tar.gz archive from data.in to publish on github.
     """
     input:
-      "data.in"
+      "data.in/"
     output:
       "results/data.tar.gz"
     shell:
-      "tar cvzf {output} data.in"
+      "tar hcvzf {output} data.in"
 
 
 def _clean():
