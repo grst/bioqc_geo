@@ -1,3 +1,12 @@
+---
+output:
+  pdf_document:  default
+bibliography: bibliography.bib
+biblio-style: apalike
+link-citations: yes
+colorlinks: yes
+---
+
 ```{r, include=FALSE, message=FALSE}
 library(MASS)
 library(BioQC)
@@ -11,34 +20,26 @@ library(readxl)
 source("config.R")
 ```
 
-```{r load_data, message=FALSE, include=FALSE, cache=TRUE}
+```{r load_data, message=FALSE, include=FALSE}
 load('../results/data_processed.RData')
 load('../results/models.RData')
 ```
+
 # Testing for tissue heterogeneity
+
 ## Tissue signatures {#sec:signatures}
+
 In section \@ref(validating-signatures), we identified a set of
 9 *reference signatures* (table \@ref(tab:refsig)) which unambiguously
-identify their corresponding tissue across platforms and species.
+identify their corresponding tissue across platforms and species. In addition to that, 
+we use 120 tissue signatures from the BioQC publication, which we refer to as *query signatures*. 
 
 ```{r refsig, cache=TRUE, echo=FALSE}
-load('../results/data_processed.RData')
 tmp_ref_sig = reference_signatures
 colnames(tmp_ref_sig) = c("Reference Signature", "Tissue")
 knitr::kable(tmp_ref_sig, caption="reference signatures")
 ```
 
-## Data {#sec:data_selection}
-
-In section \@ref(sample-selection) we show in detail, how we obtain
-and filter data from the Gene Expression Omnibus.
-Table \@ref(tab:filteringprocess) shows a summary of this process, listing
-the remaining samples and studies after each filtering step.
-
-```{r filteringprocess, echo=FALSE}
-filtering = read_excel("../tables/data_filtering.xls")
-knitr::kable(filtering, caption="Selecting samples from GEO")
-```
 
 ## Testing samples for heterogeneity
 We tested for enrichment of
@@ -52,7 +53,7 @@ This process is described in detail in section \@ref(sample-processing).
 
 Our intention is to identify samples that show *tissue heterogeneity*,
 *i.e.* unintentional profiling of cells of other origin than the target tissue
-of profiling. We classify samples as *not heterogenous* or *heterogenous*.
+of profiling. We classify samples into *heterogenous* and *not heterogenous*.
 We call a classification *true-positive* if the given sample is classified
 as *heterogenous* and the sample indeed contains cells different from the
 annotated tissues. Analogous, we call a classification *false-positive*
@@ -80,7 +81,7 @@ histologically close to the annotated tissue.
 We therefore take the following approach to account for the correlation of signatures:
 A given sample $s$ annotated as tissue $t$ is tested for enrichment with signature $k_{\text{test}}$ resulting in a p-value $p_{\text{test}}$. Let $k_{\text{ref}}$ be the reference signature associated with tissue $t$ and $p_{\text{ref}}$ the p-value of testing $s$ for enrichment of $k_{\text{ref}}$. Let $\tau$ be a certain false discovery rate (FDR)-threshold.
 
-(1) If the Benjamini-Hochberg (BH)-adjusted $p_{\text{test}} >= \tau$, we
+(1) If the Benjamini-Hochberg (BH)-adjusted $p_{\text{test}} \ge \tau$, we
 assume that $s$ is not heterogenous; else continue.
 (2) We fit a linear model using `rlm` from the `R` `MASS` package of
 $|log10(p_{\text{test}})|$ against $|log10(p_{\text{ref}})|$ for all samples
@@ -114,7 +115,7 @@ tau = polyroot(c(FDR_THRES, -2, 1))[1]
 tau
 ```
 
-```{r correlationexample, fig.width=12, fig.height=9, echo=FALSE, cache=FALSE, fig.cap="Examples of signature correlation. Panels A-C: correlation of the signature scores (y-axis) against the scores of a reference signature (x-axis). The purple line indicates the model fitted to the data, the shaded area the 3*sigma confidence interval. Points are colored according to whether they would be discarded already in the FDR-filtering step. (A) Brain scores of kidney samples against the scores of the kidney signature. There is virtually no correlation, nor are there outliers. Appraently, no kidney samples are contaminated with neuronal cells. (B) Liver scores of kidney samples against scores of the kidney signature. The samples are not correlated, however some outliers are detected which are samples potentially containing liver cells. (C) Cardiac muscle scores of skeletal muscle samples against skeletal muscle scores. The scores are highly correlated. While most of the poinst exceed the FDR threshold, they will not be classified as outliers because the elevated score can be explained with the correlation. Panels D and E show the boxplots of the scores of various signatures on kidney and heart samples respectively. "}
+```{r correlationexample, fig.width=12, fig.height=9, echo=FALSE, cache=FALSE, fig.cap="Examples of signature correlation. Panels A-C: correlation of the signature scores (y-axis) against the scores of a reference signature (x-axis). The purple line indicates the model fitted to the data. Points falling into the shaded area can be explained by the linear model. Points are colored according to whether they would be discarded already in the FDR-filtering step. (A) Brain scores of kidney samples against the scores of the kidney signature. There is virtually no correlation, nor are there outliers. Appraently, no kidney samples are contaminated with neuronal cells. (B) Liver scores of kidney samples against scores of the kidney signature. The samples are not correlated, however some outliers are detected which are samples potentially containing liver cells. (C) Cardiac muscle scores of skeletal muscle samples against skeletal muscle scores. The scores are highly correlated. While most of the poinst exceed the FDR threshold, they will not be classified as outliers because the elevated score can be explained with the correlation. Panels D and E show the boxplots of the scores of various signatures on kidney and heart samples respectively. ", out.width="100%"}
 # pairs of signatures we investigate.
 pairs = list(c('GTEX_Brain', 'GTEX_Kidney'),
              c('GTEX_Liver', 'GTEX_Kidney'),
@@ -139,7 +140,7 @@ plots = lapply(pairs, function(pair) {
   plots = list()
   tmp_data = data2 %>%
       filter(SIGNATURE == sig, REF_SIG == ref) %>%
-      mutate("fdr_cutoff" = ifelse(qvalue < FDR_THRES, paste("< ", FDR_THRES), paste(">= ", FDR_THRES)))
+      mutate("fdr_cutoff" = ifelse(qvalue < FDR_THRES, "< T", ">= T"))
   tmp_model = rlm(tmp_data$score~tmp_data$ref_score)
   tmp_resid = resid(tmp_model)
   tmp_sigma = sigma(tmp_model)
@@ -154,11 +155,11 @@ plots = lapply(pairs, function(pair) {
   plots[['corr']] = ggplot(tmp_data, aes(x = ref_score, y = score)) +
         geom_point(aes(colour=fdr_cutoff)) +
         geom_abline(aes(colour="rlm fit", intercept = tmp_coef[1], slope = tmp_coef[2]), show.legend = TRUE) +
-        geom_ribbon(aes(colour="3*sigma", ymax=ci(ref_score, 3*tmp_sigma), ymin=ci(ref_score, -3*tmp_sigma)), alpha=.2, show.legend = TRUE) +
+        geom_ribbon(aes(colour="lm cutoff", ymax=ci(ref_score, 3*tmp_sigma), ymin=ci(ref_score, -3*tmp_sigma)), alpha=.2, show.legend = TRUE) +
         xlab(paste(ref)) +
         ylab(paste(sig)) +
         coord_cartesian(ylim = c(0, 30)) +
-        annotate("text", label=paste("slope = ", round(tmp_coef[2], 5)), x=15, y=30)
+        annotate("text", label=paste("slope = ", round(tmp_coef[2], 5)), x=15, y=30)  + theme_cowplot()
 
   # # residue qq plot (only use 10%-90% quantile due to outliers)
   # tmp_resid_quantile = tmp_resid[tmp_resid > quantile(tmp_resid, .1) & tmp_resid < quantile(tmp_resid, .9)]
@@ -172,9 +173,10 @@ plots = lapply(pairs, function(pair) {
     filter(REF_SIG == ref, str_detect(SIGNATURE, 'GTEX')) %>%
     ggplot(aes(x = SIGNATURE, y = score)) +
       geom_boxplot() +
-      theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
       ggtitle(ref) +
-      xlab("signature")
+      xlab("signature") + theme_cowplot() +
+      theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
 
   return(plots)
 })

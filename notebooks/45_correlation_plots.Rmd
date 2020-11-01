@@ -15,7 +15,7 @@ registerDoMC()
 source("config.R")
 ```
 
-```{r load_data, message=FALSE, include=FALSE, cache=TRUE}
+```{r load_data, message=FALSE, include=FALSE, cache=FALSE}
 # load('../results/data_processed.RData')
 load('../results/archs4/archs4_models.RData')
 data_corr_archs4 = data_corr

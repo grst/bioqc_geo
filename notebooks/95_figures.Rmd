@@ -130,7 +130,7 @@ contam_frac = contam_all %>%
   do(bootstrap(.))
 ```
 
-```{r, fig.width=8, fig.height=4.5, echo=FALSE, warning=FALSE, fig.cap="fraction of heterogenous samples per tissue. "}
+```{r, fig.width=8, fig.height=4.5, echo=FALSE, warning=FALSE, fig.cap="fraction of heterogenous samples per tissue. ", out.width="100%"}
 p1 = contam_frac %>%
   ungroup() %>%
   ggplot(aes(y=fraction, x=TGROUP)) +

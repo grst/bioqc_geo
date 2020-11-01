@@ -1,24 +1,23 @@
 ---
-title: "A prevalence of tissue heterogeneity in gene expression data: Supplementary Information"
-author: Gregor Sturm, Jitao David Zhang
+title: "Tissue heterogeneity is prevalent in gene expression studies (Supplementary Information)"
+author: Gregor Sturm, Markus List, Jitao David Zhang
 date: "`r Sys.Date()`"
 documentclass: book
 bibliography: bibliography.bib
 biblio-style: apalike
 link-citations: yes
 colorlinks: yes
-description: Systematically testing the GEO for tissue heterogeneity
+description: In this study, we systematically search GEO and ARCHS4 for cases of "tissue heterogeneity". 
 ---
 
-# BioQC GEO Analysis
+# About this document
 
 This document is supplementary information for
 
-> Sturm, G and Zhang, JD. A prevalence of tissue heterogeneity in gene
-> expression data. *Manuscript in preparation*.
+> Gregor Sturm, Markus List and Jitao David Zhang. Tissue heterogeneity is prevalent in gene expression studies 
 
 This document demonstrates step-by-step how we generated and validated
 tissue signatures, curated data and derive our results.
 
 The source code and instructions how to reproduce this study
-are available from GitHub: [grst/bioqc_geo](https://github.com/grst/bioqc_geo).
+are available [from GitHub](https://github.com/grst/bioqc_geo).
