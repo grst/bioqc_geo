@@ -75,14 +75,14 @@ rule book:
     "rm -f results/book/figures \n"
     "ln -s ../figures results/book/figures \n"
     "cd notebooks && "
-    "Rscript -e \"bookdown::render_book('index.Rmd')\""
+    "Rscript -e \"bookdown::render_book('index.Rmd', output_format=c('bookdown::gitbook', 'bookdown::pdf_document2'))\""
 
 
 rule data:
    """download data from archive"""
    input:
      # TODO change to github once published
-     HTTP.remote("www.cip.ifi.lmu.de/~sturmg/bioqc/data.tar.gz", allow_redirects=True)
+     HTTP.remote("https://github.com/grst/bioqc_geo/releases/download/data-0.1/data.tar.gz", allow_redirects=True)
    output:
      DATA_FILES
    shell:
