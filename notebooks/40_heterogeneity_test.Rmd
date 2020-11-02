@@ -20,7 +20,7 @@ library(readxl)
 source("config.R")
 ```
 
-```{r load_data, message=FALSE, include=FALSE}
+```{r loaddata, message=FALSE, include=FALSE}
 load('../results/data_processed.RData')
 load('../results/models.RData')
 ```
@@ -110,7 +110,7 @@ Solving the equation yields:
 $$
 `r FDR_THRES` = \tau + (1-\tau)\tau \Leftrightarrow 0 = \tau^2 - 2\tau + `r FDR_THRES`
 $$
-```{r get-tau}
+```{r gettau}
 tau = polyroot(c(FDR_THRES, -2, 1))[1]
 tau
 ```

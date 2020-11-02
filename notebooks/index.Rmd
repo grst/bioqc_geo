@@ -2,7 +2,6 @@
 title: "Tissue heterogeneity is prevalent in gene expression studies (Supplementary Information)"
 author: Gregor Sturm, Markus List, Jitao David Zhang
 date: "`r Sys.Date()`"
-documentclass: book
 bibliography: bibliography.bib
 biblio-style: apalike
 link-citations: yes

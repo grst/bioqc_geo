@@ -13,7 +13,7 @@ select = dplyr::select
 
 # Figures for publication
 
-```{r load_data, include=FALSE}
+```{r loaddata, include=FALSE}
 load('../results/data_processed.RData')
 load('../results/models.RData')
 
@@ -60,7 +60,7 @@ contam_array_tgroup = data_corr_array %>%
 contam_all = bind_rows(contam_ngs_tgroup, contam_array_tgroup) %>% ungroup()
 ```
 
-```{r export_files, include=FALSE}
+```{r exportfiles, include=FALSE}
 heterogeneity_res = contam_all %>%
   select(dataset, GSM, TGROUP, REF_SIG, DETECTED_TGROUP, SIGNATURE, REF_PVALUE, PVALUE, qvalue, p_corr, q_corr, is_contaminated, is_severe) %>%
   distinct()
