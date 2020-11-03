@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3 Sample data and metadata | Tissue heterogeneity is prevalent in gene expression studies (Supplementary Information)</title>
+  <title>7 References | Tissue heterogeneity is prevalent in gene expression studies (Supplementary Information)</title>
   <meta name="description" content="In this study, we systematically search GEO and ARCHS4 for cases of “tissue heterogeneity”." />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3 Sample data and metadata | Tissue heterogeneity is prevalent in gene expression studies (Supplementary Information)" />
+  <meta property="og:title" content="7 References | Tissue heterogeneity is prevalent in gene expression studies (Supplementary Information)" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3 Sample data and metadata | Tissue heterogeneity is prevalent in gene expression studies (Supplementary Information)" />
+  <meta name="twitter:title" content="7 References | Tissue heterogeneity is prevalent in gene expression studies (Supplementary Information)" />
   
   <meta name="twitter:description" content="In this study, we systematically search GEO and ARCHS4 for cases of “tissue heterogeneity”." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="validating-signatures.html"/>
-<link rel="next" href="testing-for-tissue-heterogeneity.html"/>
+<link rel="prev" href="figures-for-publication.html"/>
+
 <script src="libs/header-attrs-2.4/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -179,68 +179,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="curating-data" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> Sample data and metadata</h1>
-<p>In this section, we describe how we obtained and curated gene expression data and sample metadata.</p>
-<div id="geo" class="section level2" number="3.1">
-<h2><span class="header-section-number">3.1</span> GEO</h2>
-<div id="downloading-geo-data" class="section level3" number="3.1.1">
-<h3><span class="header-section-number">3.1.1</span> Downloading GEO data</h3>
-<p>We retrieved sample metadata for GEO using the <a href="https://www.bioconductor.org/packages/release/bioc/vignettes/GEOmetadb/inst/doc/GEOmetadb.html">GEOmetadb</a> package.
-We download the studies with <a href="https://bioconductor.org/packages/release/bioc/html/GEOquery.html">GEOquery</a> and store them as R <a href="https://bioconductor.org/packages/devel/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf">ExpressionSet</a> using the R script <a href="https://github.com/grst/BioQC_GEO_analysis/blob/master/scripts/geo_to_eset.R">geo_to_eset.R</a>. We used the <code>annotGPL=TRUE</code> option of <a href="https://bioconductor.org/packages/release/bioc/html/GEOquery.html">GEOquery</a>’s <code>getGEO</code> function to obtain gene symbols for the studies, where available.
-Since the tissue signatures use human gene symbols, we added human orthologs for all mouse and rat samples using the <a href="https://github.com/Accio/ribios">ribiosAnnotation</a> package.</p>
-</div>
-<div id="filtering-geo-data" class="section level3" number="3.1.2">
-<h3><span class="header-section-number">3.1.2</span> Filtering GEO data</h3>
-<p>We filtered GEO samples by the following criteria:</p>
-<ol style="list-style-type: decimal">
-<li>the tissue or origin is annotated,</li>
-<li>gene symbols are annotated,</li>
-<li>the readout was performed on a single-channel microarray, and</li>
-<li>the tissue could be mapped to our <a href="curating-data.html#normalize-tissues">controlled vocabulary</a> (CV).</li>
-<li>We only retained samples from the three major organisms: human, rat and mouse.</li>
-<li>We removed studies which have been normalized per-gene and where ubiquitous house-keeping genes were not expressed.</li>
-<li>Finally, we only retained samples originating from tissues for which a <em>reference signature</em> is available.</li>
-</ol>
-<div class="figure" style="text-align: center"><span id="fig:funnelgeo"></span>
-<img src="../figures/funnel_geo.png" alt="Summary of filtering steps on GEO samples" width="40%" />
-<p class="caption">
-Figure 3.1: Summary of filtering steps on GEO samples
-</p>
-</div>
-</div>
-</div>
-<div id="archs4" class="section level2" number="3.2">
-<h2><span class="header-section-number">3.2</span> ARCHS4</h2>
-<p>In addition to GEO, we used data from
-<a href="https://amp.pharm.mssm.edu/archs4/">ARCHS4</a>, a publicly available data
-collection of annotaed, consistently processed gene expression datasets based
-on RNA-sequencing. We downloaded gene expression and metadata as <code>RData</code> objects
-from the <a href="https://amp.pharm.mssm.edu/archs4/download.html">ARCHS4 website</a> (version 8.0).</p>
-<p>We filtered samples by the following criteria:</p>
-<ol style="list-style-type: decimal">
-<li>The library is a transcriptomic cDNA library, the library strategy is RNA-seq, and either polyA or total RNA were extracted.</li>
-<li>We excluded single-cell RNA-seq samples (none of the annotation fields may contain the keywords “single-cell”, “single cell” or “smartseq”)</li>
-<li>At least 500,000 reads could be mapped to genes.</li>
-<li>The tissue could be mapped to our <a href="curating-data.html#normalize-tissues">controlled vocabulary</a> (CV).</li>
-<li>Finally, we only retained samples originating from tissues for which a <em>reference signature</em> is available.</li>
-</ol>
-<p>Gene counts were normalized into TPM values before analysing them with BioQC.</p>
-<div class="figure" style="text-align: center"><span id="fig:funnelarchs"></span>
-<img src="../figures/funnel_archs4.png" alt="Summary of filtering steps on ARCHS4 samples" width="40%" />
-<p class="caption">
-Figure 3.2: Summary of filtering steps on ARCHS4 samples
-</p>
-</div>
-</div>
-<div id="normalize-tissues" class="section level2" number="3.3">
-<h2><span class="header-section-number">3.3</span> Normalize Tissue Names</h2>
-<p>The annotation of tissues is inconsistent within GEO. A “liver” sample can be termed <em>e.g.</em> “liver”, “liver biopsy” or “primary liver”. We, therefore, need a way to <em>normalize</em> the tissue name. We manually mapped the most abundant tissues to a controlled vocabulary in this <a href="https://github.com/grst/BioQC_GEO_analysis/blob/master/manual_annotation/tissue_annotation.xlsx">Excel sheet</a>.</p>
-<p>In order to find out which samples show <em>tissue heterogeniety</em>, we first need to define which signatures we would expect in a certain tissue. We mapped signatures to the respective tissue type in this
-<a href="https://github.com/grst/BioQC_GEO_analysis/blob/master/manual_annotation/tissue_annotation.xlsx">Excel sheet</a>. For example, we map the signatures <code>Intestine_Colon_cecum_NR_0.7_3</code> and <code>Intestine_Colon_NR_0.7_3</code> to <em>colon</em>.</p>
-<p>Since the “reference signatures” are not as specific as the annotation in the GEO, we created <em>tissue sets</em> to combine them into groups. For instance, it is hard to distinguish <em>jejunum</em> from <em>colon</em>, but easy to distinguish the two from other tissues. We therefore created a tissue set <em>intestine</em>, which contains both <em>jejunum</em> and <em>colon</em> and references all signatures associated with the two tissues. This information is part of the same <a href="https://github.com/grst/BioQC_GEO_analysis/blob/master/manual_annotation/tissue_annotation.xlsx">Excel sheet</a>.</p>
-<div style="page-break-after: always;"></div>
+<div id="references" class="section level1" number="7">
+<h1><span class="header-section-number">7</span> References</h1>
 
+<div id="refs" class="references hanging-indent">
+<div>
+<p>Gönen, Mithat. 2009. “Statistical aspects of gene signatures and molecular targets.” <em>Gastrointest Cancer Res</em> 3 (2 Suppl): 19–21. <a href="http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=2684735%7B\&amp;%7Dtool=pmcentrez%7B\&amp;%7Drendertype=abstract">http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=2684735{\&amp;}tool=pmcentrez{\&amp;}rendertype=abstract</a>.</p>
+</div>
+<div>
+<p>Zhang, Jitao David, Klas Hatje, Gregor Sturm, Clemens Broger, Martin Ebeling, Martine Burtin, Fabiola Terzi, Silvia Ines Pomposiello, and Laura Badi. 2017. “Detect tissue heterogeneity in gene expression data with BioQC.” <em>BMC Genomics</em> 18 (1): 277. <a href="https://doi.org/10.1186/s12864-017-3661-2">https://doi.org/10.1186/s12864-017-3661-2</a>.</p>
+</div>
 </div>
 </div>
             </section>
@@ -248,8 +196,8 @@ Figure 3.2: Summary of filtering steps on ARCHS4 samples
           </div>
         </div>
       </div>
-<a href="validating-signatures.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="testing-for-tissue-heterogeneity.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="figures-for-publication.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

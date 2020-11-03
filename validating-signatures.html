@@ -1,45 +1,49 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>A prevalence of tissue heterogeneity in gene expression data: Supplementary Information</title>
-  <meta name="description" content="Systematically testing the GEO for tissue heterogeneity">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Validating Tissue Signatures | Tissue heterogeneity is prevalent in gene expression studies (Supplementary Information)</title>
+  <meta name="description" content="In this study, we systematically search GEO and ARCHS4 for cases of “tissue heterogeneity”." />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="A prevalence of tissue heterogeneity in gene expression data: Supplementary Information" />
+  <meta property="og:title" content="2 Validating Tissue Signatures | Tissue heterogeneity is prevalent in gene expression studies (Supplementary Information)" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="Systematically testing the GEO for tissue heterogeneity" />
+  <meta property="og:description" content="In this study, we systematically search GEO and ARCHS4 for cases of “tissue heterogeneity”." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="A prevalence of tissue heterogeneity in gene expression data: Supplementary Information" />
+  <meta name="twitter:title" content="2 Validating Tissue Signatures | Tissue heterogeneity is prevalent in gene expression studies (Supplementary Information)" />
   
-  <meta name="twitter:description" content="Systematically testing the GEO for tissue heterogeneity" />
+  <meta name="twitter:description" content="In this study, we systematically search GEO and ARCHS4 for cases of “tissue heterogeneity”." />
   
 
-<meta name="author" content="Gregor Sturm, Jitao David Zhang">
+<meta name="author" content="Gregor Sturm, Markus List, Jitao David Zhang" />
 
 
-<meta name="date" content="2018-09-23">
+<meta name="date" content="2020-11-03" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html">
-<link rel="next" href="curating-data.html">
+<link rel="prev" href="index.html"/>
+<link rel="next" href="curating-data.html"/>
+<script src="libs/header-attrs-2.4/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -50,26 +54,26 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -78,9 +82,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -125,63 +129,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> BioQC GEO Analysis</a></li>
-<li class="chapter" data-level="2" data-path="validating-signatures.html"><a href="validating-signatures.html"><i class="fa fa-check"></i><b>2</b> Validating Tissue Signatures</a><ul>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About this document</a></li>
+<li class="chapter" data-level="2" data-path="validating-signatures.html"><a href="validating-signatures.html"><i class="fa fa-check"></i><b>2</b> Validating Tissue Signatures</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="validating-signatures.html"><a href="validating-signatures.html#data"><i class="fa fa-check"></i><b>2.1</b> Data</a></li>
 <li class="chapter" data-level="2.2" data-path="validating-signatures.html"><a href="validating-signatures.html#cross-validation-of-signatures-on-the-gtex-dataset"><i class="fa fa-check"></i><b>2.2</b> Cross-Validation of signatures on the GTEx dataset</a></li>
-<li class="chapter" data-level="2.3" data-path="validating-signatures.html"><a href="validating-signatures.html#solid-signatures"><i class="fa fa-check"></i><b>2.3</b> ‘solid’ signatures</a></li>
-<li class="chapter" data-level="2.4" data-path="validating-signatures.html"><a href="validating-signatures.html#cross-platform-cross-species-validation"><i class="fa fa-check"></i><b>2.4</b> Cross-Platform Cross-Species validation</a></li>
+<li class="chapter" data-level="2.3" data-path="validating-signatures.html"><a href="validating-signatures.html#reference-signatures"><i class="fa fa-check"></i><b>2.3</b> ‘Reference’ Signatures</a></li>
+<li class="chapter" data-level="2.4" data-path="validating-signatures.html"><a href="validating-signatures.html#cross-platform-cross-species-validation"><i class="fa fa-check"></i><b>2.4</b> Cross-Platform Cross-Species Validation</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="curating-data.html"><a href="curating-data.html"><i class="fa fa-check"></i><b>3</b> Curating Data</a><ul>
-<li class="chapter" data-level="3.1" data-path="curating-data.html"><a href="curating-data.html#selecting-samples-by-metadata"><i class="fa fa-check"></i><b>3.1</b> Selecting Samples by Metadata</a></li>
-<li class="chapter" data-level="3.2" data-path="curating-data.html"><a href="curating-data.html#normalize-tissues"><i class="fa fa-check"></i><b>3.2</b> Normalize Tissues</a></li>
-<li class="chapter" data-level="3.3" data-path="curating-data.html"><a href="curating-data.html#tissue-signatures"><i class="fa fa-check"></i><b>3.3</b> Map tissues to signatures</a></li>
+<li class="chapter" data-level="3" data-path="curating-data.html"><a href="curating-data.html"><i class="fa fa-check"></i><b>3</b> Sample data and metadata</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="curating-data.html"><a href="curating-data.html#geo"><i class="fa fa-check"></i><b>3.1</b> GEO</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="curating-data.html"><a href="curating-data.html#downloading-geo-data"><i class="fa fa-check"></i><b>3.1.1</b> Downloading GEO data</a></li>
+<li class="chapter" data-level="3.1.2" data-path="curating-data.html"><a href="curating-data.html#filtering-geo-data"><i class="fa fa-check"></i><b>3.1.2</b> Filtering GEO data</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="setup-database.html"><a href="setup-database.html"><i class="fa fa-check"></i><b>4</b> Setup Database</a><ul>
-<li class="chapter" data-level="4.1" data-path="setup-database.html"><a href="setup-database.html#tables-explained"><i class="fa fa-check"></i><b>4.1</b> Tables explained</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="setup-database.html"><a href="setup-database.html#geometadb"><i class="fa fa-check"></i><b>4.1.1</b> GEOmetadb</a></li>
-<li class="chapter" data-level="4.1.2" data-path="setup-database.html"><a href="setup-database.html#bioqc"><i class="fa fa-check"></i><b>4.1.2</b> BioQC</a></li>
+<li class="chapter" data-level="3.2" data-path="curating-data.html"><a href="curating-data.html#archs4"><i class="fa fa-check"></i><b>3.2</b> ARCHS4</a></li>
+<li class="chapter" data-level="3.3" data-path="curating-data.html"><a href="curating-data.html#normalize-tissues"><i class="fa fa-check"></i><b>3.3</b> Normalize Tissue Names</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="setup-database.html"><a href="setup-database.html#import-geometadb"><i class="fa fa-check"></i><b>4.2</b> Import GEOmetadb</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="setup-database.html"><a href="setup-database.html#fix-foreign-key-constraints"><i class="fa fa-check"></i><b>4.2.1</b> Fix foreign key constraints</a></li>
-<li class="chapter" data-level="4.2.2" data-path="setup-database.html"><a href="setup-database.html#extract-tissue-annotation"><i class="fa fa-check"></i><b>4.2.2</b> Extract Tissue annotation</a></li>
-<li class="chapter" data-level="4.2.3" data-path="setup-database.html"><a href="setup-database.html#load-annotation-information"><i class="fa fa-check"></i><b>4.2.3</b> Load annotation information</a></li>
-<li class="chapter" data-level="4.2.4" data-path="setup-database.html"><a href="setup-database.html#import-summary-statistics-for-each-study"><i class="fa fa-check"></i><b>4.2.4</b> Import summary statistics for each study</a></li>
-</ul></li>
-<li class="chapter" data-level="4.3" data-path="setup-database.html"><a href="setup-database.html#import-bioqc-data"><i class="fa fa-check"></i><b>4.3</b> Import BioQC data</a><ul>
-<li class="chapter" data-level="4.3.1" data-path="setup-database.html"><a href="setup-database.html#signatures"><i class="fa fa-check"></i><b>4.3.1</b> Signatures</a></li>
-<li class="chapter" data-level="4.3.2" data-path="setup-database.html"><a href="setup-database.html#tissue-annotation"><i class="fa fa-check"></i><b>4.3.2</b> Tissue Annotation</a></li>
-<li class="chapter" data-level="4.3.3" data-path="setup-database.html"><a href="setup-database.html#tissue-sets"><i class="fa fa-check"></i><b>4.3.3</b> Tissue Sets</a></li>
-<li class="chapter" data-level="4.3.4" data-path="setup-database.html"><a href="setup-database.html#import-bioqc-results"><i class="fa fa-check"></i><b>4.3.4</b> BioQC results</a></li>
+<li class="chapter" data-level="4" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html"><i class="fa fa-check"></i><b>4</b> Testing for tissue heterogeneity</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#sec:signatures"><i class="fa fa-check"></i><b>4.1</b> Tissue signatures</a></li>
+<li class="chapter" data-level="4.2" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#testing-samples-for-heterogeneity"><i class="fa fa-check"></i><b>4.2</b> Testing samples for heterogeneity</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#determining-tau."><i class="fa fa-check"></i><b>4.2.1</b> Determining <span class="math inline">\(\tau\)</span>.</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="sample-selection.html"><a href="sample-selection.html"><i class="fa fa-check"></i><b>5</b> Sample Selection and processing</a><ul>
-<li class="chapter" data-level="5.1" data-path="sample-selection.html"><a href="sample-selection.html#sample-preselection"><i class="fa fa-check"></i><b>5.1</b> Sample Preselection</a><ul>
-<li class="chapter" data-level="5.1.1" data-path="sample-selection.html"><a href="sample-selection.html#required-annotation"><i class="fa fa-check"></i><b>5.1.1</b> Required annotation</a></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#heterogeneity-using-gtex-signatures-only"><i class="fa fa-check"></i><b>5.1</b> Heterogeneity using GTEx signatures only</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#heterogeneity-using-all-signatures"><i class="fa fa-check"></i><b>5.2</b> Heterogeneity using all signatures</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="sample-selection.html"><a href="sample-selection.html#sample-processing"><i class="fa fa-check"></i><b>5.2</b> Sample Processing with BioQC</a></li>
-<li class="chapter" data-level="5.3" data-path="sample-selection.html"><a href="sample-selection.html#sample-post-selection"><i class="fa fa-check"></i><b>5.3</b> Sample Post-selection</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="sample-selection.html"><a href="sample-selection.html#excluding-multi-channel-microarrays"><i class="fa fa-check"></i><b>5.3.1</b> Excluding multi-channel microarrays</a></li>
-<li class="chapter" data-level="5.3.2" data-path="sample-selection.html"><a href="sample-selection.html#exclude-non-mapped-tissues"><i class="fa fa-check"></i><b>5.3.2</b> Exclude non-mapped tissues</a></li>
-<li class="chapter" data-level="5.3.3" data-path="sample-selection.html"><a href="sample-selection.html#select-organisms"><i class="fa fa-check"></i><b>5.3.3</b> Select organisms</a></li>
-<li class="chapter" data-level="5.3.4" data-path="sample-selection.html"><a href="sample-selection.html#quality-control"><i class="fa fa-check"></i><b>5.3.4</b> Quality control</a></li>
-<li class="chapter" data-level="5.3.5" data-path="sample-selection.html"><a href="sample-selection.html#tissue-abundance"><i class="fa fa-check"></i><b>5.3.5</b> Tissue abundance</a></li>
-</ul></li>
-<li class="chapter" data-level="5.4" data-path="sample-selection.html"><a href="sample-selection.html#archs4-rna-seq-data"><i class="fa fa-check"></i><b>5.4</b> ARCHS4 RNA-seq data</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html"><i class="fa fa-check"></i><b>6</b> Testing for tissue heterogeneity</a><ul>
-<li class="chapter" data-level="6.1" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#sec:signatures"><i class="fa fa-check"></i><b>6.1</b> Tissue signatures</a></li>
-<li class="chapter" data-level="6.2" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#sec:data_selection"><i class="fa fa-check"></i><b>6.2</b> Data</a></li>
-<li class="chapter" data-level="6.3" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#testing-samples-for-heterogeneity"><i class="fa fa-check"></i><b>6.3</b> Testing samples for heterogeneity</a><ul>
-<li class="chapter" data-level="6.3.1" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#determining-tau."><i class="fa fa-check"></i><b>6.3.1</b> Determining <span class="math inline">\(\tau\)</span>.</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>7</b> Results</a><ul>
-<li class="chapter" data-level="7.1" data-path="results.html"><a href="results.html#plots-of-scores-for-manual-inspection"><i class="fa fa-check"></i><b>7.1</b> Plots of scores for manual inspection</a></li>
-<li class="chapter" data-level="7.2" data-path="results.html"><a href="results.html#heterogeneity-using-gtex-signatures-only"><i class="fa fa-check"></i><b>7.2</b> Heterogeneity using GTEX signatures only</a></li>
-<li class="chapter" data-level="7.3" data-path="results.html"><a href="results.html#heterogeneity-using-all-signatures"><i class="fa fa-check"></i><b>7.3</b> Heterogeneity using all signatures</a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="figures-for-publication.html"><a href="figures-for-publication.html"><i class="fa fa-check"></i><b>8</b> Figures for publication</a></li>
+<li class="chapter" data-level="6" data-path="figures-for-publication.html"><a href="figures-for-publication.html"><i class="fa fa-check"></i><b>6</b> Figures for publication</a></li>
+<li class="chapter" data-level="7" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>7</b> References</a></li>
 </ul>
 
       </nav>
@@ -191,7 +171,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A prevalence of tissue heterogeneity in gene expression data: Supplementary Information</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Tissue heterogeneity is prevalent in gene expression studies (Supplementary Information)</a>
           </h1>
         </div>
 
@@ -199,21 +179,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="validating-signatures" class="section level1">
+<div id="validating-signatures" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Validating Tissue Signatures</h1>
 <p>The authors of <em>BioQC</em> have taken three independent approaches
-to show that their signatures are valid and biologically meaningful.
+to show that their signatures are valid and biologically meaningful <span class="citation">(Zhang et al. <a href="#ref-bioqc" role="doc-biblioref">2017</a>)</span>.
 (1) They checked the results for batch effects using surrogate
 variable analysis (SVR), (2) they ensured that the signatures
 are biologically meaningful by relating them to biological knowledge,
-and (3) used an independent method to derive the signatures, which yields comparable results.
-However, they did not break down the predictive performance
-(<em>i.e.</em> is the signature able to identify its tissue) of each signature
-with quantitative performance measures.</p>
+and (3) used an independent method to derive the signatures, which yields comparable results.</p>
 <p>However, they do not quantify the performance of the signatures using
 standardized performance measures, such as sensitivity and specificity.
 In principle, one can think of three methods to achieve such a
-validation <span class="citation">(Gönen <a href="#ref-Gonen2009">2009</a>)</span>: (1) internal validation, <em>i.e.</em> using the same
+validation <span class="citation">(Gönen <a href="#ref-Gonen2009" role="doc-biblioref">2009</a>)</span>: (1) internal validation, <em>i.e.</em> using the same
 data for generating and testing signatures, (2) split-sample validation,
 <em>i.e.</em> dividing the dataset in a test and training dataset and (3)
 independent-sample validation, <em>i.e.</em> using entirely unrelated samples
@@ -221,9 +198,10 @@ for training and testing. While method (2) might be acceptable if
 sufficient data is unavailable, only method (3) can ensure that the
 signature does not reflect experimental biases.</p>
 <p>To address this, we independently derived signatures on the
-<a href="http://gtexportal.org">GTEx</a> dataset using <em>gini-index</em> and performed
+<a href="http://gtexportal.org">GTEx</a> dataset using <em>gini-index</em> as
+<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5379536/">described previously</a> <span class="citation">(Zhang et al. <a href="#ref-bioqc" role="doc-biblioref">2017</a>)</span> and performed
 both a 10-fold cross validation on the same dataset and a cross-species,
-cross-platform validation on the <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE10246">mouseGNF</a>.
+cross-platform validation on the <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE10246">mouseGNF GeneAtlas</a>.
 To this end, we developed the python package <a href="https://github.com/grst/pygenesig">pygenesig</a>,
 a framework to create and validate signatures.</p>
 <p>In this chapter, we</p>
@@ -232,74 +210,77 @@ a framework to create and validate signatures.</p>
 <li>perform a cross-species, cross-platform validation of the signatures generated on the GTEx dataset</li>
 <li>identify a set of tissues, that can be reliably and unabmigously identified with the <em>BioQC</em> method.</li>
 </ul>
-<div id="data" class="section level2">
+<div id="data" class="section level2" number="2.1">
 <h2><span class="header-section-number">2.1</span> Data</h2>
 <ul>
 <li>The <a href="http://gtexportal.org"><strong>Genotype Tissue Expression (GTEx)</strong></a> project is a comprehensive resource of tissue-specific gene expression data. We use this dataset to derive tissue-specific signatures. The data is human only and was generated using Illumina sequencing.</li>
 <li>We use the <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE10246"><strong>GNF Mouse GeneAtlas V3</strong></a> as a control dataset to demonstrate that the gini-method is robust over multiple platforms and species. This dataset originates from mouse and was generated using the <em>Affymetrix Mouse Genome 430 2.0 Array (GPL1261)</em>.</li>
 </ul>
 </div>
-<div id="cross-validation-of-signatures-on-the-gtex-dataset" class="section level2">
+<div id="cross-validation-of-signatures-on-the-gtex-dataset" class="section level2" number="2.2">
 <h2><span class="header-section-number">2.2</span> Cross-Validation of signatures on the GTEx dataset</h2>
-<p>We use <a href="https://github.com/grst/pygenesig-pipeline">pygenesig-pipline</a> to create and validate signatures on the GTEx v6 dataset. The data preparation steps are performed using these <a href="https://github.com/grst/pygenesig-example/tree/d88e4a81a45e192527a84a4445094604deba580b/notebooks/prepare_data">jupyter notebooks</a>. The output of <em>pygenesig-pipeline</em> can be viewed <a href="https://github.com/grst/BioQC_GEO_analysis/blob/aa0fcd86bbdfbd49c9a4a10ce0be1c22895cc957/notebooks/gtex_v6_gini.ipynb">here</a>. Below, we summarize the prodecues described in these documents.</p>
+<p>We use <a href="https://github.com/grst/pygenesig">pygenesig</a> to create and validate signatures on the GTEx v6 dataset. The data preparation steps are performed using <a href="https://github.com/grst/pygenesig-example/tree/d88e4a81a45e192527a84a4445094604deba580b/notebooks/prepare_data">these jupyter notebooks</a>. The output of <em>pygenesig</em> can be viewed <a href="https://github.com/grst/BioQC_GEO_analysis/blob/aa0fcd86bbdfbd49c9a4a10ce0be1c22895cc957/notebooks/gtex_v6_gini.ipynb">here</a>. Below, we summarize the prodecues described in these documents.</p>
 <p>We obtained the gene expression data and sample annotation from the <a href="http://gtexportal.org">GTEx portal</a>. We collapsed gene expression data by HGNC symbol, aggregating by the sum.</p>
 <p>We performed a 10-fold cross-validation as follows:
-We split samples in 10 <a href="http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedKFold.html">stratified folds</a>, <em>i.e.</em> samples from all tissues are equally distributed across all folds. We use 9 folds to generate signatures using the <a href="https://grst.github.io/pygenesig/apidoc.html#module-pygenesig.gini">gini method</a> as described by the BioQC authors. These signatures were applied to the remaining fold using BioQC. We iterated over the folds such that each fold has been used for training and testing.</p>
+We split samples in 10 <a href="http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedKFold.html">stratified folds</a>, <em>i.e.</em> samples from all tissues are equally distributed across all folds. We use 9 folds to generate signatures using the <a href="https://grst.github.io/pygenesig/apidoc.html#module-pygenesig.gini">gini method</a> as described in the <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5379536/">BioQC paper</a>. These signatures were applied to the remaining fold using BioQC. We iterated over the folds such that each fold has been used for training and testing.</p>
 <p>The following heatmap shows the average BioQC score over all folds for each signature and each tissue.</p>
-<div class="figure"><span id="fig:unnamed-chunk-1"></span>
-<img src="signature_validation/gtex_v6_xval_scores.png" alt="cross-validation of GTEx tissue signatures. Signatures are shown on the y-axis, the corresponding groups of samples on the x-axis. The tile shading indicates the average BioQC score of a signature on a group of samples. For better visibility of low scores, the colors are saturated at 30."  />
+<div class="figure"><span id="fig:gtexxval"></span>
+<img src="signature_validation/gtex_v6_xval_scores.png" alt="cross-validation of GTEx tissue signatures. Signatures are shown on the y-axis, the corresponding groups of samples on the x-axis. The tile shading indicates the average BioQC score of a signature on a group of samples. For better visibility of low scores, the colors are saturated at 30." width="100%" />
 <p class="caption">
 Figure 2.1: cross-validation of GTEx tissue signatures. Signatures are shown on the y-axis, the corresponding groups of samples on the x-axis. The tile shading indicates the average BioQC score of a signature on a group of samples. For better visibility of low scores, the colors are saturated at 30.
 </p>
 </div>
 <p>As identifying contaminated/mislabled samples can be boiled down to a classification exercise, we are interested in the predictive performance of each signature. The following heatmap shows the confusion matrix of using the signatures for classification. A sample is considered as classified as a tissue, if the corresponding signature scores highest among all other signatures.</p>
-<div class="figure"><span id="fig:unnamed-chunk-2"></span>
-<img src="signature_validation/gtex_v6_xval_classification.png" alt="Confusion matrix of the cross-validation."  />
+<div class="figure"><span id="fig:gtexxvalclass"></span>
+<img src="signature_validation/gtex_v6_xval_classification.png" alt="Confusion matrix of the cross-validation." width="100%" />
 <p class="caption">
 Figure 2.2: Confusion matrix of the cross-validation.
 </p>
 </div>
 </div>
-<div id="solid-signatures" class="section level2">
-<h2><span class="header-section-number">2.3</span> ‘solid’ signatures</h2>
+<div id="reference-signatures" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> ‘Reference’ Signatures</h2>
 <p>From the above matrices we learn that, while the vast majority of signatures yield a high score in the corresponding tissue, an unambigous classification of tissues is only viable for a subset of tissues.
-For instance, the different brain regions are hard to distinguish and so are physiologically close tissues (e.g. large and small intestine).</p>
+For instance, the different brain regions are hard to distinguish, and so are physiologically close tissues (e.g. large and small intestine).</p>
 <p>Here, we reduce the dataset to a subset of tissues, which can be unambigously distinguished using the BioQC method (<em>i.e.</em> precision = recall = 1.0).</p>
 <p>We <a href="https://github.com/grst/pygenesig-example/blob/d88e4a81a45e192527a84a4445094604deba580b/manual_annotation/gtex_solid.csv">manually map</a>
-the tissues from GTEx to a reduced subset of tissue names. The data <a href="https://github.com/grst/pygenesig-example/blob/d88e4a81a45e192527a84a4445094604deba580b/notebooks/gtex_solid.ipynb">is prepared</a>
-to be ran using <em>pygenesig-pipeline</em>. The results are available in <a href="https://github.com/grst/BioQC_GEO_analysis/blob/b11987da13ba9b98eba34206f92942be8de6427e/signature_validation/gtex_v6_gini_solid.ipynb">this jupyter notebook</a>
+the tissues from GTEx to a reduced subset of tissue names. The results are available in <a href="https://github.com/grst/BioQC_GEO_analysis/blob/b11987da13ba9b98eba34206f92942be8de6427e/signature_validation/gtex_v6_gini_solid.ipynb">this jupyter notebook</a>
 and summarized below.</p>
 <p>Again, the following heatmap shows the confusion matrix.</p>
-<div class="figure"><span id="fig:unnamed-chunk-3"></span>
-<img src="signature_validation/gtex_v6_solid_xval_classification.png" alt="Confusion matrix of rosubst signatures."  />
+<div class="figure"><span id="fig:gtexconfmat"></span>
+<img src="signature_validation/gtex_v6_solid_xval_classification.png" alt="Confusion matrix of rosubst signatures." width="50%" />
 <p class="caption">
 Figure 2.3: Confusion matrix of rosubst signatures.
 </p>
 </div>
 <p>All tissues have been correctly identified at Precision = Recall = 1.0.</p>
 </div>
-<div id="cross-platform-cross-species-validation" class="section level2">
-<h2><span class="header-section-number">2.4</span> Cross-Platform Cross-Species validation</h2>
-<p>Arguably, in the above experiment, we could have built signatures based on human-specific genes, genes that can only be detected by a certain experimental platform or even experiment-specific batch effects instead of univerally translatable marker genes.</p>
-<p>To asses the translatability of the signatures, we tested the signatures generated above (human, Illumina sequencing) on the <em>mouseGNF tissue expression atlas</em> (mouse, Affymetrix microarray). Te procedure is described in <a href="https://github.com/grst/pygenesig-example/blob/80bfe2a388a5230b004c288cb2ea220f0394855d/notebooks/gtex_solid_vs_mouse_gnf.ipynb">this notebook</a>.</p>
+<div id="cross-platform-cross-species-validation" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Cross-Platform Cross-Species Validation</h2>
+<p>Arguably, in the above experiment, we could have built signatures based on human-specific genes, genes that can only be detected by a certain experimental platform, or even experiment-specific batch effects instead of universally translatable marker genes.</p>
+<p>To asses if the signatures translate across species and platforms, we tested the signatures generated above (human, Illumina sequencing) on the <em>mouseGNF tissue expression atlas</em> (mouse, Affymetrix microarray). The procedure is described in <a href="https://github.com/grst/pygenesig-example/blob/80bfe2a388a5230b004c288cb2ea220f0394855d/notebooks/gtex_solid_vs_mouse_gnf.ipynb">this notebook</a>.</p>
 <p>The following figure shows the score matrix of GTEx signatures against mouseGNF samples:</p>
-<div class="figure"><span id="fig:unnamed-chunk-4"></span>
-<img src="signature_validation/gtex_v6_solid_vs_mouse_gnf.png" alt="Cross-platform, cross-species validation of the robust signatures identified in the previous step."  />
+<div class="figure"><span id="fig:xspeciesval"></span>
+<img src="signature_validation/gtex_v6_solid_vs_mouse_gnf.png" alt="Cross-platform, cross-species validation of the robust signatures identified in the previous step." width="70%" />
 <p class="caption">
 Figure 2.4: Cross-platform, cross-species validation of the robust signatures identified in the previous step.
 </p>
 </div>
 <p>The signatures <em>Brain, Heart, Kidney, Liver, Skeletal Muscle, Pancreas, Skin</em> and <em>Testis</em> identify the respective tissue despite the species and platform differences at a high (&gt;5) BioQC score.</p>
 <p>As expected <em>Heart</em> and <em>Skeletal muscle</em> also identify each other, however <em>Heart</em> scores still higher on heart samples and <em>Skeletal muscle</em> scores higher on skeletal muscles samples, therefore we retain both signatures.</p>
-<p>Surprisingly, <em>Adrenal Gland</em>, <em>Ovary</em> and <em>Uterus</em> are not able to identify the respective samples, despite having a high score in the cross-validation. We therefore exclude these signatures from the ‘gtex solid’ signature set.</p>
+<p>Surprisingly, <em>Adrenal Gland</em>, <em>Ovary</em> and <em>Uterus</em> are not able to identify the respective samples, despite having a high score in the cross-validation. We therefore exclude these signatures from the reference signature set.</p>
 <p>Unfortunately, <em>Blood</em> was not profiled in the mouseGNF dataset. We keep the signature nonetheless as it does not trigger any false positives.</p>
+<div style="page-break-after: always;"></div>
 
 </div>
 </div>
-<h3>References</h3>
+<h3> References</h3>
 <div id="refs" class="references">
 <div id="ref-Gonen2009">
-<p>Gönen, Mithat. 2009. “Statistical aspects of gene signatures and molecular targets.” <em>Gastrointest Cancer Res</em> 3 (2 Suppl): 19–21. <a href="http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=2684735{\&amp;}tool=pmcentrez{\&amp;}rendertype=abstract" class="uri">http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=2684735{\&amp;}tool=pmcentrez{\&amp;}rendertype=abstract</a>.</p>
+<p>Gönen, Mithat. 2009. “Statistical aspects of gene signatures and molecular targets.” <em>Gastrointest Cancer Res</em> 3 (2 Suppl): 19–21. <a href="http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=2684735%7B\&amp;%7Dtool=pmcentrez%7B\&amp;%7Drendertype=abstract">http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=2684735{\&amp;}tool=pmcentrez{\&amp;}rendertype=abstract</a>.</p>
+</div>
+<div id="ref-bioqc">
+<p>Zhang, Jitao David, Klas Hatje, Gregor Sturm, Clemens Broger, Martin Ebeling, Martine Burtin, Fabiola Terzi, Silvia Ines Pomposiello, and Laura Badi. 2017. “Detect tissue heterogeneity in gene expression data with BioQC.” <em>BMC Genomics</em> 18 (1): 277. <a href="https://doi.org/10.1186/s12864-017-3661-2">https://doi.org/10.1186/s12864-017-3661-2</a>.</p>
 </div>
 </div>
             </section>
@@ -313,11 +294,13 @@ Figure 2.4: Cross-platform, cross-species validation of the robust signatures id
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -325,12 +308,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -338,6 +320,14 @@ gitbook.start({
 "size": 2
 },
 "edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -355,9 +345,10 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

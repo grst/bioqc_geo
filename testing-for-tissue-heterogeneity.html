@@ -1,45 +1,49 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>A prevalence of tissue heterogeneity in gene expression data: Supplementary Information</title>
-  <meta name="description" content="Systematically testing the GEO for tissue heterogeneity">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 Testing for tissue heterogeneity | Tissue heterogeneity is prevalent in gene expression studies (Supplementary Information)</title>
+  <meta name="description" content="In this study, we systematically search GEO and ARCHS4 for cases of “tissue heterogeneity”." />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="A prevalence of tissue heterogeneity in gene expression data: Supplementary Information" />
+  <meta property="og:title" content="4 Testing for tissue heterogeneity | Tissue heterogeneity is prevalent in gene expression studies (Supplementary Information)" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="Systematically testing the GEO for tissue heterogeneity" />
+  <meta property="og:description" content="In this study, we systematically search GEO and ARCHS4 for cases of “tissue heterogeneity”." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="A prevalence of tissue heterogeneity in gene expression data: Supplementary Information" />
+  <meta name="twitter:title" content="4 Testing for tissue heterogeneity | Tissue heterogeneity is prevalent in gene expression studies (Supplementary Information)" />
   
-  <meta name="twitter:description" content="Systematically testing the GEO for tissue heterogeneity" />
+  <meta name="twitter:description" content="In this study, we systematically search GEO and ARCHS4 for cases of “tissue heterogeneity”." />
   
 
-<meta name="author" content="Gregor Sturm, Jitao David Zhang">
+<meta name="author" content="Gregor Sturm, Markus List, Jitao David Zhang" />
 
 
-<meta name="date" content="2018-09-23">
+<meta name="date" content="2020-11-03" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="sample-selection.html">
-<link rel="next" href="results.html">
+<link rel="prev" href="curating-data.html"/>
+<link rel="next" href="results.html"/>
+<script src="libs/header-attrs-2.4/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -50,26 +54,26 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -78,9 +82,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -125,63 +129,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> BioQC GEO Analysis</a></li>
-<li class="chapter" data-level="2" data-path="validating-signatures.html"><a href="validating-signatures.html"><i class="fa fa-check"></i><b>2</b> Validating Tissue Signatures</a><ul>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About this document</a></li>
+<li class="chapter" data-level="2" data-path="validating-signatures.html"><a href="validating-signatures.html"><i class="fa fa-check"></i><b>2</b> Validating Tissue Signatures</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="validating-signatures.html"><a href="validating-signatures.html#data"><i class="fa fa-check"></i><b>2.1</b> Data</a></li>
 <li class="chapter" data-level="2.2" data-path="validating-signatures.html"><a href="validating-signatures.html#cross-validation-of-signatures-on-the-gtex-dataset"><i class="fa fa-check"></i><b>2.2</b> Cross-Validation of signatures on the GTEx dataset</a></li>
-<li class="chapter" data-level="2.3" data-path="validating-signatures.html"><a href="validating-signatures.html#solid-signatures"><i class="fa fa-check"></i><b>2.3</b> ‘solid’ signatures</a></li>
-<li class="chapter" data-level="2.4" data-path="validating-signatures.html"><a href="validating-signatures.html#cross-platform-cross-species-validation"><i class="fa fa-check"></i><b>2.4</b> Cross-Platform Cross-Species validation</a></li>
+<li class="chapter" data-level="2.3" data-path="validating-signatures.html"><a href="validating-signatures.html#reference-signatures"><i class="fa fa-check"></i><b>2.3</b> ‘Reference’ Signatures</a></li>
+<li class="chapter" data-level="2.4" data-path="validating-signatures.html"><a href="validating-signatures.html#cross-platform-cross-species-validation"><i class="fa fa-check"></i><b>2.4</b> Cross-Platform Cross-Species Validation</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="curating-data.html"><a href="curating-data.html"><i class="fa fa-check"></i><b>3</b> Curating Data</a><ul>
-<li class="chapter" data-level="3.1" data-path="curating-data.html"><a href="curating-data.html#selecting-samples-by-metadata"><i class="fa fa-check"></i><b>3.1</b> Selecting Samples by Metadata</a></li>
-<li class="chapter" data-level="3.2" data-path="curating-data.html"><a href="curating-data.html#normalize-tissues"><i class="fa fa-check"></i><b>3.2</b> Normalize Tissues</a></li>
-<li class="chapter" data-level="3.3" data-path="curating-data.html"><a href="curating-data.html#tissue-signatures"><i class="fa fa-check"></i><b>3.3</b> Map tissues to signatures</a></li>
+<li class="chapter" data-level="3" data-path="curating-data.html"><a href="curating-data.html"><i class="fa fa-check"></i><b>3</b> Sample data and metadata</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="curating-data.html"><a href="curating-data.html#geo"><i class="fa fa-check"></i><b>3.1</b> GEO</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="curating-data.html"><a href="curating-data.html#downloading-geo-data"><i class="fa fa-check"></i><b>3.1.1</b> Downloading GEO data</a></li>
+<li class="chapter" data-level="3.1.2" data-path="curating-data.html"><a href="curating-data.html#filtering-geo-data"><i class="fa fa-check"></i><b>3.1.2</b> Filtering GEO data</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="setup-database.html"><a href="setup-database.html"><i class="fa fa-check"></i><b>4</b> Setup Database</a><ul>
-<li class="chapter" data-level="4.1" data-path="setup-database.html"><a href="setup-database.html#tables-explained"><i class="fa fa-check"></i><b>4.1</b> Tables explained</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="setup-database.html"><a href="setup-database.html#geometadb"><i class="fa fa-check"></i><b>4.1.1</b> GEOmetadb</a></li>
-<li class="chapter" data-level="4.1.2" data-path="setup-database.html"><a href="setup-database.html#bioqc"><i class="fa fa-check"></i><b>4.1.2</b> BioQC</a></li>
+<li class="chapter" data-level="3.2" data-path="curating-data.html"><a href="curating-data.html#archs4"><i class="fa fa-check"></i><b>3.2</b> ARCHS4</a></li>
+<li class="chapter" data-level="3.3" data-path="curating-data.html"><a href="curating-data.html#normalize-tissues"><i class="fa fa-check"></i><b>3.3</b> Normalize Tissue Names</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="setup-database.html"><a href="setup-database.html#import-geometadb"><i class="fa fa-check"></i><b>4.2</b> Import GEOmetadb</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="setup-database.html"><a href="setup-database.html#fix-foreign-key-constraints"><i class="fa fa-check"></i><b>4.2.1</b> Fix foreign key constraints</a></li>
-<li class="chapter" data-level="4.2.2" data-path="setup-database.html"><a href="setup-database.html#extract-tissue-annotation"><i class="fa fa-check"></i><b>4.2.2</b> Extract Tissue annotation</a></li>
-<li class="chapter" data-level="4.2.3" data-path="setup-database.html"><a href="setup-database.html#load-annotation-information"><i class="fa fa-check"></i><b>4.2.3</b> Load annotation information</a></li>
-<li class="chapter" data-level="4.2.4" data-path="setup-database.html"><a href="setup-database.html#import-summary-statistics-for-each-study"><i class="fa fa-check"></i><b>4.2.4</b> Import summary statistics for each study</a></li>
-</ul></li>
-<li class="chapter" data-level="4.3" data-path="setup-database.html"><a href="setup-database.html#import-bioqc-data"><i class="fa fa-check"></i><b>4.3</b> Import BioQC data</a><ul>
-<li class="chapter" data-level="4.3.1" data-path="setup-database.html"><a href="setup-database.html#signatures"><i class="fa fa-check"></i><b>4.3.1</b> Signatures</a></li>
-<li class="chapter" data-level="4.3.2" data-path="setup-database.html"><a href="setup-database.html#tissue-annotation"><i class="fa fa-check"></i><b>4.3.2</b> Tissue Annotation</a></li>
-<li class="chapter" data-level="4.3.3" data-path="setup-database.html"><a href="setup-database.html#tissue-sets"><i class="fa fa-check"></i><b>4.3.3</b> Tissue Sets</a></li>
-<li class="chapter" data-level="4.3.4" data-path="setup-database.html"><a href="setup-database.html#import-bioqc-results"><i class="fa fa-check"></i><b>4.3.4</b> BioQC results</a></li>
+<li class="chapter" data-level="4" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html"><i class="fa fa-check"></i><b>4</b> Testing for tissue heterogeneity</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#sec:signatures"><i class="fa fa-check"></i><b>4.1</b> Tissue signatures</a></li>
+<li class="chapter" data-level="4.2" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#testing-samples-for-heterogeneity"><i class="fa fa-check"></i><b>4.2</b> Testing samples for heterogeneity</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#determining-tau."><i class="fa fa-check"></i><b>4.2.1</b> Determining <span class="math inline">\(\tau\)</span>.</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="sample-selection.html"><a href="sample-selection.html"><i class="fa fa-check"></i><b>5</b> Sample Selection and processing</a><ul>
-<li class="chapter" data-level="5.1" data-path="sample-selection.html"><a href="sample-selection.html#sample-preselection"><i class="fa fa-check"></i><b>5.1</b> Sample Preselection</a><ul>
-<li class="chapter" data-level="5.1.1" data-path="sample-selection.html"><a href="sample-selection.html#required-annotation"><i class="fa fa-check"></i><b>5.1.1</b> Required annotation</a></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#heterogeneity-using-gtex-signatures-only"><i class="fa fa-check"></i><b>5.1</b> Heterogeneity using GTEx signatures only</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#heterogeneity-using-all-signatures"><i class="fa fa-check"></i><b>5.2</b> Heterogeneity using all signatures</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="sample-selection.html"><a href="sample-selection.html#sample-processing"><i class="fa fa-check"></i><b>5.2</b> Sample Processing with BioQC</a></li>
-<li class="chapter" data-level="5.3" data-path="sample-selection.html"><a href="sample-selection.html#sample-post-selection"><i class="fa fa-check"></i><b>5.3</b> Sample Post-selection</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="sample-selection.html"><a href="sample-selection.html#excluding-multi-channel-microarrays"><i class="fa fa-check"></i><b>5.3.1</b> Excluding multi-channel microarrays</a></li>
-<li class="chapter" data-level="5.3.2" data-path="sample-selection.html"><a href="sample-selection.html#exclude-non-mapped-tissues"><i class="fa fa-check"></i><b>5.3.2</b> Exclude non-mapped tissues</a></li>
-<li class="chapter" data-level="5.3.3" data-path="sample-selection.html"><a href="sample-selection.html#select-organisms"><i class="fa fa-check"></i><b>5.3.3</b> Select organisms</a></li>
-<li class="chapter" data-level="5.3.4" data-path="sample-selection.html"><a href="sample-selection.html#quality-control"><i class="fa fa-check"></i><b>5.3.4</b> Quality control</a></li>
-<li class="chapter" data-level="5.3.5" data-path="sample-selection.html"><a href="sample-selection.html#tissue-abundance"><i class="fa fa-check"></i><b>5.3.5</b> Tissue abundance</a></li>
-</ul></li>
-<li class="chapter" data-level="5.4" data-path="sample-selection.html"><a href="sample-selection.html#archs4-rna-seq-data"><i class="fa fa-check"></i><b>5.4</b> ARCHS4 RNA-seq data</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html"><i class="fa fa-check"></i><b>6</b> Testing for tissue heterogeneity</a><ul>
-<li class="chapter" data-level="6.1" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#sec:signatures"><i class="fa fa-check"></i><b>6.1</b> Tissue signatures</a></li>
-<li class="chapter" data-level="6.2" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#sec:data_selection"><i class="fa fa-check"></i><b>6.2</b> Data</a></li>
-<li class="chapter" data-level="6.3" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#testing-samples-for-heterogeneity"><i class="fa fa-check"></i><b>6.3</b> Testing samples for heterogeneity</a><ul>
-<li class="chapter" data-level="6.3.1" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#determining-tau."><i class="fa fa-check"></i><b>6.3.1</b> Determining <span class="math inline">\(\tau\)</span>.</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>7</b> Results</a><ul>
-<li class="chapter" data-level="7.1" data-path="results.html"><a href="results.html#plots-of-scores-for-manual-inspection"><i class="fa fa-check"></i><b>7.1</b> Plots of scores for manual inspection</a></li>
-<li class="chapter" data-level="7.2" data-path="results.html"><a href="results.html#heterogeneity-using-gtex-signatures-only"><i class="fa fa-check"></i><b>7.2</b> Heterogeneity using GTEX signatures only</a></li>
-<li class="chapter" data-level="7.3" data-path="results.html"><a href="results.html#heterogeneity-using-all-signatures"><i class="fa fa-check"></i><b>7.3</b> Heterogeneity using all signatures</a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="figures-for-publication.html"><a href="figures-for-publication.html"><i class="fa fa-check"></i><b>8</b> Figures for publication</a></li>
+<li class="chapter" data-level="6" data-path="figures-for-publication.html"><a href="figures-for-publication.html"><i class="fa fa-check"></i><b>6</b> Figures for publication</a></li>
+<li class="chapter" data-level="7" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>7</b> References</a></li>
 </ul>
 
       </nav>
@@ -191,7 +171,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A prevalence of tissue heterogeneity in gene expression data: Supplementary Information</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Tissue heterogeneity is prevalent in gene expression studies (Supplementary Information)</a>
           </h1>
         </div>
 
@@ -199,15 +179,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="testing-for-tissue-heterogeneity" class="section level1">
-<h1><span class="header-section-number">6</span> Testing for tissue heterogeneity</h1>
-<div id="sec:signatures" class="section level2">
-<h2><span class="header-section-number">6.1</span> Tissue signatures</h2>
+<div id="testing-for-tissue-heterogeneity" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Testing for tissue heterogeneity</h1>
+<div id="sec:signatures" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Tissue signatures</h2>
 <p>In section <a href="validating-signatures.html#validating-signatures">2</a>, we identified a set of
-9 <em>reference signatures</em> (table <a href="testing-for-tissue-heterogeneity.html#tab:refsig">6.1</a>) which unambiguously
-identify their corresponding tissue across platforms and species.</p>
+9 <em>reference signatures</em> (table <a href="testing-for-tissue-heterogeneity.html#tab:refsig">4.1</a>) which unambiguously
+identify their corresponding tissue across platforms and species. In addition to that,
+we use 120 tissue signatures from the BioQC publication, which we refer to as <em>query signatures</em>.</p>
 <table>
-<caption><span id="tab:refsig">Table 6.1: </span>reference signatures</caption>
+<caption><span id="tab:refsig">Table 4.1: </span>reference signatures</caption>
 <thead>
 <tr class="header">
 <th align="left">Reference Signature</th>
@@ -254,88 +235,18 @@ identify their corresponding tissue across platforms and species.</p>
 </tbody>
 </table>
 </div>
-<div id="sec:data_selection" class="section level2">
-<h2><span class="header-section-number">6.2</span> Data</h2>
-<p>In section <a href="sample-selection.html#sample-selection">5</a> we show in detail, how we obtain
-and filter data from the Gene Expression Omnibus.
-Table <a href="testing-for-tissue-heterogeneity.html#tab:filteringprocess">6.2</a> shows a summary of this process, listing
-the remaining samples and studies after each filtering step.</p>
-<table>
-<caption><span id="tab:filteringprocess">Table 6.2: </span>Selecting samples from GEO</caption>
-<thead>
-<tr class="header">
-<th align="left">filtering step</th>
-<th align="right">samples</th>
-<th align="right">studies</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">total (as of 2016-12-07)</td>
-<td align="right">1945417</td>
-<td align="right">73719</td>
-</tr>
-<tr class="even">
-<td align="left">tissue annotated</td>
-<td align="right">760798</td>
-<td align="right">24267</td>
-</tr>
-<tr class="odd">
-<td align="left">gene symbols annotated</td>
-<td align="right">275206</td>
-<td align="right">9632</td>
-</tr>
-<tr class="even">
-<td align="left">human orthologous gene symbols</td>
-<td align="right">253210</td>
-<td align="right">8083</td>
-</tr>
-<tr class="odd">
-<td align="left">Single-channel microarray</td>
-<td align="right">235237</td>
-<td align="right">7561</td>
-</tr>
-<tr class="even">
-<td align="left">tissue mapped to controlled vocabulary</td>
-<td align="right">136230</td>
-<td align="right">3800</td>
-</tr>
-<tr class="odd">
-<td align="left">human, rat, mouse</td>
-<td align="right">134334</td>
-<td align="right">3757</td>
-</tr>
-<tr class="even">
-<td align="left">minimal inter-sample variance</td>
-<td align="right">96074</td>
-<td align="right">3129</td>
-</tr>
-<tr class="odd">
-<td align="left">housekeeping signatures</td>
-<td align="right">81845</td>
-<td align="right">2926</td>
-</tr>
-<tr class="even">
-<td align="left">reference signature available</td>
-<td align="right">51948</td>
-<td align="right">1760</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="testing-samples-for-heterogeneity" class="section level2">
-<h2><span class="header-section-number">6.3</span> Testing samples for heterogeneity</h2>
+<div id="testing-samples-for-heterogeneity" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Testing samples for heterogeneity</h2>
 <p>We tested for enrichment of
 120
 selected signatures provided by BioQC, the
 9
 reference signatures generated by us and one random control signature of
 100 randomly drawn genes on all 51948 selected samples
-resulting in a list of 6805188 (sample, signature, pvalue) pairs.
-This process is described in detail in section <a href="sample-selection.html#sample-processing">5.2</a>.</p>
+resulting in a list of 6805188 (sample, signature, pvalue) pairs.</p>
 <p>Our intention is to identify samples that show <em>tissue heterogeneity</em>,
 <em>i.e.</em> unintentional profiling of cells of other origin than the target tissue
-of profiling. We classify samples as <em>not heterogenous</em> or <em>heterogenous</em>.
+of profiling. We classify samples into <em>heterogenous</em> and <em>not heterogenous</em>.
 We call a classification <em>true-positive</em> if the given sample is classified
 as <em>heterogenous</em> and the sample indeed contains cells different from the
 annotated tissues. Analogous, we call a classification <em>false-positive</em>
@@ -352,7 +263,7 @@ signatures matching the same tissue.</p>
 each signature unambigously identifies its corresponding tissue (<em>i.e.</em> scores
 highest), the signatures could still be correlated. Some of them in fact are,
 e.g. cardiac muscle and skeletal muscle (see figure
-<a href="testing-for-tissue-heterogeneity.html#fig:correlationexample">6.1</a>). Moreover, we lack sufficient data to perform an
+<a href="testing-for-tissue-heterogeneity.html#fig:correlationexample">4.1</a>). Moreover, we lack sufficient data to perform an
 independent-sample validation on the signatures provided by BioQC. Accounting
 for correlation with the reference signatures, we can still avoid
 false-positives, even if a signature is characteristic for a tissue
@@ -360,7 +271,7 @@ histologically close to the annotated tissue.</p>
 <p>We therefore take the following approach to account for the correlation of signatures:
 A given sample <span class="math inline">\(s\)</span> annotated as tissue <span class="math inline">\(t\)</span> is tested for enrichment with signature <span class="math inline">\(k_{\text{test}}\)</span> resulting in a p-value <span class="math inline">\(p_{\text{test}}\)</span>. Let <span class="math inline">\(k_{\text{ref}}\)</span> be the reference signature associated with tissue <span class="math inline">\(t\)</span> and <span class="math inline">\(p_{\text{ref}}\)</span> the p-value of testing <span class="math inline">\(s\)</span> for enrichment of <span class="math inline">\(k_{\text{ref}}\)</span>. Let <span class="math inline">\(\tau\)</span> be a certain false discovery rate (FDR)-threshold.</p>
 <ol style="list-style-type: decimal">
-<li>If the Benjamini-Hochberg (BH)-adjusted <span class="math inline">\(p_{\text{test}} &gt;= \tau\)</span>, we
+<li>If the Benjamini-Hochberg (BH)-adjusted <span class="math inline">\(p_{\text{test}} \ge \tau\)</span>, we
 assume that <span class="math inline">\(s\)</span> is not heterogenous; else continue.</li>
 <li>We fit a linear model using <code>rlm</code> from the <code>R</code> <code>MASS</code> package of
 <span class="math inline">\(|log10(p_{\text{test}})|\)</span> against <span class="math inline">\(|log10(p_{\text{ref}})|\)</span> for all samples
@@ -374,8 +285,8 @@ cumulative density function of <span class="math inline">\(\mathcal{N}(0, \sigma
 hypothesis that <span class="math inline">\(k_{\text{test}}\)</span> is enriched only due to correlation and label
 the sample as heterogenous.</li>
 </ol>
-<div id="determining-tau." class="section level3">
-<h3><span class="header-section-number">6.3.1</span> Determining <span class="math inline">\(\tau\)</span>.</h3>
+<div id="determining-tau." class="section level3" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Determining <span class="math inline">\(\tau\)</span>.</h3>
 <p>We desire an overall FDR of 0.01. Since we test in a two-step procedure, we choose a threshold <span class="math inline">\(\tau\)</span>, such that the
 overall FDR equals 0.01.</p>
 <p><span class="math display">\[
@@ -388,15 +299,16 @@ To all positives, the step 2 test is applied. In addition to the false-positives
 <span class="math display">\[
 0.01 = \tau + (1-\tau)\tau \Leftrightarrow 0 = \tau^2 - 2\tau + 0.01
 \]</span></p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">tau =<span class="st"> </span><span class="kw">polyroot</span>(<span class="kw">c</span>(FDR_THRES, <span class="dv">-2</span>, <span class="dv">1</span>))[<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb20-2" data-line-number="2">tau</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="testing-for-tissue-heterogeneity.html#cb1-1" aria-hidden="true"></a>tau =<span class="st"> </span><span class="kw">polyroot</span>(<span class="kw">c</span>(FDR_THRES, <span class="dv">-2</span>, <span class="dv">1</span>))[<span class="dv">1</span>]</span>
+<span id="cb1-2"><a href="testing-for-tissue-heterogeneity.html#cb1-2" aria-hidden="true"></a>tau</span></code></pre></div>
 <pre><code>## [1] 0.005012563-0i</code></pre>
 <div class="figure"><span id="fig:correlationexample"></span>
-<img src="40_heterogeneity_test_files/figure-html/correlationexample-1.png" alt="Examples of signature correlation. Panels A-C: correlation of the signature scores (y-axis) against the scores of a reference signature (x-axis). The purple line indicates the model fitted to the data, the shaded area the 3*sigma confidence interval. Points are colored according to whether they would be discarded already in the FDR-filtering step. (A) Brain scores of kidney samples against the scores of the kidney signature. There is virtually no correlation, nor are there outliers. Appraently, no kidney samples are contaminated with neuronal cells. (B) Liver scores of kidney samples against scores of the kidney signature. The samples are not correlated, however some outliers are detected which are samples potentially containing liver cells. (C) Cardiac muscle scores of skeletal muscle samples against skeletal muscle scores. The scores are highly correlated. While most of the poinst exceed the FDR threshold, they will not be classified as outliers because the elevated score can be explained with the correlation. Panels D and E show the boxplots of the scores of various signatures on kidney and heart samples respectively. " width="1152" />
+<img src="40_heterogeneity_test_files/figure-html/correlationexample-1.png" alt="Examples of signature correlation. Panels A-C: correlation of the signature scores (y-axis) against the scores of a reference signature (x-axis). The purple line indicates the model fitted to the data. Points falling into the shaded area can be explained by the linear model. Points are colored according to whether they would be discarded already in the FDR-filtering step. (A) Brain scores of kidney samples against the scores of the kidney signature. There is virtually no correlation, nor are there outliers. Appraently, no kidney samples are contaminated with neuronal cells. (B) Liver scores of kidney samples against scores of the kidney signature. The samples are not correlated, however some outliers are detected which are samples potentially containing liver cells. (C) Cardiac muscle scores of skeletal muscle samples against skeletal muscle scores. The scores are highly correlated. While most of the poinst exceed the FDR threshold, they will not be classified as outliers because the elevated score can be explained with the correlation. Panels D and E show the boxplots of the scores of various signatures on kidney and heart samples respectively. " width="100%" />
 <p class="caption">
-Figure 6.1: Examples of signature correlation. Panels A-C: correlation of the signature scores (y-axis) against the scores of a reference signature (x-axis). The purple line indicates the model fitted to the data, the shaded area the 3*sigma confidence interval. Points are colored according to whether they would be discarded already in the FDR-filtering step. (A) Brain scores of kidney samples against the scores of the kidney signature. There is virtually no correlation, nor are there outliers. Appraently, no kidney samples are contaminated with neuronal cells. (B) Liver scores of kidney samples against scores of the kidney signature. The samples are not correlated, however some outliers are detected which are samples potentially containing liver cells. (C) Cardiac muscle scores of skeletal muscle samples against skeletal muscle scores. The scores are highly correlated. While most of the poinst exceed the FDR threshold, they will not be classified as outliers because the elevated score can be explained with the correlation. Panels D and E show the boxplots of the scores of various signatures on kidney and heart samples respectively.
+Figure 4.1: Examples of signature correlation. Panels A-C: correlation of the signature scores (y-axis) against the scores of a reference signature (x-axis). The purple line indicates the model fitted to the data. Points falling into the shaded area can be explained by the linear model. Points are colored according to whether they would be discarded already in the FDR-filtering step. (A) Brain scores of kidney samples against the scores of the kidney signature. There is virtually no correlation, nor are there outliers. Appraently, no kidney samples are contaminated with neuronal cells. (B) Liver scores of kidney samples against scores of the kidney signature. The samples are not correlated, however some outliers are detected which are samples potentially containing liver cells. (C) Cardiac muscle scores of skeletal muscle samples against skeletal muscle scores. The scores are highly correlated. While most of the poinst exceed the FDR threshold, they will not be classified as outliers because the elevated score can be explained with the correlation. Panels D and E show the boxplots of the scores of various signatures on kidney and heart samples respectively.
 </p>
 </div>
+<div style="page-break-after: always;"></div>
 
 </div>
 </div>
@@ -406,17 +318,19 @@ Figure 6.1: Examples of signature correlation. Panels A-C: correlation of the si
           </div>
         </div>
       </div>
-<a href="sample-selection.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="curating-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="results.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -424,12 +338,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -437,6 +350,14 @@ gitbook.start({
 "size": 2
 },
 "edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -454,9 +375,10 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
