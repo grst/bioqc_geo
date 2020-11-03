@@ -220,9 +220,11 @@ a framework to create and validate signatures.</p>
 <div id="cross-validation-of-signatures-on-the-gtex-dataset" class="section level2" number="2.2">
 <h2><span class="header-section-number">2.2</span> Cross-Validation of signatures on the GTEx dataset</h2>
 <p>We use <a href="https://github.com/grst/pygenesig">pygenesig</a> to create and validate signatures on the GTEx v6 dataset. The data preparation steps are performed using <a href="https://github.com/grst/pygenesig-example/tree/d88e4a81a45e192527a84a4445094604deba580b/notebooks/prepare_data">these jupyter notebooks</a>. The output of <em>pygenesig</em> can be viewed <a href="https://github.com/grst/BioQC_GEO_analysis/blob/aa0fcd86bbdfbd49c9a4a10ce0be1c22895cc957/notebooks/gtex_v6_gini.ipynb">here</a>. Below, we summarize the prodecues described in these documents.</p>
-<p>We obtained the gene expression data and sample annotation from the <a href="http://gtexportal.org">GTEx portal</a>. We collapsed gene expression data by HGNC symbol, aggregating by the sum.</p>
-<p>We performed a 10-fold cross-validation as follows:
-We split samples in 10 <a href="http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedKFold.html">stratified folds</a>, <em>i.e.</em> samples from all tissues are equally distributed across all folds. We use 9 folds to generate signatures using the <a href="https://grst.github.io/pygenesig/apidoc.html#module-pygenesig.gini">gini method</a> as described in the <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5379536/">BioQC paper</a>. These signatures were applied to the remaining fold using BioQC. We iterated over the folds such that each fold has been used for training and testing.</p>
+<p>We obtained the gene expression data and sample annotation from the <a href="http://gtexportal.org">GTEx portal</a>. We collapsed gene
+expression data by HGNC symbol, aggregating by the sum. We aggregated samples of the same tissue by median.
+We generated signatures based on <a href="https://grst.github.io/pygenesig/apidoc.html#module-pygenesig.gini">gini index</a> as described in the <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5379536/">BioQC paper</a>. In brief, we calculated gini index for each gene across all tissues. Genes with a gini index &gt;= 0.8 and expression of &gt;= 5 TPM were added to the signatures of the 3 tissues with their highest expression.</p>
+<p>Next, we performed a 10-fold cross-validation as follows:
+We split samples in 10 <a href="http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedKFold.html">stratified folds</a>, <em>i.e.</em> samples from all tissues are equally distributed across all folds. We use 9 folds to generate signatures using gini index. These signatures were applied to the remaining fold using BioQC. We iterated over the folds such that each fold has been used for training and testing.</p>
 <p>The following heatmap shows the average BioQC score over all folds for each signature and each tissue.</p>
 <div class="figure"><span id="fig:gtexxval"></span>
 <img src="signature_validation/gtex_v6_xval_scores.png" alt="cross-validation of GTEx tissue signatures. Signatures are shown on the y-axis, the corresponding groups of samples on the x-axis. The tile shading indicates the average BioQC score of a signature on a group of samples. For better visibility of low scores, the colors are saturated at 30." width="100%" />
@@ -331,7 +333,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": null,
+"download": ["_main.pdf"],
 "toc": {
 "collapse": "subsection"
 }

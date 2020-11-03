@@ -48,10 +48,12 @@ In this chapter, we
 ## Cross-Validation of signatures on the GTEx dataset
 We use [pygenesig](https://github.com/grst/pygenesig) to create and validate signatures on the GTEx v6 dataset. The data preparation steps are performed using [these jupyter notebooks](https://github.com/grst/pygenesig-example/tree/d88e4a81a45e192527a84a4445094604deba580b/notebooks/prepare_data). The output of *pygenesig* can be viewed [here](https://github.com/grst/BioQC_GEO_analysis/blob/aa0fcd86bbdfbd49c9a4a10ce0be1c22895cc957/notebooks/gtex_v6_gini.ipynb). Below, we summarize the prodecues described in these documents.
 
-We obtained the gene expression data and sample annotation from the [GTEx portal](http://gtexportal.org). We collapsed gene expression data by HGNC symbol, aggregating by the sum.
+We obtained the gene expression data and sample annotation from the [GTEx portal](http://gtexportal.org). We collapsed gene 
+expression data by HGNC symbol, aggregating by the sum. We aggregated samples of the same tissue by median. 
+We generated signatures based on [gini index](https://grst.github.io/pygenesig/apidoc.html#module-pygenesig.gini)  as described in the [BioQC paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5379536/). In brief, we calculated gini index for each gene across all tissues. Genes with a gini index >= 0.8 and expression of >= 5 TPM were added to the signatures of the 3 tissues with their highest expression. 
 
-We performed a 10-fold cross-validation as follows:
-We split samples in 10 [stratified folds](http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedKFold.html), *i.e.* samples from all tissues are equally distributed across all folds. We use 9 folds to generate signatures using the [gini method](https://grst.github.io/pygenesig/apidoc.html#module-pygenesig.gini) as described in the [BioQC paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5379536/). These signatures were applied to the remaining fold using BioQC. We iterated over the folds such that each fold has been used for training and testing.
+Next, we performed a 10-fold cross-validation as follows:
+We split samples in 10 [stratified folds](http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedKFold.html), *i.e.* samples from all tissues are equally distributed across all folds. We use 9 folds to generate signatures using gini index. These signatures were applied to the remaining fold using BioQC. We iterated over the folds such that each fold has been used for training and testing.
 
 The following heatmap shows the average BioQC score over all folds for each signature and each tissue.
 
