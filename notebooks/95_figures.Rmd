@@ -1,4 +1,4 @@
-```{r}
+```{r, include=FALSE}
 library(stringr)
 library(readr)
 library(MASS)
@@ -130,13 +130,15 @@ contam_frac = contam_all %>%
   do(bootstrap(.))
 ```
 
-```{r, fig.width=8, fig.height=4.5, echo=FALSE, warning=FALSE, fig.cap="fraction of heterogenous samples per tissue. ", out.width="100%"}
+```{r, fig.width=8, fig.height=4.5, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="fraction of geterogeneous samples per tissue. ", out.width="100%"}
 p1 = contam_frac %>%
   ungroup() %>%
   ggplot(aes(y=fraction, x=TGROUP)) +
     geom_bar(aes(fill=dataset), stat="identity", position = "dodge") +
     geom_errorbar(aes(ymin=if_else(ci_low < 0, 0, ci_low), ymax=ci_high, fill=dataset), position='dodge') +
     scale_fill_brewer(palette="Set1") +
+    theme_cowplot() + 
+    background_grid() +
     theme(axis.text.x = element_text(angle = 90, hjust=1, vjust=.5),
           legend.position = "top",
           axis.title=element_blank()) +
@@ -148,8 +150,12 @@ ggsave("../results/figures/heterogeneity_fractions.png")
 write_tsv(contam_frac, path = "../results/heterogeneity_fractions.tsv")
 ```
 
-```{r, fig.width=8, fig.height=9}
+```{r, fig.width=8, fig.height=9, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="Main figure for paper. (A) Fractions of heterogeneous samples per tissue. (B) Sample confusion matrix."}
 plot_grid(p1, p2, align = "v", nrow=2, rel_heights = c(.5, .6), labels = "AUTO", axis="lr")
 ggsave("../results/figures/heterogeneity_main.pdf")
 ggsave("../results/figures/heterogeneity_main.png")
 ```
+
+\newpage
+
+# References
