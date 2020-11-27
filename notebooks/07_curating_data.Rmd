@@ -34,13 +34,13 @@ We filtered GEO samples by the following criteria (figure \@ref(fig:funnelgeo)):
  1. the tissue or origin is annotated,
  2. gene symbols are annotated,
  3. the readout was performed on a single-channel microarray, and
- 4. the tissue could be mapped to our [controlled vocabulary](#normalize-tissues) (CV). 
+ 4. the tissue could be mapped to the controlled vocabulary (section \@ref(normalize-tissues)). 
  5. We only retained samples from the three major organisms: human, rat and mouse. 
  6. We removed studies which have been normalized per-gene and where ubiquitous house-keeping genes were not expressed. 
  7. Finally, we only retained samples originating from tissues for which a *reference signature* is available. 
 
 
-```{r funnelgeo, out.width="40%", echo=FALSE, fig.cap="Summary of filtering steps on GEO samples", fig.align="center"}
+```{r funnelgeo, out.width="40%", echo=FALSE, fig.cap="Summary of filtering steps on GEO samples", fig.align="center", fig.pos="h"}
 knitr::include_graphics("../figures/funnel_geo.png")
 ```
 
@@ -56,15 +56,15 @@ from the [ARCHS4 website](https://amp.pharm.mssm.edu/archs4/download.html) (vers
 We filtered samples by the following criteria (figure \@ref(fig:funnelarchs)): 
 
 1. The library is a transcriptomic cDNA library, the library strategy is RNA-seq, and either polyA or total RNA were extracted.
-2. We excluded single-cell RNA-seq samples (none of the annotation fields may contain the keywords "single-cell", "single cell" or "smartseq")
+2. No single-cell RNA-seq samples (none of the annotation fields may contain the keywords "single-cell", "single cell" or "smartseq")
 3. At least 500,000 reads could be mapped to genes. 
-4. The tissue could be mapped to  our [controlled vocabulary](#normalize-tissues) (CV). 
+4. The tissue could be mapped to the controlled vocabulary (section \@ref(normalize-tissues)). 
 5. Finally, we only retained samples originating from tissues for which a *reference signature* is available. 
 
 Gene counts were normalized into TPM values before analysing them with BioQC. 
 
 
-```{r funnelarchs, out.width="40%", echo=FALSE, fig.cap="Summary of filtering steps on ARCHS4 samples", fig.align='center'}
+```{r funnelarchs, out.width="40%", echo=FALSE, fig.cap="Summary of filtering steps on ARCHS4 samples", fig.align='center', fig.pos="h"}
 knitr::include_graphics("../figures/funnel_archs4.png")
 ```
 

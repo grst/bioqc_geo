@@ -10,9 +10,6 @@ library(dplyr)
 select = dplyr::select
 ```
 
-
-# Figures for publication
-
 ```{r loaddata, include=FALSE}
 load('../results/data_processed.RData')
 load('../results/models.RData')
@@ -28,11 +25,12 @@ total_ngs = data_corr$GSM %>% unique() %>% length()
 
 ```
 
-Same as in the section before, but all bioqc signatures aggregated by tissue groups.
-Additional, we define samples as being "severely heterogeneous", if the reference signature,
-i.e. the signature that should be present according to the annotation, is not enriched at
-an unadjusted p-value < `r SEVERE_THRES`.
 ```{r, include=FALSE}
+# Same as in the section before, but all bioqc signatures aggregated by tissue groups.
+# Additional, we define samples as being "severely heterogeneous", if the reference signature,
+# i.e. the signature that should be present according to the annotation, is not enriched at
+# an unadjusted p-value < `r SEVERE_THRES`.
+
 bioqc_tissue_set = read_csv("../data/bioqc_geo_oracle_dump/BIOQC_TISSUE_SET_DATA_TABLE.csv") %>%
   filter(TISSUE_SET == 'bioqc_all') %>%
   select(SIG_ID=SIGNATURE, DETECTED_TGROUP=TGROUP)
@@ -95,8 +93,8 @@ p2 = contam_all %>%
 ```
 
 
-We use bootstrapping (R package `boot`) to derive confidence intervals.
 ```{r, include=FALSE}
+# We use bootstrapping (R package `boot`) to derive confidence intervals.
 stat_fun_contam = function(df, i) {
   df = df[i, ]
   total = nrow(df)
@@ -130,32 +128,31 @@ contam_frac = contam_all %>%
   do(bootstrap(.))
 ```
 
-```{r, fig.width=8, fig.height=4.5, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="fraction of geterogeneous samples per tissue. ", out.width="100%"}
+```{r, include=FALSE, fig.width=8, fig.height=4.5, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="fraction of heterogeneous samples per tissue. ", out.width="100%"}
 p1 = contam_frac %>%
   ungroup() %>%
   ggplot(aes(y=fraction, x=TGROUP)) +
     geom_bar(aes(fill=dataset), stat="identity", position = "dodge") +
     geom_errorbar(aes(ymin=if_else(ci_low < 0, 0, ci_low), ymax=ci_high, fill=dataset), position='dodge') +
+    ylab("fraction heterogeneous") +
+    xlab("") + 
     scale_fill_brewer(palette="Set1") +
     theme_cowplot() + 
     background_grid() +
     theme(axis.text.x = element_text(angle = 90, hjust=1, vjust=.5),
-          legend.position = "top",
-          axis.title=element_blank()) +
-    facet_wrap(~type) +
-    ylab("frac. heterogeneous samples")
+          legend.position = "top") +
+    facet_wrap(~type) 
 
 ggsave("../results/figures/heterogeneity_fractions.pdf")
 ggsave("../results/figures/heterogeneity_fractions.png")
 write_tsv(contam_frac, path = "../results/heterogeneity_fractions.tsv")
 ```
 
-```{r, fig.width=8, fig.height=9, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="Main figure for paper. (A) Fractions of heterogeneous samples per tissue. (B) Sample confusion matrix."}
+```{r, include=FALSE, fig.width=8, fig.height=9, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="Main figure for paper. (A) Fractions of heterogeneous samples per tissue. (B) Sample confusion matrix."}
 plot_grid(p1, p2, align = "v", nrow=2, rel_heights = c(.5, .6), labels = "AUTO", axis="lr")
 ggsave("../results/figures/heterogeneity_main.pdf")
 ggsave("../results/figures/heterogeneity_main.png")
 ```
 
-\newpage
 
 # References

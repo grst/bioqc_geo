@@ -6,6 +6,9 @@ biblio-style: apalike
 link-citations: yes
 colorlinks: yes
 ---
+
+\newpage 
+
 # Validating Tissue Signatures {#validating-signatures}
 
 The authors of *BioQC* have taken three independent approaches
@@ -57,13 +60,13 @@ We split samples in 10 [stratified folds](http://scikit-learn.org/stable/modules
 
 Figure \@ref(fig:gtexxval) shows the average BioQC score over all folds for each signature and each tissue.
 
-```{r gtexxval, echo=FALSE, fig.cap="cross-validation of GTEx tissue signatures. Signatures are shown on the y-axis, the corresponding groups of samples on the x-axis. The tile shading indicates the average BioQC score of a signature on a group of samples. For better visibility of low scores, the colors are saturated at 30.", out.width="100%"}
+```{r gtexxval, echo=FALSE, fig.cap="cross-validation of GTEx tissue signatures. Signatures are shown on the y-axis, the corresponding groups of samples on the x-axis. The tile shading indicates the average BioQC score of a signature on a group of samples. For better visibility of low scores, the colors are saturated at 30.", out.width="100%", fig.align="center", fig.pos="p"}
 knitr::include_graphics("signature_validation/gtex_v6_xval_scores.png")
 ```
 
 As identifying contaminated/mislabled samples can be boiled down to a classification exercise, we are interested in the predictive performance of each signature. Figure \@ref(fig:gtexxvalclass) shows the confusion matrix of using the signatures for classification. A sample is considered as classified as a tissue, if the corresponding signature scores highest among all other signatures.
 
-```{r gtexxvalclass, echo=FALSE, fig.cap="Confusion matrix of the cross-validation.", out.width="100%"}
+```{r gtexxvalclass, echo=FALSE, fig.cap="Confusion matrix of the cross-validation.", out.width="100%", fig.align="center", fig.pos="p"}
 knitr::include_graphics("signature_validation/gtex_v6_xval_classification.png")
 ```
 
@@ -77,9 +80,9 @@ We [manually map](https://github.com/grst/pygenesig-example/blob/d88e4a81a45e192
 the tissues from GTEx to a reduced subset of tissue names. The results are available in [this jupyter notebook](https://github.com/grst/BioQC_GEO_analysis/blob/b11987da13ba9b98eba34206f92942be8de6427e/signature_validation/gtex_v6_gini_solid.ipynb) ^[https://github.com/grst/BioQC_GEO_analysis/blob/b11987da13ba9b98eba34206f92942be8de6427e/signature_validation/gtex_v6_gini_solid.ipynb]
 and summarized below.
 
-Figure \ref{fig:gtexconfmat} shows the confusion matrix of the reduced signature set. All tissues have been correctly identified at Precision = Recall = 1.0.
+Figure \@ref(fig:gtexconfmat) shows the confusion matrix of the reduced signature set. All tissues have been correctly identified at Precision = Recall = 1.0.
 
-```{r gtexconfmat, echo=FALSE, fig.cap="Confusion matrix of robust signatures. ", out.width="50%"}
+```{r gtexconfmat, echo=FALSE, fig.cap="Confusion matrix of robust signatures. ", out.width="50%", fig.align="center", fig.pos="htbp"}
 knitr::include_graphics("signature_validation/gtex_v6_solid_xval_classification.png")
 ```
 
@@ -89,9 +92,9 @@ knitr::include_graphics("signature_validation/gtex_v6_solid_xval_classification.
 ## Cross-Platform Cross-Species Validation
 To asses if the signatures translate across species and platforms, we tested the signatures generated above (human, Illumina sequencing) on the *mouseGNF tissue expression atlas* (mouse, Affymetrix microarray). The procedure is described in [this notebook](https://github.com/grst/pygenesig-example/blob/80bfe2a388a5230b004c288cb2ea220f0394855d/notebooks/gtex_solid_vs_mouse_gnf.ipynb) ^[https://github.com/grst/pygenesig-example/blob/80bfe2a388a5230b004c288cb2ea220f0394855d/notebooks/gtex_solid_vs_mouse_gnf.ipynb].
 
-Figure \ref(fig:xspeciesval) shows the score matrix of GTEx signatures against mouseGNF samples. 
+Figure \@ref(fig:xspeciesval) shows the score matrix of GTEx signatures against mouseGNF samples. 
 
-```{r xspeciesval, echo=FALSE, fig.cap="Cross-platform, cross-species validation of the robust signatures identified in the previous step.", out.width="70%"}
+```{r xspeciesval, echo=FALSE, fig.cap="Cross-platform, cross-species validation of the robust signatures identified in the previous step.", out.width="70%", fig.align="center", fig.pos="htbp"}
 knitr::include_graphics("signature_validation/gtex_v6_solid_vs_mouse_gnf.png")
 ```
 

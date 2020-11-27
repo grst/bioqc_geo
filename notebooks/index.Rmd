@@ -9,6 +9,8 @@ colorlinks: yes
 description: In this study, we systematically search GEO and ARCHS4 for cases of "tissue heterogeneity". 
 ---
 
+\newpage
+
 # About this document
 
 This document is supplementary information for
