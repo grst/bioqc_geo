@@ -22,8 +22,10 @@ load('../results/archs4/archs4_models.RData')
 
 data_corr_ngs = data_corr
 total_ngs = data_corr$GSM %>% unique() %>% length()
-
 ```
+
+
+
 
 ```{r, include=FALSE}
 # Same as in the section before, but all bioqc signatures aggregated by tissue groups.
@@ -146,6 +148,20 @@ p1 = contam_frac %>%
 ggsave("../results/figures/heterogeneity_fractions.pdf")
 ggsave("../results/figures/heterogeneity_fractions.png")
 write_tsv(contam_frac, path = "../results/heterogeneity_fractions.tsv")
+```
+
+
+```{r, include=FALSE}
+# Stats
+
+contam_frac_nodataset = contam_all %>%
+  bind_rows(contam_all %>% mutate(TGROUP = "all")) %>%
+  group_by(TGROUP, GSM) %>%
+  summarise(sample_is_contaminated=any(is_contaminated), sample_is_severe=any(is_severe)) %>%
+  group_by(TGROUP) %>%
+  do(bootstrap(.))
+
+write_tsv(contam_frac, path = "../results/heterogeneity_fractions_nodataset.tsv")
 ```
 
 ```{r, include=FALSE, fig.width=8, fig.height=9, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="Main figure for paper. (A) Fractions of heterogeneous samples per tissue. (B) Sample confusion matrix."}

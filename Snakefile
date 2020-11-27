@@ -63,10 +63,10 @@ rule book:
     "notebooks/config.R"
   output:
     "results/book/index.html",
-    "results/figures/scores_GEO.png",
-    "results/figures/scores_ARCHS4.png",
-    "results/figures/correlations_GEO.png",
-    "results/figures/correlations_ARCHS4.png",
+#    "results/figures/scores_GEO.png",
+#    "results/figures/scores_ARCHS4.png",
+#    "results/figures/correlations_GEO.png",
+#    "results/figures/correlations_ARCHS4.png",
     "results/figures/heterogeneity_main.pdf",
     "results/figures/heterogeneity_fractions.pdf",
   conda:
