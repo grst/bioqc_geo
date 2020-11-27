@@ -24,7 +24,7 @@
 <meta name="author" content="Gregor Sturm, Markus List, Jitao David Zhang" />
 
 
-<meta name="date" content="2020-11-03" />
+<meta name="date" content="2020-11-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -134,18 +134,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="2.1" data-path="validating-signatures.html"><a href="validating-signatures.html#data"><i class="fa fa-check"></i><b>2.1</b> Data</a></li>
 <li class="chapter" data-level="2.2" data-path="validating-signatures.html"><a href="validating-signatures.html#cross-validation-of-signatures-on-the-gtex-dataset"><i class="fa fa-check"></i><b>2.2</b> Cross-Validation of signatures on the GTEx dataset</a></li>
-<li class="chapter" data-level="2.3" data-path="validating-signatures.html"><a href="validating-signatures.html#reference-signatures"><i class="fa fa-check"></i><b>2.3</b> ‘Reference’ Signatures</a></li>
+<li class="chapter" data-level="2.3" data-path="validating-signatures.html"><a href="validating-signatures.html#reference-signatures"><i class="fa fa-check"></i><b>2.3</b> Reference Signatures</a></li>
 <li class="chapter" data-level="2.4" data-path="validating-signatures.html"><a href="validating-signatures.html#cross-platform-cross-species-validation"><i class="fa fa-check"></i><b>2.4</b> Cross-Platform Cross-Species Validation</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="curating-data.html"><a href="curating-data.html"><i class="fa fa-check"></i><b>3</b> Sample data and metadata</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="curating-data.html"><a href="curating-data.html#geo"><i class="fa fa-check"></i><b>3.1</b> GEO</a>
+<li class="chapter" data-level="3.1" data-path="curating-data.html"><a href="curating-data.html#normalize-tissues"><i class="fa fa-check"></i><b>3.1</b> Standardize Tissue Names</a></li>
+<li class="chapter" data-level="3.2" data-path="curating-data.html"><a href="curating-data.html#geo"><i class="fa fa-check"></i><b>3.2</b> GEO</a>
 <ul>
-<li class="chapter" data-level="3.1.1" data-path="curating-data.html"><a href="curating-data.html#downloading-geo-data"><i class="fa fa-check"></i><b>3.1.1</b> Downloading GEO data</a></li>
-<li class="chapter" data-level="3.1.2" data-path="curating-data.html"><a href="curating-data.html#filtering-geo-data"><i class="fa fa-check"></i><b>3.1.2</b> Filtering GEO data</a></li>
+<li class="chapter" data-level="3.2.1" data-path="curating-data.html"><a href="curating-data.html#downloading-geo-data"><i class="fa fa-check"></i><b>3.2.1</b> Downloading GEO data</a></li>
+<li class="chapter" data-level="3.2.2" data-path="curating-data.html"><a href="curating-data.html#filtering-geo-data"><i class="fa fa-check"></i><b>3.2.2</b> Filtering GEO data</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="curating-data.html"><a href="curating-data.html#archs4"><i class="fa fa-check"></i><b>3.2</b> ARCHS4</a></li>
-<li class="chapter" data-level="3.3" data-path="curating-data.html"><a href="curating-data.html#normalize-tissues"><i class="fa fa-check"></i><b>3.3</b> Normalize Tissue Names</a></li>
+<li class="chapter" data-level="3.3" data-path="curating-data.html"><a href="curating-data.html#archs4"><i class="fa fa-check"></i><b>3.3</b> ARCHS4</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html"><i class="fa fa-check"></i><b>4</b> Testing for tissue heterogeneity</a>
 <ul>
@@ -155,13 +155,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2.1" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#determining-tau."><i class="fa fa-check"></i><b>4.2.1</b> Determining <span class="math inline">\(\tau\)</span>.</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#heterogeneity-using-gtex-signatures-only"><i class="fa fa-check"></i><b>5.1</b> Heterogeneity using GTEx signatures only</a></li>
-<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#heterogeneity-using-all-signatures"><i class="fa fa-check"></i><b>5.2</b> Heterogeneity using all signatures</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="figures-for-publication.html"><a href="figures-for-publication.html"><i class="fa fa-check"></i><b>6</b> Figures for publication</a></li>
-<li class="chapter" data-level="7" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>7</b> References</a></li>
+<li class="chapter" data-level="5" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>5</b> References</a></li>
 </ul>
 
       </nav>
@@ -198,11 +192,11 @@ for training and testing. While method (2) might be acceptable if
 sufficient data is unavailable, only method (3) can ensure that the
 signature does not reflect experimental biases.</p>
 <p>To address this, we independently derived signatures on the
-<a href="http://gtexportal.org">GTEx</a> dataset using <em>gini-index</em> as
+<a href="http://gtexportal.org">GTEx</a><span class="citation">(Lonsdale et al. <a href="#ref-gtex" role="doc-biblioref">2013</a>)</span> dataset using <em>gini-index</em> as
 <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5379536/">described previously</a> <span class="citation">(Zhang et al. <a href="#ref-bioqc" role="doc-biblioref">2017</a>)</span> and performed
 both a 10-fold cross validation on the same dataset and a cross-species,
-cross-platform validation on the <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE10246">mouseGNF GeneAtlas</a>.
-To this end, we developed the python package <a href="https://github.com/grst/pygenesig">pygenesig</a>,
+cross-platform validation on the <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE10246">mouseGNF GeneAtlas</a> <span class="citation">(Lattin et al. <a href="#ref-Lattin2008" role="doc-biblioref">2008</a>)</span>.
+To this end, we developed the python package <a href="https://github.com/grst/pygenesig">pygenesig</a>,<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>
 a framework to create and validate signatures.</p>
 <p>In this chapter, we</p>
 <ul>
@@ -213,27 +207,27 @@ a framework to create and validate signatures.</p>
 <div id="data" class="section level2" number="2.1">
 <h2><span class="header-section-number">2.1</span> Data</h2>
 <ul>
-<li>The <a href="http://gtexportal.org"><strong>Genotype Tissue Expression (GTEx)</strong></a> project is a comprehensive resource of tissue-specific gene expression data. We use this dataset to derive tissue-specific signatures. The data is human only and was generated using Illumina sequencing.</li>
-<li>We use the <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE10246"><strong>GNF Mouse GeneAtlas V3</strong></a> as a control dataset to demonstrate that the gini-method is robust over multiple platforms and species. This dataset originates from mouse and was generated using the <em>Affymetrix Mouse Genome 430 2.0 Array (GPL1261)</em>.</li>
+<li>The <a href="http://gtexportal.org"><strong>Genotype Tissue Expression (GTEx)</strong></a> project <span class="citation">(Lonsdale et al. <a href="#ref-gtex" role="doc-biblioref">2013</a>)</span> is a comprehensive resource of tissue-specific gene expression data. We use this dataset to derive tissue-specific signatures. The data is human only and was generated using Illumina sequencing.</li>
+<li>We use the <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE10246"><strong>GNF Mouse GeneAtlas V3</strong></a> <span class="citation">(Lattin et al. <a href="#ref-Lattin2008" role="doc-biblioref">2008</a>)</span> as a control dataset to demonstrate that the gini-method is robust over multiple platforms and species. This dataset originates from mouse and was generated using the <em>Affymetrix Mouse Genome 430 2.0 Array (GPL1261)</em>.</li>
 </ul>
 </div>
 <div id="cross-validation-of-signatures-on-the-gtex-dataset" class="section level2" number="2.2">
 <h2><span class="header-section-number">2.2</span> Cross-Validation of signatures on the GTEx dataset</h2>
-<p>We use <a href="https://github.com/grst/pygenesig">pygenesig</a> to create and validate signatures on the GTEx v6 dataset. The data preparation steps are performed using <a href="https://github.com/grst/pygenesig-example/tree/d88e4a81a45e192527a84a4445094604deba580b/notebooks/prepare_data">these jupyter notebooks</a>. The output of <em>pygenesig</em> can be viewed <a href="https://github.com/grst/BioQC_GEO_analysis/blob/aa0fcd86bbdfbd49c9a4a10ce0be1c22895cc957/notebooks/gtex_v6_gini.ipynb">here</a>. Below, we summarize the prodecues described in these documents.</p>
+<p>We use <em>pygenesig</em> to create and validate signatures on the GTEx v6 dataset. The data preparation steps are performed using <a href="https://github.com/grst/pygenesig-example/tree/d88e4a81a45e192527a84a4445094604deba580b/notebooks/prepare_data">these jupyter notebooks</a>.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> The output of <em>pygenesig</em> can be viewed <a href="https://github.com/grst/BioQC_GEO_analysis/blob/aa0fcd86bbdfbd49c9a4a10ce0be1c22895cc957/notebooks/gtex_v6_gini.ipynb">here</a>.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> Below, we summarize the analyses described in these documents.</p>
 <p>We obtained the gene expression data and sample annotation from the <a href="http://gtexportal.org">GTEx portal</a>. We collapsed gene
 expression data by HGNC symbol, aggregating by the sum. We aggregated samples of the same tissue by median.
-We generated signatures based on <a href="https://grst.github.io/pygenesig/apidoc.html#module-pygenesig.gini">gini index</a> as described in the <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5379536/">BioQC paper</a>. In brief, we calculated gini index for each gene across all tissues. Genes with a gini index &gt;= 0.8 and expression of &gt;= 5 TPM were added to the signatures of the 3 tissues with their highest expression.</p>
+We generated signatures based on <a href="https://grst.github.io/pygenesig/apidoc.html#module-pygenesig.gini">gini index</a><a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> as described in the <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5379536/">BioQC paper</a> <span class="citation">(Zhang et al. <a href="#ref-bioqc" role="doc-biblioref">2017</a>)</span>. In brief, we calculated gini index for each gene across all tissues. Genes with a gini index &gt;= 0.8 and expression of &gt;= 5 TPM were added to the signatures of the 3 tissues with their highest expression.</p>
 <p>Next, we performed a 10-fold cross-validation as follows:
-We split samples in 10 <a href="http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedKFold.html">stratified folds</a>, <em>i.e.</em> samples from all tissues are equally distributed across all folds. We use 9 folds to generate signatures using gini index. These signatures were applied to the remaining fold using BioQC. We iterated over the folds such that each fold has been used for training and testing.</p>
-<p>The following heatmap shows the average BioQC score over all folds for each signature and each tissue.</p>
-<div class="figure"><span id="fig:gtexxval"></span>
+We split samples in 10 <a href="http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedKFold.html">stratified folds</a>,<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> <em>i.e.</em> samples from all tissues are equally distributed across all folds. We use 9 folds to generate signatures using gini index. These signatures were applied to the remaining fold using BioQC. We iterated over the folds such that each fold has been used for training and testing.</p>
+<p>Figure <a href="validating-signatures.html#fig:gtexxval">2.1</a> shows the average BioQC score over all folds for each signature and each tissue.</p>
+<div class="figure" style="text-align: center"><span id="fig:gtexxval"></span>
 <img src="signature_validation/gtex_v6_xval_scores.png" alt="cross-validation of GTEx tissue signatures. Signatures are shown on the y-axis, the corresponding groups of samples on the x-axis. The tile shading indicates the average BioQC score of a signature on a group of samples. For better visibility of low scores, the colors are saturated at 30." width="100%" />
 <p class="caption">
 Figure 2.1: cross-validation of GTEx tissue signatures. Signatures are shown on the y-axis, the corresponding groups of samples on the x-axis. The tile shading indicates the average BioQC score of a signature on a group of samples. For better visibility of low scores, the colors are saturated at 30.
 </p>
 </div>
-<p>As identifying contaminated/mislabled samples can be boiled down to a classification exercise, we are interested in the predictive performance of each signature. The following heatmap shows the confusion matrix of using the signatures for classification. A sample is considered as classified as a tissue, if the corresponding signature scores highest among all other signatures.</p>
-<div class="figure"><span id="fig:gtexxvalclass"></span>
+<p>As identifying contaminated/mislabled samples can be boiled down to a classification exercise, we are interested in the predictive performance of each signature. Figure <a href="validating-signatures.html#fig:gtexxvalclass">2.2</a> shows the confusion matrix of using the signatures for classification. A sample is considered as classified as a tissue, if the corresponding signature scores highest among all other signatures.</p>
+<div class="figure" style="text-align: center"><span id="fig:gtexxvalclass"></span>
 <img src="signature_validation/gtex_v6_xval_classification.png" alt="Confusion matrix of the cross-validation." width="100%" />
 <p class="caption">
 Figure 2.2: Confusion matrix of the cross-validation.
@@ -241,36 +235,34 @@ Figure 2.2: Confusion matrix of the cross-validation.
 </div>
 </div>
 <div id="reference-signatures" class="section level2" number="2.3">
-<h2><span class="header-section-number">2.3</span> ‘Reference’ Signatures</h2>
-<p>From the above matrices we learn that, while the vast majority of signatures yield a high score in the corresponding tissue, an unambigous classification of tissues is only viable for a subset of tissues.
+<h2><span class="header-section-number">2.3</span> Reference Signatures</h2>
+<p>From the above matrices we learn that, while the vast majority of signatures yield a high score in the corresponding tissue, an unambiguous classification of tissues is only viable for a subset of tissues.
 For instance, the different brain regions are hard to distinguish, and so are physiologically close tissues (e.g. large and small intestine).</p>
 <p>Here, we reduce the dataset to a subset of tissues, which can be unambigously distinguished using the BioQC method (<em>i.e.</em> precision = recall = 1.0).</p>
-<p>We <a href="https://github.com/grst/pygenesig-example/blob/d88e4a81a45e192527a84a4445094604deba580b/manual_annotation/gtex_solid.csv">manually map</a>
-the tissues from GTEx to a reduced subset of tissue names. The results are available in <a href="https://github.com/grst/BioQC_GEO_analysis/blob/b11987da13ba9b98eba34206f92942be8de6427e/signature_validation/gtex_v6_gini_solid.ipynb">this jupyter notebook</a>
+<p>We <a href="https://github.com/grst/pygenesig-example/blob/d88e4a81a45e192527a84a4445094604deba580b/manual_annotation/gtex_solid.csv">manually map</a><a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>
+the tissues from GTEx to a reduced subset of tissue names. The results are available in <a href="https://github.com/grst/BioQC_GEO_analysis/blob/b11987da13ba9b98eba34206f92942be8de6427e/signature_validation/gtex_v6_gini_solid.ipynb">this jupyter notebook</a><a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>
 and summarized below.</p>
-<p>Again, the following heatmap shows the confusion matrix.</p>
-<div class="figure"><span id="fig:gtexconfmat"></span>
-<img src="signature_validation/gtex_v6_solid_xval_classification.png" alt="Confusion matrix of rosubst signatures." width="50%" />
+<p>Figure <a href="validating-signatures.html#fig:gtexconfmat">2.3</a> shows the confusion matrix of the reduced signature set. All tissues have been correctly identified at Precision = Recall = 1.0.</p>
+<div class="figure" style="text-align: center"><span id="fig:gtexconfmat"></span>
+<img src="signature_validation/gtex_v6_solid_xval_classification.png" alt="Confusion matrix of robust signatures. " width="50%" />
 <p class="caption">
-Figure 2.3: Confusion matrix of rosubst signatures.
+Figure 2.3: Confusion matrix of robust signatures.
 </p>
 </div>
-<p>All tissues have been correctly identified at Precision = Recall = 1.0.</p>
 </div>
 <div id="cross-platform-cross-species-validation" class="section level2" number="2.4">
 <h2><span class="header-section-number">2.4</span> Cross-Platform Cross-Species Validation</h2>
-<p>Arguably, in the above experiment, we could have built signatures based on human-specific genes, genes that can only be detected by a certain experimental platform, or even experiment-specific batch effects instead of universally translatable marker genes.</p>
-<p>To asses if the signatures translate across species and platforms, we tested the signatures generated above (human, Illumina sequencing) on the <em>mouseGNF tissue expression atlas</em> (mouse, Affymetrix microarray). The procedure is described in <a href="https://github.com/grst/pygenesig-example/blob/80bfe2a388a5230b004c288cb2ea220f0394855d/notebooks/gtex_solid_vs_mouse_gnf.ipynb">this notebook</a>.</p>
-<p>The following figure shows the score matrix of GTEx signatures against mouseGNF samples:</p>
-<div class="figure"><span id="fig:xspeciesval"></span>
+<p>To asses if the signatures translate across species and platforms, we tested the signatures generated above (human, Illumina sequencing) on the <em>mouseGNF tissue expression atlas</em> (mouse, Affymetrix microarray). The procedure is described in <a href="https://github.com/grst/pygenesig-example/blob/80bfe2a388a5230b004c288cb2ea220f0394855d/notebooks/gtex_solid_vs_mouse_gnf.ipynb">this notebook</a>.<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a></p>
+<p>Figure <a href="validating-signatures.html#fig:xspeciesval">2.4</a> shows the score matrix of GTEx signatures against mouseGNF samples.</p>
+<div class="figure" style="text-align: center"><span id="fig:xspeciesval"></span>
 <img src="signature_validation/gtex_v6_solid_vs_mouse_gnf.png" alt="Cross-platform, cross-species validation of the robust signatures identified in the previous step." width="70%" />
 <p class="caption">
 Figure 2.4: Cross-platform, cross-species validation of the robust signatures identified in the previous step.
 </p>
 </div>
 <p>The signatures <em>Brain, Heart, Kidney, Liver, Skeletal Muscle, Pancreas, Skin</em> and <em>Testis</em> identify the respective tissue despite the species and platform differences at a high (&gt;5) BioQC score.</p>
-<p>As expected <em>Heart</em> and <em>Skeletal muscle</em> also identify each other, however <em>Heart</em> scores still higher on heart samples and <em>Skeletal muscle</em> scores higher on skeletal muscles samples, therefore we retain both signatures.</p>
-<p>Surprisingly, <em>Adrenal Gland</em>, <em>Ovary</em> and <em>Uterus</em> are not able to identify the respective samples, despite having a high score in the cross-validation. We therefore exclude these signatures from the reference signature set.</p>
+<p>As expected <em>Heart</em> and <em>Skeletal muscle</em> also identify each other, however <em>Heart</em> scores are still higher on heart samples and <em>Skeletal muscle</em> scores are higher on skeletal muscles samples, therefore we retain both signatures.</p>
+<p>Surprisingly, <em>Adrenal Gland</em>, <em>Ovary</em> and <em>Uterus</em> are not able to identify the respective samples, despite having a high score in the cross-validation. We, therefore, exclude these signatures from the reference signature set.</p>
 <p>Unfortunately, <em>Blood</em> was not profiled in the mouseGNF dataset. We keep the signature nonetheless as it does not trigger any false positives.</p>
 <div style="page-break-after: always;"></div>
 
@@ -281,9 +273,28 @@ Figure 2.4: Cross-platform, cross-species validation of the robust signatures id
 <div id="ref-Gonen2009">
 <p>Gönen, Mithat. 2009. “Statistical aspects of gene signatures and molecular targets.” <em>Gastrointest Cancer Res</em> 3 (2 Suppl): 19–21. <a href="http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=2684735%7B\&amp;%7Dtool=pmcentrez%7B\&amp;%7Drendertype=abstract">http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=2684735{\&amp;}tool=pmcentrez{\&amp;}rendertype=abstract</a>.</p>
 </div>
+<div id="ref-Lattin2008">
+<p>Lattin, Jane E, Kate Schroder, Andrew I Su, John R Walker, Jie Zhang, Tim Wiltshire, Kaoru Saijo, et al. 2008. “Expression Analysis of G Protein-Coupled Receptors in Mouse Macrophages.” <em>Immunome Research</em> 4 (1): 5. <a href="https://doi.org/10.1186/1745-7580-4-5">https://doi.org/10.1186/1745-7580-4-5</a>.</p>
+</div>
+<div id="ref-gtex">
+<p>Lonsdale, John, Jeffrey Thomas, Mike Salvatore, Rebecca Phillips, Edmund Lo, Saboor Shad, Richard Hasz, et al. 2013. “The Genotype-Tissue Expression (GTEx) project.” <em>Nature Genetics</em> 45 (6): 580–85. <a href="https://doi.org/10.1038/ng.2653">https://doi.org/10.1038/ng.2653</a>.</p>
+</div>
 <div id="ref-bioqc">
 <p>Zhang, Jitao David, Klas Hatje, Gregor Sturm, Clemens Broger, Martin Ebeling, Martine Burtin, Fabiola Terzi, Silvia Ines Pomposiello, and Laura Badi. 2017. “Detect tissue heterogeneity in gene expression data with BioQC.” <em>BMC Genomics</em> 18 (1): 277. <a href="https://doi.org/10.1186/s12864-017-3661-2">https://doi.org/10.1186/s12864-017-3661-2</a>.</p>
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p><a href="https://github.com/grst/pygenesig" class="uri">https://github.com/grst/pygenesig</a><a href="validating-signatures.html#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://github.com/grst/pygenesig-example/tree/d88e4a81a45e192527a84a4445094604deba580b/notebooks/prepare_data" class="uri">https://github.com/grst/pygenesig-example/tree/d88e4a81a45e192527a84a4445094604deba580b/notebooks/prepare_data</a><a href="validating-signatures.html#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p><a href="https://github.com/grst/BioQC_GEO_analysis/blob/aa0fcd86bbdfbd49c9a4a10ce0be1c22895cc957/notebooks/gtex_v6_gini.ipynb" class="uri">https://github.com/grst/BioQC_GEO_analysis/blob/aa0fcd86bbdfbd49c9a4a10ce0be1c22895cc957/notebooks/gtex_v6_gini.ipynb</a><a href="validating-signatures.html#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p><a href="https://grst.github.io/pygenesig/apidoc.html#module-pygenesig.gini" class="uri">https://grst.github.io/pygenesig/apidoc.html#module-pygenesig.gini</a><a href="validating-signatures.html#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p><a href="http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedKFold.html" class="uri">http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedKFold.html</a><a href="validating-signatures.html#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p><a href="https://github.com/grst/pygenesig-example/blob/d88e4a81a45e192527a84a4445094604deba580b/manual_annotation/gtex_solid.csv" class="uri">https://github.com/grst/pygenesig-example/blob/d88e4a81a45e192527a84a4445094604deba580b/manual_annotation/gtex_solid.csv</a><a href="validating-signatures.html#fnref6" class="footnote-back">↩︎</a></p></li>
+<li id="fn7"><p><a href="https://github.com/grst/BioQC_GEO_analysis/blob/b11987da13ba9b98eba34206f92942be8de6427e/signature_validation/gtex_v6_gini_solid.ipynb" class="uri">https://github.com/grst/BioQC_GEO_analysis/blob/b11987da13ba9b98eba34206f92942be8de6427e/signature_validation/gtex_v6_gini_solid.ipynb</a><a href="validating-signatures.html#fnref7" class="footnote-back">↩︎</a></p></li>
+<li id="fn8"><p><a href="https://github.com/grst/pygenesig-example/blob/80bfe2a388a5230b004c288cb2ea220f0394855d/notebooks/gtex_solid_vs_mouse_gnf.ipynb" class="uri">https://github.com/grst/pygenesig-example/blob/80bfe2a388a5230b004c288cb2ea220f0394855d/notebooks/gtex_solid_vs_mouse_gnf.ipynb</a><a href="validating-signatures.html#fnref8" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
             </section>
 
@@ -333,7 +344,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["_main.pdf"],
+"download": null,
 "toc": {
 "collapse": "subsection"
 }

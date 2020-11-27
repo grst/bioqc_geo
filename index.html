@@ -24,7 +24,7 @@
 <meta name="author" content="Gregor Sturm, Markus List, Jitao David Zhang" />
 
 
-<meta name="date" content="2020-11-03" />
+<meta name="date" content="2020-11-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -134,18 +134,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="2.1" data-path="validating-signatures.html"><a href="validating-signatures.html#data"><i class="fa fa-check"></i><b>2.1</b> Data</a></li>
 <li class="chapter" data-level="2.2" data-path="validating-signatures.html"><a href="validating-signatures.html#cross-validation-of-signatures-on-the-gtex-dataset"><i class="fa fa-check"></i><b>2.2</b> Cross-Validation of signatures on the GTEx dataset</a></li>
-<li class="chapter" data-level="2.3" data-path="validating-signatures.html"><a href="validating-signatures.html#reference-signatures"><i class="fa fa-check"></i><b>2.3</b> ‘Reference’ Signatures</a></li>
+<li class="chapter" data-level="2.3" data-path="validating-signatures.html"><a href="validating-signatures.html#reference-signatures"><i class="fa fa-check"></i><b>2.3</b> Reference Signatures</a></li>
 <li class="chapter" data-level="2.4" data-path="validating-signatures.html"><a href="validating-signatures.html#cross-platform-cross-species-validation"><i class="fa fa-check"></i><b>2.4</b> Cross-Platform Cross-Species Validation</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="curating-data.html"><a href="curating-data.html"><i class="fa fa-check"></i><b>3</b> Sample data and metadata</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="curating-data.html"><a href="curating-data.html#geo"><i class="fa fa-check"></i><b>3.1</b> GEO</a>
+<li class="chapter" data-level="3.1" data-path="curating-data.html"><a href="curating-data.html#normalize-tissues"><i class="fa fa-check"></i><b>3.1</b> Standardize Tissue Names</a></li>
+<li class="chapter" data-level="3.2" data-path="curating-data.html"><a href="curating-data.html#geo"><i class="fa fa-check"></i><b>3.2</b> GEO</a>
 <ul>
-<li class="chapter" data-level="3.1.1" data-path="curating-data.html"><a href="curating-data.html#downloading-geo-data"><i class="fa fa-check"></i><b>3.1.1</b> Downloading GEO data</a></li>
-<li class="chapter" data-level="3.1.2" data-path="curating-data.html"><a href="curating-data.html#filtering-geo-data"><i class="fa fa-check"></i><b>3.1.2</b> Filtering GEO data</a></li>
+<li class="chapter" data-level="3.2.1" data-path="curating-data.html"><a href="curating-data.html#downloading-geo-data"><i class="fa fa-check"></i><b>3.2.1</b> Downloading GEO data</a></li>
+<li class="chapter" data-level="3.2.2" data-path="curating-data.html"><a href="curating-data.html#filtering-geo-data"><i class="fa fa-check"></i><b>3.2.2</b> Filtering GEO data</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="curating-data.html"><a href="curating-data.html#archs4"><i class="fa fa-check"></i><b>3.2</b> ARCHS4</a></li>
-<li class="chapter" data-level="3.3" data-path="curating-data.html"><a href="curating-data.html#normalize-tissues"><i class="fa fa-check"></i><b>3.3</b> Normalize Tissue Names</a></li>
+<li class="chapter" data-level="3.3" data-path="curating-data.html"><a href="curating-data.html#archs4"><i class="fa fa-check"></i><b>3.3</b> ARCHS4</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html"><i class="fa fa-check"></i><b>4</b> Testing for tissue heterogeneity</a>
 <ul>
@@ -155,13 +155,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2.1" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#determining-tau."><i class="fa fa-check"></i><b>4.2.1</b> Determining <span class="math inline">\(\tau\)</span>.</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#heterogeneity-using-gtex-signatures-only"><i class="fa fa-check"></i><b>5.1</b> Heterogeneity using GTEx signatures only</a></li>
-<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#heterogeneity-using-all-signatures"><i class="fa fa-check"></i><b>5.2</b> Heterogeneity using all signatures</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="figures-for-publication.html"><a href="figures-for-publication.html"><i class="fa fa-check"></i><b>6</b> Figures for publication</a></li>
-<li class="chapter" data-level="7" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>7</b> References</a></li>
+<li class="chapter" data-level="5" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>5</b> References</a></li>
 </ul>
 
       </nav>
@@ -182,19 +176,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Tissue heterogeneity is prevalent in gene expression studies (Supplementary Information)</h1>
 <p class="author"><em>Gregor Sturm, Markus List, Jitao David Zhang</em></p>
-<p class="date"><em>2020-11-03</em></p>
+<p class="date"><em>2020-11-27</em></p>
 </div>
 <div id="about-this-document" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> About this document</h1>
 <p>This document is supplementary information for</p>
 <blockquote>
-<p>Gregor Sturm, Markus List and Jitao David Zhang. Tissue heterogeneity is prevalent in gene expression studies</p>
+<p>Gregor Sturm, Markus List and Jitao David Zhang. Tissue heterogeneity is prevalent in gene expression studies.</p>
 </blockquote>
 <p>This document demonstrates step-by-step how we generated and validated
 tissue signatures, curated data and derive our results.</p>
 <p>The source code and instructions how to reproduce this study
-are available <a href="https://github.com/grst/bioqc_geo">from GitHub</a>.</p>
+are available from <a href="https://github.com/grst/bioqc_geo" class="uri">https://github.com/grst/bioqc_geo</a>.</p>
 
+<div style="page-break-after: always;"></div>
 </div>
             </section>
 
@@ -244,7 +239,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["_main.pdf"],
+"download": null,
 "toc": {
 "collapse": "subsection"
 }
