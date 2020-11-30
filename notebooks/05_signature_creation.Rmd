@@ -14,7 +14,7 @@ colorlinks: yes
 The authors of *BioQC* have taken three independent approaches
 to show that their signatures are valid and biologically meaningful [@bioqc].
 (1) They checked the results for batch effects using surrogate
-variable analysis (SVR), (2) they ensured that the signatures
+variable analysis, (2) they ensured that the signatures
 are biologically meaningful by relating them to biological knowledge,
 and (3) used an independent method to derive the signatures, which yields comparable results.
 
@@ -30,7 +30,7 @@ sufficient data is unavailable, only method (3) can ensure that the
 signature does not reflect experimental biases.
 
 To address this, we independently derived signatures on the
-[GTEx](http://gtexportal.org)[@gtex] dataset using *gini-index* as 
+[GTEx](http://gtexportal.org) [@gtex] dataset using *gini-index* as 
 [described previously](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5379536/) [@bioqc] and performed
 both a 10-fold cross validation on the same dataset and a cross-species,
 cross-platform validation on the [mouseGNF GeneAtlas](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE10246) [@Lattin2008].
@@ -56,7 +56,7 @@ expression data by HGNC symbol, aggregating by the sum. We aggregated samples of
 We generated signatures based on [gini index](https://grst.github.io/pygenesig/apidoc.html#module-pygenesig.gini) ^[https://grst.github.io/pygenesig/apidoc.html#module-pygenesig.gini] as described in the [BioQC paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5379536/) [@bioqc]. In brief, we calculated gini index for each gene across all tissues. Genes with a gini index >= 0.8 and expression of >= 5 TPM were added to the signatures of the 3 tissues with their highest expression. 
 
 Next, we performed a 10-fold cross-validation as follows:
-We split samples in 10 [stratified folds](http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedKFold.html) ^[http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedKFold.html], *i.e.* samples from all tissues are equally distributed across all folds. We use 9 folds to generate signatures using gini index. These signatures were applied to the remaining fold using BioQC. We iterated over the folds such that each fold has been used for training and testing.
+We split samples in 10 [stratified folds](http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedKFold.html) ^[http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedKFold.html], *i.e.* samples from all tissues are equally distributed across all folds. We use 9 folds to generate signatures. These signatures were applied to the remaining fold using BioQC. We iterated over the folds such that each fold has been used for training and testing.
 
 Figure \@ref(fig:gtexxval) shows the average BioQC score over all folds for each signature and each tissue.
 
@@ -64,7 +64,7 @@ Figure \@ref(fig:gtexxval) shows the average BioQC score over all folds for each
 knitr::include_graphics("signature_validation/gtex_v6_xval_scores.png")
 ```
 
-As identifying contaminated/mislabled samples can be boiled down to a classification exercise, we are interested in the predictive performance of each signature. Figure \@ref(fig:gtexxvalclass) shows the confusion matrix of using the signatures for classification. A sample is considered as classified as a tissue, if the corresponding signature scores highest among all other signatures.
+As identifying contaminated/mislabled samples can be boiled down to a classification problem, we are interested in the predictive performance of each signature. Figure \@ref(fig:gtexxvalclass) shows the confusion matrix of using the signatures for classification. A sample is considered as classified as a tissue, if the corresponding signature scores highest among all other signatures.
 
 ```{r gtexxvalclass, echo=FALSE, fig.cap="Confusion matrix of the cross-validation.", out.width="100%", fig.align="center", fig.pos="p"}
 knitr::include_graphics("signature_validation/gtex_v6_xval_classification.png")
@@ -80,7 +80,7 @@ We [manually map](https://github.com/grst/pygenesig-example/blob/d88e4a81a45e192
 the tissues from GTEx to a reduced subset of tissue names. The results are available in [this jupyter notebook](https://github.com/grst/BioQC_GEO_analysis/blob/b11987da13ba9b98eba34206f92942be8de6427e/signature_validation/gtex_v6_gini_solid.ipynb) ^[https://github.com/grst/BioQC_GEO_analysis/blob/b11987da13ba9b98eba34206f92942be8de6427e/signature_validation/gtex_v6_gini_solid.ipynb]
 and summarized below.
 
-Figure \@ref(fig:gtexconfmat) shows the confusion matrix of the reduced signature set. All tissues have been correctly identified at Precision = Recall = 1.0.
+Figure \@ref(fig:gtexconfmat) shows the confusion matrix of the reduced signature set. All tissues have been correctly identified at precision = recall = 1.0.
 
 ```{r gtexconfmat, echo=FALSE, fig.cap="Confusion matrix of robust signatures. ", out.width="50%", fig.align="center", fig.pos="htbp"}
 knitr::include_graphics("signature_validation/gtex_v6_solid_xval_classification.png")

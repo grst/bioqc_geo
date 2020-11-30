@@ -132,11 +132,12 @@ contam_frac = contam_all %>%
 
 ```{r, include=FALSE, fig.width=8, fig.height=4.5, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="fraction of heterogeneous samples per tissue. ", out.width="100%"}
 p1 = contam_frac %>%
+  mutate(percent = fraction * 100) %>% 
   ungroup() %>%
   ggplot(aes(y=fraction, x=TGROUP)) +
     geom_bar(aes(fill=dataset), stat="identity", position = "dodge") +
     geom_errorbar(aes(ymin=if_else(ci_low < 0, 0, ci_low), ymax=ci_high, fill=dataset), position='dodge') +
-    ylab("fraction heterogeneous") +
+    ylab("% heterogeneous samples") +
     xlab("") + 
     scale_fill_brewer(palette="Set1") +
     theme_cowplot() + 
