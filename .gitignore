@@ -1,5 +1,5 @@
 plots/*
-results/*
+results*
 data
 data.in
 results.tmp
