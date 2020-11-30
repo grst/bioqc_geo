@@ -24,7 +24,7 @@
 <meta name="author" content="Gregor Sturm, Markus List, Jitao David Zhang" />
 
 
-<meta name="date" content="2020-11-27" />
+<meta name="date" content="2020-11-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -178,7 +178,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The authors of <em>BioQC</em> have taken three independent approaches
 to show that their signatures are valid and biologically meaningful <span class="citation">(Zhang et al. <a href="#ref-bioqc" role="doc-biblioref">2017</a>)</span>.
 (1) They checked the results for batch effects using surrogate
-variable analysis (SVR), (2) they ensured that the signatures
+variable analysis, (2) they ensured that the signatures
 are biologically meaningful by relating them to biological knowledge,
 and (3) used an independent method to derive the signatures, which yields comparable results.</p>
 <p>However, they do not quantify the performance of the signatures using
@@ -192,7 +192,7 @@ for training and testing. While method (2) might be acceptable if
 sufficient data is unavailable, only method (3) can ensure that the
 signature does not reflect experimental biases.</p>
 <p>To address this, we independently derived signatures on the
-<a href="http://gtexportal.org">GTEx</a><span class="citation">(Lonsdale et al. <a href="#ref-gtex" role="doc-biblioref">2013</a>)</span> dataset using <em>gini-index</em> as
+<a href="http://gtexportal.org">GTEx</a> <span class="citation">(Lonsdale et al. <a href="#ref-gtex" role="doc-biblioref">2013</a>)</span> dataset using <em>gini-index</em> as
 <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5379536/">described previously</a> <span class="citation">(Zhang et al. <a href="#ref-bioqc" role="doc-biblioref">2017</a>)</span> and performed
 both a 10-fold cross validation on the same dataset and a cross-species,
 cross-platform validation on the <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE10246">mouseGNF GeneAtlas</a> <span class="citation">(Lattin et al. <a href="#ref-Lattin2008" role="doc-biblioref">2008</a>)</span>.
@@ -218,7 +218,7 @@ a framework to create and validate signatures.</p>
 expression data by HGNC symbol, aggregating by the sum. We aggregated samples of the same tissue by median.
 We generated signatures based on <a href="https://grst.github.io/pygenesig/apidoc.html#module-pygenesig.gini">gini index</a><a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> as described in the <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5379536/">BioQC paper</a> <span class="citation">(Zhang et al. <a href="#ref-bioqc" role="doc-biblioref">2017</a>)</span>. In brief, we calculated gini index for each gene across all tissues. Genes with a gini index &gt;= 0.8 and expression of &gt;= 5 TPM were added to the signatures of the 3 tissues with their highest expression.</p>
 <p>Next, we performed a 10-fold cross-validation as follows:
-We split samples in 10 <a href="http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedKFold.html">stratified folds</a>,<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> <em>i.e.</em> samples from all tissues are equally distributed across all folds. We use 9 folds to generate signatures using gini index. These signatures were applied to the remaining fold using BioQC. We iterated over the folds such that each fold has been used for training and testing.</p>
+We split samples in 10 <a href="http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedKFold.html">stratified folds</a>,<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> <em>i.e.</em> samples from all tissues are equally distributed across all folds. We use 9 folds to generate signatures. These signatures were applied to the remaining fold using BioQC. We iterated over the folds such that each fold has been used for training and testing.</p>
 <p>Figure <a href="validating-signatures.html#fig:gtexxval">2.1</a> shows the average BioQC score over all folds for each signature and each tissue.</p>
 <div class="figure" style="text-align: center"><span id="fig:gtexxval"></span>
 <img src="signature_validation/gtex_v6_xval_scores.png" alt="cross-validation of GTEx tissue signatures. Signatures are shown on the y-axis, the corresponding groups of samples on the x-axis. The tile shading indicates the average BioQC score of a signature on a group of samples. For better visibility of low scores, the colors are saturated at 30." width="100%" />
@@ -226,7 +226,7 @@ We split samples in 10 <a href="http://scikit-learn.org/stable/modules/generated
 Figure 2.1: cross-validation of GTEx tissue signatures. Signatures are shown on the y-axis, the corresponding groups of samples on the x-axis. The tile shading indicates the average BioQC score of a signature on a group of samples. For better visibility of low scores, the colors are saturated at 30.
 </p>
 </div>
-<p>As identifying contaminated/mislabled samples can be boiled down to a classification exercise, we are interested in the predictive performance of each signature. Figure <a href="validating-signatures.html#fig:gtexxvalclass">2.2</a> shows the confusion matrix of using the signatures for classification. A sample is considered as classified as a tissue, if the corresponding signature scores highest among all other signatures.</p>
+<p>As identifying contaminated/mislabled samples can be boiled down to a classification problem, we are interested in the predictive performance of each signature. Figure <a href="validating-signatures.html#fig:gtexxvalclass">2.2</a> shows the confusion matrix of using the signatures for classification. A sample is considered as classified as a tissue, if the corresponding signature scores highest among all other signatures.</p>
 <div class="figure" style="text-align: center"><span id="fig:gtexxvalclass"></span>
 <img src="signature_validation/gtex_v6_xval_classification.png" alt="Confusion matrix of the cross-validation." width="100%" />
 <p class="caption">
@@ -242,7 +242,7 @@ For instance, the different brain regions are hard to distinguish, and so are ph
 <p>We <a href="https://github.com/grst/pygenesig-example/blob/d88e4a81a45e192527a84a4445094604deba580b/manual_annotation/gtex_solid.csv">manually map</a><a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>
 the tissues from GTEx to a reduced subset of tissue names. The results are available in <a href="https://github.com/grst/BioQC_GEO_analysis/blob/b11987da13ba9b98eba34206f92942be8de6427e/signature_validation/gtex_v6_gini_solid.ipynb">this jupyter notebook</a><a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>
 and summarized below.</p>
-<p>Figure <a href="validating-signatures.html#fig:gtexconfmat">2.3</a> shows the confusion matrix of the reduced signature set. All tissues have been correctly identified at Precision = Recall = 1.0.</p>
+<p>Figure <a href="validating-signatures.html#fig:gtexconfmat">2.3</a> shows the confusion matrix of the reduced signature set. All tissues have been correctly identified at precision = recall = 1.0.</p>
 <div class="figure" style="text-align: center"><span id="fig:gtexconfmat"></span>
 <img src="signature_validation/gtex_v6_solid_xval_classification.png" alt="Confusion matrix of robust signatures. " width="50%" />
 <p class="caption">

@@ -15,7 +15,7 @@ In this section, we describe how we obtained and curated gene expression data an
 ## Standardize Tissue Names {#normalize-tissues}
 
 The annotation of tissues is inconsistent within GEO and ARCHS4. A "liver" sample can be termed *e.g.* "liver", "liver biopsy" or "primary liver". We, therefore, need a way to *standardize* the tissue name. We manually mapped the most abundant tissues to a controlled vocabulary. Next, in order to find out which samples are subject to *tissue heterogeniety*, we first need to define which signatures we would expect in a certain tissue. For example, we map the signatures `Intestine_Colon_cecum_NR_0.7_3` and `Intestine_Colon_NR_0.7_3` to *colon*.
-Since the reference signatures are not as specific as the annotation in GEO/ARCHS4, we created *tissue sets* to combine them into groups. For instance, it is hard to distinguish *jejunum* from *colon*, but easy to distinguish the two from other tissues. We therefore created a tissue set *intestine*, which contains both *jejunum* and *colon* and references all signatures associated with the two tissues. All of the described mappings are available from this [Excel sheet](https://github.com/grst/BioQC_GEO_analysis/blob/master/manual_annotation/tissue_annotation.xlsx) ^[https://github.com/grst/BioQC_GEO_analysis/blob/master/manual_annotation/tissue_annotation.xlsx].
+Since the reference signatures are not as specific as the tissue annotation, we created *tissue sets* to combine them into groups. For instance, it is hard to distinguish *jejunum* from *colon*, but easy to distinguish the two from other tissues. We therefore created a tissue set *intestine*, which contains both *jejunum* and *colon* and references all signatures associated with the two tissues. All of the described mappings are available from this [Excel sheet](https://github.com/grst/BioQC_GEO_analysis/blob/master/manual_annotation/tissue_annotation.xlsx) ^[https://github.com/grst/BioQC_GEO_analysis/blob/master/manual_annotation/tissue_annotation.xlsx].
 
 
 ## GEO
@@ -24,7 +24,7 @@ Since the reference signatures are not as specific as the annotation in GEO/ARCH
 
 We retrieved sample metadata for GEO using the [GEOmetadb](https://www.bioconductor.org/packages/release/bioc/vignettes/GEOmetadb/inst/doc/GEOmetadb.html) package [@geometadb]. 
 We download the studies with [GEOquery](https://bioconductor.org/packages/release/bioc/html/GEOquery.html) [@geoquery] and store them as R [ExpressionSet](https://bioconductor.org/packages/devel/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf) [@Huber2015] using the R script [geo_to_eset.R](https://github.com/grst/BioQC_GEO_analysis/blob/master/scripts/geo_to_eset.R) ^[https://github.com/grst/BioQC_GEO_analysis/blob/master/scripts/geo_to_eset.R]. We used the `annotGPL=TRUE` option of GEOquery's `getGEO` function to obtain gene symbols for the studies, where available. 
-Since the tissue signatures use human gene symbols, we added human orthologs for all mouse and rat samples using the [ribiosAnnotation](https://github.com/bedapub/ribiosUtils) ^[https://github.com/bedapub/ribiosUtils] package. 
+Since the tissue signatures use human gene symbols, we added human orthologs for all mouse and rat samples.
 
 
 ###  Filtering GEO data
@@ -35,7 +35,7 @@ We filtered GEO samples by the following criteria (figure \@ref(fig:funnelgeo)):
  2. gene symbols are annotated,
  3. the readout was performed on a single-channel microarray, and
  4. the tissue could be mapped to the controlled vocabulary (section \@ref(normalize-tissues)). 
- 5. We only retained samples from the three major organisms: human, rat and mouse. 
+ 5. We only retained samples from the three major organisms: human, rat, mouse. 
  6. We removed studies which have been normalized per-gene and where ubiquitous house-keeping genes were not expressed. 
  7. Finally, we only retained samples originating from tissues for which a *reference signature* is available. 
 

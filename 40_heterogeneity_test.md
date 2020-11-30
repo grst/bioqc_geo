@@ -77,7 +77,7 @@ problem by excuding genes that are members of multiple signatures, as it is
 easily possible to build two (in fact many) distinct, non-overlapping
 signatures matching the same tissue.
 
-In section \@ref(validating-signatures) we have created toroughly validated
+In section \@ref(validating-signatures) we have created and validated
 *reference signatures* for 9 tissues. Even though we have demonstrated that
 each signature unambigously identifies its corresponding tissue (*i.e.* scores
 highest), the signatures could still be correlated. Some of them in fact are,

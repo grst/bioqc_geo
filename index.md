@@ -1,7 +1,7 @@
 ---
 title: "Tissue heterogeneity is prevalent in gene expression studies (Supplementary Information)"
 author: Gregor Sturm, Markus List, Jitao David Zhang
-date: "2020-11-27"
+date: "2020-11-30"
 bibliography: bibliography.bib
 biblio-style: apalike
 link-citations: yes
@@ -18,7 +18,7 @@ This document is supplementary information for
 > Gregor Sturm, Markus List and Jitao David Zhang. Tissue heterogeneity is prevalent in gene expression studies.  
 
 This document demonstrates step-by-step how we generated and validated
-tissue signatures, curated data and derive our results.
+tissue signatures, curated the input data, and derive our results.
 
 The source code and instructions how to reproduce this study
 are available from https://github.com/grst/bioqc_geo. 
