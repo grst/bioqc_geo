@@ -1,6 +1,3 @@
-from snakemake.remote.HTTP import RemoteProvider as HTTPRemoteProvider
-HTTP = HTTPRemoteProvider()
-
 RMD_FILES, = glob_wildcards("notebooks/{rmd_files}.Rmd")
 
 # all files in the data directory
@@ -49,7 +46,7 @@ rule book:
   """build book using R bookdown"""
   input:
     # data
-    # DATA_FILES,
+    DATA_FILES,
     # preprocessed files
     "results/data_processed.RData",
     "results/archs4/archs4_data_processed.RData",
@@ -80,14 +77,12 @@ rule book:
 
 rule data:
    """download data from archive"""
-   input:
-     # TODO change to github once published
-     HTTP.remote("https://github.com/grst/bioqc_geo/releases/download/data-0.1/data.tar.gz", allow_redirects=True)
    output:
      DATA_FILES
    shell:
+     "wget 'https://github.com/grst/bioqc_geo/releases/download/data-0.1/data.tar.gz' -O data.tar.gz && "
      "mkdir -p data && "
-     "tar -xvzf {input} -C data --strip-components 1"
+     "tar -xvzf data.tar.gz -C data --strip-components 1"
 
 
 rule preprocess_archs:
