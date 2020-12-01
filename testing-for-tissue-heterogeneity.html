@@ -5,26 +5,26 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4 Testing for tissue heterogeneity | Tissue heterogeneity is prevalent in gene expression studies (Supplementary Information)</title>
-  <meta name="description" content="In this study, we systematically search GEO and ARCHS4 for cases of “tissue heterogeneity”." />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="description" content="In this study, we systematically search GEO and ARCHS4 for cases of “tissue heterogeneity.”" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4 Testing for tissue heterogeneity | Tissue heterogeneity is prevalent in gene expression studies (Supplementary Information)" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="In this study, we systematically search GEO and ARCHS4 for cases of “tissue heterogeneity”." />
+  <meta property="og:description" content="In this study, we systematically search GEO and ARCHS4 for cases of “tissue heterogeneity.”" />
   
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="4 Testing for tissue heterogeneity | Tissue heterogeneity is prevalent in gene expression studies (Supplementary Information)" />
   
-  <meta name="twitter:description" content="In this study, we systematically search GEO and ARCHS4 for cases of “tissue heterogeneity”." />
+  <meta name="twitter:description" content="In this study, we systematically search GEO and ARCHS4 for cases of “tissue heterogeneity.”" />
   
 
 <meta name="author" content="Gregor Sturm, Markus List, Jitao David Zhang" />
 
 
-<meta name="date" content="2020-11-30" />
+<meta name="date" content="2020-12-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="curating-data.html"/>
 <link rel="next" href="references.html"/>
-<script src="libs/header-attrs-2.4/header-attrs.js"></script>
+<script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,6 +51,8 @@
 
 
 
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
@@ -295,8 +297,8 @@ To all positives, the step 2 test is applied. In addition to the false-positives
 <span class="math display">\[
 0.01 = \tau + (1-\tau)\tau \Leftrightarrow 0 = \tau^2 - 2\tau + 0.01
 \]</span></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="testing-for-tissue-heterogeneity.html#cb1-1" aria-hidden="true"></a>tau =<span class="st"> </span><span class="kw">polyroot</span>(<span class="kw">c</span>(FDR_THRES, <span class="dv">-2</span>, <span class="dv">1</span>))[<span class="dv">1</span>]</span>
-<span id="cb1-2"><a href="testing-for-tissue-heterogeneity.html#cb1-2" aria-hidden="true"></a>tau</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="testing-for-tissue-heterogeneity.html#cb1-1" aria-hidden="true" tabindex="-1"></a>tau <span class="ot">=</span> <span class="fu">polyroot</span>(<span class="fu">c</span>(FDR_THRES, <span class="sc">-</span><span class="dv">2</span>, <span class="dv">1</span>))[<span class="dv">1</span>]</span>
+<span id="cb1-2"><a href="testing-for-tissue-heterogeneity.html#cb1-2" aria-hidden="true" tabindex="-1"></a>tau</span></code></pre></div>
 <pre><code>## [1] 0.005012563-0i</code></pre>
 <div class="figure"><span id="fig:correlationexample"></span>
 <img src="40_heterogeneity_test_files/figure-html/correlationexample-1.png" alt="Examples of signature correlation. Panels A-C: correlation of the signature scores (y-axis) against the scores of a reference signature (x-axis). The purple line indicates the model fitted to the data. Points falling into the shaded area can be explained by the linear model. Points are colored according to whether they would be discarded already in the FDR-filtering step. (A) Brain scores of kidney samples against the scores of the kidney signature. There is virtually no correlation, nor are there outliers. Apparently, no kidney samples are contaminated with neuronal cells. (B) Liver scores of kidney samples against scores of the kidney signature. The samples are not correlated, however some outliers are detected which are samples potentially containing liver cells. (C) Cardiac muscle scores of skeletal muscle samples against skeletal muscle scores. The scores are highly correlated. While most of the points exceed the FDR threshold, they will not be classified as outliers because the elevated score can be explained by the correlation. Panels D and E show the boxplots of the scores of various signatures on kidney and heart samples, respectively. " width="100%" />

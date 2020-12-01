@@ -5,26 +5,26 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>2 Validating Tissue Signatures | Tissue heterogeneity is prevalent in gene expression studies (Supplementary Information)</title>
-  <meta name="description" content="In this study, we systematically search GEO and ARCHS4 for cases of “tissue heterogeneity”." />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="description" content="In this study, we systematically search GEO and ARCHS4 for cases of “tissue heterogeneity.”" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="2 Validating Tissue Signatures | Tissue heterogeneity is prevalent in gene expression studies (Supplementary Information)" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="In this study, we systematically search GEO and ARCHS4 for cases of “tissue heterogeneity”." />
+  <meta property="og:description" content="In this study, we systematically search GEO and ARCHS4 for cases of “tissue heterogeneity.”" />
   
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="2 Validating Tissue Signatures | Tissue heterogeneity is prevalent in gene expression studies (Supplementary Information)" />
   
-  <meta name="twitter:description" content="In this study, we systematically search GEO and ARCHS4 for cases of “tissue heterogeneity”." />
+  <meta name="twitter:description" content="In this study, we systematically search GEO and ARCHS4 for cases of “tissue heterogeneity.”" />
   
 
 <meta name="author" content="Gregor Sturm, Markus List, Jitao David Zhang" />
 
 
-<meta name="date" content="2020-11-30" />
+<meta name="date" content="2020-12-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="index.html"/>
 <link rel="next" href="curating-data.html"/>
-<script src="libs/header-attrs-2.4/header-attrs.js"></script>
+<script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,6 +51,8 @@
 
 
 
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
@@ -176,7 +178,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="validating-signatures" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Validating Tissue Signatures</h1>
 <p>The authors of <em>BioQC</em> have taken three independent approaches
-to show that their signatures are valid and biologically meaningful <span class="citation">(Zhang et al. <a href="#ref-bioqc" role="doc-biblioref">2017</a>)</span>.
+to show that their signatures are valid and biologically meaningful <span class="citation">(<a href="references.html#ref-bioqc" role="doc-biblioref">Zhang et al. 2017</a>)</span>.
 (1) They checked the results for batch effects using surrogate
 variable analysis, (2) they ensured that the signatures
 are biologically meaningful by relating them to biological knowledge,
@@ -184,7 +186,7 @@ and (3) used an independent method to derive the signatures, which yields compar
 <p>However, they do not quantify the performance of the signatures using
 standardized performance measures, such as sensitivity and specificity.
 In principle, one can think of three methods to achieve such a
-validation <span class="citation">(Gönen <a href="#ref-Gonen2009" role="doc-biblioref">2009</a>)</span>: (1) internal validation, <em>i.e.</em> using the same
+validation <span class="citation">(<a href="references.html#ref-Gonen2009" role="doc-biblioref">Gönen 2009</a>)</span>: (1) internal validation, <em>i.e.</em> using the same
 data for generating and testing signatures, (2) split-sample validation,
 <em>i.e.</em> dividing the dataset in a test and training dataset and (3)
 independent-sample validation, <em>i.e.</em> using entirely unrelated samples
@@ -192,10 +194,10 @@ for training and testing. While method (2) might be acceptable if
 sufficient data is unavailable, only method (3) can ensure that the
 signature does not reflect experimental biases.</p>
 <p>To address this, we independently derived signatures on the
-<a href="http://gtexportal.org">GTEx</a> <span class="citation">(Lonsdale et al. <a href="#ref-gtex" role="doc-biblioref">2013</a>)</span> dataset using <em>gini-index</em> as
-<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5379536/">described previously</a> <span class="citation">(Zhang et al. <a href="#ref-bioqc" role="doc-biblioref">2017</a>)</span>, and performed
+<a href="http://gtexportal.org">GTEx</a> <span class="citation">(<a href="references.html#ref-gtex" role="doc-biblioref">Lonsdale et al. 2013</a>)</span> dataset using <em>gini-index</em> as
+<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5379536/">described previously</a> <span class="citation">(<a href="references.html#ref-bioqc" role="doc-biblioref">Zhang et al. 2017</a>)</span>, and performed
 both a 10-fold cross validation on the same dataset and a cross-species,
-cross-platform validation on the <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE10246">mouseGNF GeneAtlas</a> <span class="citation">(Lattin et al. <a href="#ref-Lattin2008" role="doc-biblioref">2008</a>)</span>.
+cross-platform validation on the <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE10246">mouseGNF GeneAtlas</a> <span class="citation">(<a href="references.html#ref-Lattin2008" role="doc-biblioref">Lattin et al. 2008</a>)</span>.
 To this end, we developed the python package <a href="https://github.com/grst/pygenesig">pygenesig</a>,<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>
 a framework to create and validate signatures.</p>
 <p>In this chapter, we</p>
@@ -207,8 +209,8 @@ a framework to create and validate signatures.</p>
 <div id="data" class="section level2" number="2.1">
 <h2><span class="header-section-number">2.1</span> Data</h2>
 <ul>
-<li>The <a href="http://gtexportal.org"><strong>Genotype Tissue Expression (GTEx)</strong></a> project <span class="citation">(Lonsdale et al. <a href="#ref-gtex" role="doc-biblioref">2013</a>)</span> is a comprehensive resource of tissue-specific gene expression data. We use this dataset to derive tissue-specific signatures. The data is human only and was generated using Illumina sequencing.</li>
-<li>We use the <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE10246"><strong>GNF Mouse GeneAtlas V3</strong></a> <span class="citation">(Lattin et al. <a href="#ref-Lattin2008" role="doc-biblioref">2008</a>)</span> as a control dataset to demonstrate that the gini-method is robust over multiple platforms and species. This dataset originates from mouse and was generated using the <em>Affymetrix Mouse Genome 430 2.0 Array (GPL1261)</em>.</li>
+<li>The <a href="http://gtexportal.org"><strong>Genotype Tissue Expression (GTEx)</strong></a> project <span class="citation">(<a href="references.html#ref-gtex" role="doc-biblioref">Lonsdale et al. 2013</a>)</span> is a comprehensive resource of tissue-specific gene expression data. We use this dataset to derive tissue-specific signatures. The data is human only and was generated using Illumina sequencing.</li>
+<li>We use the <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE10246"><strong>GNF Mouse GeneAtlas V3</strong></a> <span class="citation">(<a href="references.html#ref-Lattin2008" role="doc-biblioref">Lattin et al. 2008</a>)</span> as a control dataset to demonstrate that the gini-method is robust over multiple platforms and species. This dataset originates from mouse and was generated using the <em>Affymetrix Mouse Genome 430 2.0 Array (GPL1261)</em>.</li>
 </ul>
 </div>
 <div id="cross-validation-of-signatures-on-the-gtex-dataset" class="section level2" number="2.2">
@@ -216,7 +218,7 @@ a framework to create and validate signatures.</p>
 <p>We use <em>pygenesig</em> to create and validate signatures on the GTEx v6 dataset. The data preparation steps are performed using <a href="https://github.com/grst/pygenesig-example/tree/d88e4a81a45e192527a84a4445094604deba580b/notebooks/prepare_data">these jupyter notebooks</a>.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> The output of <em>pygenesig</em> can be viewed <a href="https://github.com/grst/BioQC_GEO_analysis/blob/aa0fcd86bbdfbd49c9a4a10ce0be1c22895cc957/notebooks/gtex_v6_gini.ipynb">here</a>.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> Below, we summarize the analyses described in these documents.</p>
 <p>We obtained the gene expression data and sample annotation from the <a href="http://gtexportal.org">GTEx portal</a>. We collapsed gene
 expression data by HGNC symbol, aggregating by the sum. We aggregated samples of the same tissue by median.
-We generated signatures based on <a href="https://grst.github.io/pygenesig/apidoc.html#module-pygenesig.gini">gini index</a><a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> as described in the <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5379536/">BioQC paper</a> <span class="citation">(Zhang et al. <a href="#ref-bioqc" role="doc-biblioref">2017</a>)</span>. In brief, we calculated gini index for each gene across all tissues. Genes with a gini index <span class="math inline">\(\ge\)</span> 0.8 and expression of <span class="math inline">\(\ge\)</span> 5 TPM were added to the signatures of the 3 tissues with their highest expression.</p>
+We generated signatures based on <a href="https://grst.github.io/pygenesig/apidoc.html#module-pygenesig.gini">gini index</a><a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> as described in the <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5379536/">BioQC paper</a> <span class="citation">(<a href="references.html#ref-bioqc" role="doc-biblioref">Zhang et al. 2017</a>)</span>. In brief, we calculated gini index for each gene across all tissues. Genes with a gini index <span class="math inline">\(\ge\)</span> 0.8 and expression of <span class="math inline">\(\ge\)</span> 5 TPM were added to the signatures of the 3 tissues with their highest expression.</p>
 <p>Next, we performed a 10-fold cross-validation as follows:
 We split samples in 10 <a href="http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedKFold.html">stratified folds</a>,<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> <em>i.e.</em> samples from all tissues are equally distributed across all folds. We use 9 folds to generate signatures. These signatures were applied to the remaining fold using BioQC. We iterated over the folds such that each fold has been used for training and testing.</p>
 <p>Figure <a href="validating-signatures.html#fig:gtexxval">2.1</a> shows the average BioQC score over all folds for each signature and each tissue.</p>
@@ -266,21 +268,6 @@ Figure 2.4: Cross-platform, cross-species validation of the robust signatures id
 <p>Unfortunately, <em>Blood</em> was not profiled in the mouseGNF dataset. We keep the signature nonetheless as it does not trigger any false positives.</p>
 <div style="page-break-after: always;"></div>
 
-</div>
-</div>
-<h3> References</h3>
-<div id="refs" class="references">
-<div id="ref-Gonen2009">
-<p>Gönen, Mithat. 2009. “Statistical aspects of gene signatures and molecular targets.” <em>Gastrointest Cancer Res</em> 3 (2 Suppl): 19–21. <a href="http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=2684735%7B\&amp;%7Dtool=pmcentrez%7B\&amp;%7Drendertype=abstract">http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=2684735{\&amp;}tool=pmcentrez{\&amp;}rendertype=abstract</a>.</p>
-</div>
-<div id="ref-Lattin2008">
-<p>Lattin, Jane E, Kate Schroder, Andrew I Su, John R Walker, Jie Zhang, Tim Wiltshire, Kaoru Saijo, et al. 2008. “Expression Analysis of G Protein-Coupled Receptors in Mouse Macrophages.” <em>Immunome Research</em> 4 (1): 5. <a href="https://doi.org/10.1186/1745-7580-4-5">https://doi.org/10.1186/1745-7580-4-5</a>.</p>
-</div>
-<div id="ref-gtex">
-<p>Lonsdale, John, Jeffrey Thomas, Mike Salvatore, Rebecca Phillips, Edmund Lo, Saboor Shad, Richard Hasz, et al. 2013. “The Genotype-Tissue Expression (GTEx) project.” <em>Nature Genetics</em> 45 (6): 580–85. <a href="https://doi.org/10.1038/ng.2653">https://doi.org/10.1038/ng.2653</a>.</p>
-</div>
-<div id="ref-bioqc">
-<p>Zhang, Jitao David, Klas Hatje, Gregor Sturm, Clemens Broger, Martin Ebeling, Martine Burtin, Fabiola Terzi, Silvia Ines Pomposiello, and Laura Badi. 2017. “Detect tissue heterogeneity in gene expression data with BioQC.” <em>BMC Genomics</em> 18 (1): 277. <a href="https://doi.org/10.1186/s12864-017-3661-2">https://doi.org/10.1186/s12864-017-3661-2</a>.</p>
 </div>
 </div>
 <div class="footnotes">

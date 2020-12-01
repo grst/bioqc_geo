@@ -42,7 +42,7 @@ We filtered GEO samples by the following criteria (figure \@ref(fig:funnelgeo)):
 
 \begin{figure}[h]
 
-{\centering \includegraphics[width=0.4\linewidth]{../figures/funnel_geo} 
+{\centering \includegraphics[width=0.4\linewidth]{figures/funnel_geo} 
 
 }
 
@@ -71,7 +71,7 @@ Gene counts were normalized into TPM values before analysing them with BioQC.
 
 \begin{figure}[h]
 
-{\centering \includegraphics[width=0.4\linewidth]{../figures/funnel_archs4} 
+{\centering \includegraphics[width=0.4\linewidth]{figures/funnel_archs4} 
 
 }
 
