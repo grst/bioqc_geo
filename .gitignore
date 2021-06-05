@@ -19,3 +19,4 @@ _notebooks
 notebooks/*.log
 notebooks/*.pdf
 zenodo
+docker-compose.yml
