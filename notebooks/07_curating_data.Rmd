@@ -41,7 +41,7 @@ We filtered GEO samples by the following criteria (figure \@ref(fig:funnelgeo)):
 
 
 ```{r funnelgeo, out.width="40%", echo=FALSE, fig.cap="Summary of filtering steps on GEO samples", fig.align="center", fig.pos="h"}
-knitr::include_graphics("../figures/funnel_geo.png")
+knitr::include_graphics("figures/funnel_geo.png")
 ```
 
 
@@ -65,7 +65,7 @@ Gene counts were normalized into TPM values before analysing them with BioQC.
 
 
 ```{r funnelarchs, out.width="40%", echo=FALSE, fig.cap="Summary of filtering steps on ARCHS4 samples", fig.align='center', fig.pos="h"}
-knitr::include_graphics("../figures/funnel_archs4.png")
+knitr::include_graphics("figures/funnel_archs4.png")
 ```
 
 
