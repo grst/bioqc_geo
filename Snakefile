@@ -69,8 +69,6 @@ rule book:
   conda:
     "envs/bookdown.yml"
   shell:
-    "rm -f results/book/figures \n"
-    "ln -s ../figures results/book/figures \n"
     "cd notebooks && "
     "Rscript -e \"bookdown::render_book('index.Rmd', output_format=c('bookdown::gitbook', 'bookdown::pdf_document2'))\""
 
