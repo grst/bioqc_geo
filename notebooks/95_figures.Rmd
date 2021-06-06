@@ -92,8 +92,11 @@ foreach(name = c("GEO", "ARCHS4")) %dopar% {
 
 ```{r raw-corr-plots, fig.width=48, fig.height=24, include=FALSE}
 # scatterplots signature vs reference signature
-foreach(name = c("GEO", "ARCHS4")) %dopar% {
-  contam_all %>%
+foreach(
+  name = c("GEO", "ARCHS4", "GEO", "ARCHS4"),
+  color = c("status", "status", "GPL", "GPL")
+) %dopar% {
+  p = contam_all %>%
     filter(dataset == name) %>%
     filter(!is_excluded) %>%
     mutate(status = if_else(
@@ -103,21 +106,24 @@ foreach(name = c("GEO", "ARCHS4")) %dopar% {
     )) %>%
     ggplot(aes(x = ref_score, y = score)) +
     facet_grid(TGROUP ~ SIGNATURE) +
-    # geom_abline(aes(slope=slope, intercept=intercept), colour="red") +
-    geom_point(alpha = .35, size = .5, aes(color = status)) +
-    # geom_ribbon(aes(color="interval", ymax=ci(ref_score, intercept, slope, sigma, 1), ymin=ci(ref_score, intercept, slope, sigma, -1), alpha=.2, show.legend = TRUE)) +
+    geom_point(alpha = .35, size = .5, aes_string(color = color)) +
     theme_bw() +
-    ggtitle(str_c("Correlations for ", name)) +
-    scale_color_manual(
+    ggtitle(str_c("Correlations for ", name))
+  
+  if (color == "status") {
+    p + scale_color_manual(
       values = c(
         "severe" = "red",
         "heterogeneous" = "blue",
         "not heterogeneous" = "lightgrey"
       )
     )
+  } else {
+    p + scale_color_discrete()
+  }
   
   ggsave(
-    str_c("../results/figures/correlations_", name, ".png"),
+    str_c("../results/figures/correlations_", name, "_", color, ".png"),
     width = 299,
     height = 20,
     dpi = 72,
