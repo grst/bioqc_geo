@@ -29,4 +29,5 @@ dependencies:
   - bioconductor-biobase
   - r-foreach
   - r-domc
+  - r-ggbeeswarm
 
