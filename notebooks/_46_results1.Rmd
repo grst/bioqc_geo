@@ -43,22 +43,15 @@ data_corr_datasets = foreach(
     dataset %>%
       filter(str_detect(SIGNATURE, "^BIOQC") | str_detect(SIGNATURE, "^GTEX")) %>%
       mutate(
-        score_significant = qvalue < TAU,
-        score_corr_significant = q_corr < TAU
+        score_significant = qvalue < FDR_THRES,
       ) %>%
-      mutate(sig_color = if_else(
-        score_significant & score_corr_significant,
-        "both",
-        if_else(score_significant,
-                "score_significant",
-                "none")
-      ))
+      mutate( sig_color = if_else(score_significant, "score_significant", "none"))
   }
 
 
 ```
 
-```{r raw-scores, fig.width=48, fig.height=24, include=FALSE}
+```{r raw-scores, fig.width=96, fig.height=48, include=FALSE}
 foreach(dataset = data_corr_datasets,
         name = names(data_corr_datasets)) %dopar% {
           dataset %>%
@@ -81,10 +74,11 @@ foreach(dataset = data_corr_datasets,
 foreach(dataset = data_corr_datasets,
         name = names(data_corr_datasets)) %dopar% {
           dataset %>%
+            filter(slope < 0.01) %>% 
             ggplot(aes(x=ref_score, y=score)) +
-            geom_point(alpha=.35, size=.5, aes(color=sig_color)) +
             facet_grid(TGROUP~SIGNATURE) +
             geom_abline(aes(slope=slope, intercept=intercept), colour="red") +
+            geom_point(alpha=.35, size=.5, aes(color=GPL)) +
             # geom_ribbon(aes(color="interval", ymax=ci(ref_score, intercept, slope, sigma, 1), ymin=ci(ref_score, intercept, slope, sigma, -1), alpha=.2, show.legend = TRUE)) +
             theme_bw() +
             ggtitle(str_c("Correlations for ", name))
