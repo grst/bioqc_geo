@@ -1,0 +1,7 @@
+step,n_samples,n_studies
+unfiltered,523429,16045
+library_type,522388,15982
+no_single_cells,240842,13900
+200k_reads,234024,13857
+tissue_in_cv,32704,1360
+solid_signature,25284,932

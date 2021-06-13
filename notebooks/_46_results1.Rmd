@@ -1,0 +1,197 @@
+```{r, include=FALSE, message=FALSE}
+library(MASS)
+library(BioQC)
+library(stringr)
+library(gridExtra)
+library(dplyr)
+library(readr)
+library(cowplot)
+library(readxl)
+library(tidyr)
+library(foreach)
+library(ggplot2)
+library(doMC)
+registerDoMC(cores=8)
+source("config.R")
+```
+
+```{r, include=FALSE}
+load('../results/data_processed.RData')
+load('../results/models.RData')
+
+data_corr_array = data_corr
+total_array = data_corr$GSM %>% unique() %>% length()
+
+load('../results/archs4/archs4_data_processed.RData')
+load('../results/archs4/archs4_models.RData')
+
+data_corr_ngs = data_corr
+total_ngs = data_corr$GSM %>% unique() %>% length()
+
+datasets = list(
+  "GEO"=data_corr_array,
+  "ARCHS4"=data_corr_ngs
+)
+```
+
+# Results
+```{r data-corr-pvalues, include=FALSE}
+## Correlation plots for manual inspection
+data_corr_datasets = foreach(
+  dataset = datasets,
+  .final = function(x) setNames(x, names(datasets))) %dopar% {
+    dataset %>%
+      filter(str_detect(SIGNATURE, "^BIOQC") | str_detect(SIGNATURE, "^GTEX")) %>%
+      mutate(
+        score_significant = qvalue < TAU,
+        score_corr_significant = q_corr < TAU
+      ) %>%
+      mutate(sig_color = if_else(
+        score_significant & score_corr_significant,
+        "both",
+        if_else(score_significant,
+                "score_significant",
+                "none")
+      ))
+  }
+
+
+```
+
+```{r raw-scores, fig.width=48, fig.height=24, include=FALSE}
+foreach(dataset = data_corr_datasets,
+        name = names(data_corr_datasets)) %dopar% {
+          dataset %>%
+            ggplot(aes(y=score, x=SIGNATURE)) +
+              geom_boxplot() +
+              facet_grid(REF_SIG ~ ., scales = "free_x") +
+              theme_bw() +
+              theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+              ggtitle(str_c("Scores for ", name))
+
+          ggsave(str_c("../results/figures/scores_", name, ".png"), width=48, height=24, dpi=300, limitsize=FALSE)
+        }
+```
+
+```{r raw-corr-plots, fig.width=48, fig.height=24, include=FALSE}
+# tmp_cutoff = 0.05 / 10000
+# ci = function(x, intercept, slope, sigma, sign=1) {
+#  x * slope + intercept + sign * qnorm(1-tmp_cutoff, mean=0, sd=sigma)
+# }
+foreach(dataset = data_corr_datasets,
+        name = names(data_corr_datasets)) %dopar% {
+          dataset %>%
+            ggplot(aes(x=ref_score, y=score)) +
+            geom_point(alpha=.35, size=.5, aes(color=sig_color)) +
+            facet_grid(TGROUP~SIGNATURE) +
+            geom_abline(aes(slope=slope, intercept=intercept), colour="red") +
+            # geom_ribbon(aes(color="interval", ymax=ci(ref_score, intercept, slope, sigma, 1), ymin=ci(ref_score, intercept, slope, sigma, -1), alpha=.2, show.legend = TRUE)) +
+            theme_bw() +
+            ggtitle(str_c("Correlations for ", name))
+
+          ggsave(str_c("../results/figures/correlations_", name, ".png"), width=299, height=20, dpi=72, limitsize=FALSE)
+        }
+
+```
+
+## Heterogeneity using GTEx signatures only
+See figure \@ref(fig:heterogeneitygtex)
+
+```{r heterogeneitygtex, cache=TRUE, include=FALSE}
+contam_count = foreach(dataset_name = names(datasets),
+        dataset = datasets,
+        .combine=bind_rows) %do% {
+          contam_count = dataset %>%
+            filter(q_corr < TAU, qvalue < TAU) %>%
+            group_by(TGROUP, SIGNATURE) %>%
+            summarise(cnt = n_distinct(GSM)) %>%
+            mutate(dataset=dataset_name)
+        }
+```
+
+```{r heterogeneitygtexfig, echo=FALSE, fig.cap="Tissue heterogeneity assessed with the reference signatures. The annotated tissues are listed in rows, the significantly enriched signatures in columns. If a signature has been found to be significantly enriched in a sample, the sample will count towards the number indicated in the matrix. All contaminations per sample are included, i.e. a sample can appear multiple times in a row. ", fig.height=5, fig.width=8, out.width="90%", fig.align="center"}
+contam_count %>%
+  filter(SIGNATURE %in% reference_signatures$REF_SIG) %>%
+  ggplot(aes(x=factor(SIGNATURE, levels=reference_signatures$REF_SIG), y=TGROUP)) +
+      geom_tile(aes(fill = cnt)) +
+      geom_text(aes(label=cnt)) +
+      scale_x_discrete(drop=FALSE) +
+      facet_wrap(~dataset) +
+      ylab("reference tissue") +
+      xlab("detected signature") +
+      scale_fill_distiller(palette = "Blues", direction=1) +
+      theme_cowplot() + 
+      background_grid()  +
+      theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust=.5)) 
+```
+
+## Heterogeneity using all signatures
+
+See figures \@ref(fig:heterogeneityall1), \@ref(fig:heterogeneityall2), \@ref(fig:heterogeneityall3), and \@ref(fig:heterogeneityall4). 
+
+```{r prepareheterogeneity, include=FALSE}
+bioqc_signatures = selected_signatures %>% filter(str_detect(SIGNATURE, 'BIOQC')) %>% pull("SIGNATURE")
+tissues =  data_corr_ngs %>% pull(TGROUP) %>% unique()
+chunks = cut_interval(1:length(bioqc_signatures),
+                      length = 15,
+                      labels = FALSE)
+
+
+plots2 = lapply(unique(chunks), function(i) {
+  plots = lapply(names(datasets), function(dataset_name) {
+    tmp_signatures = bioqc_signatures[chunks == i]
+    p = contam_count %>%
+      filter(dataset == dataset_name) %>%
+      filter(SIGNATURE %in% tmp_signatures) %>%
+      ggplot(aes(
+        x = factor(SIGNATURE, levels = tmp_signatures),
+        y = factor(TGROUP, levels=tissues)
+      )) +
+      geom_tile(aes(fill = cnt)) +
+      geom_text(aes(label = cnt), size = 3) +
+      theme_bw() +
+      theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+      ylab("reference tissue") +
+      xlab("detected signature") +
+      theme(axis.text.x = element_text(
+        angle = 45,
+        hjust = 1,
+        size = 10
+      )) +
+      background_grid(major = "xy", minor = "xy") +
+      scale_fill_distiller(palette = "Blues",
+                           direction = 1,
+                           guide = FALSE) + 
+      scale_x_discrete(drop=FALSE) + 
+      scale_y_discrete(drop=FALSE) + 
+      ggtitle(dataset_name) 
+    p
+  })
+  
+  plot_grid(
+    plotlist = plots,
+    ncol = 2,
+    align = "h"
+  )
+})
+```
+
+```{r heterogeneityall1, fig.width=9, fig.height=9, echo=FALSE, fig.cap="Tissue heterogeneity assessed with the BioQC signatures. The annotated tissues are listed in rows, the significantly enriched signatures in columns. If a signature has been found to be significantly enriched in a sample, the sample will count towards the number indicated in the matrix. All contaminations per sample are included, i.e. a sample can appear multiple times in a row.", out.width="100%"}
+plot_grid(plotlist = plots2[1:2], ncol=1)+ 
+      theme(plot.margin=unit(c(1,1,1,3),"cm"))
+```
+```{r heterogeneityall2, fig.width=9, fig.height=9, echo=FALSE, fig.cap="Tissue heterogeneity assessed with the BioQC signatures (continued)", out.width="100%"}
+plot_grid(plotlist = plots2[3:4], ncol=1) + 
+      theme(plot.margin=unit(c(1,1,1,3),"cm"))
+```
+```{r heterogeneityall3, fig.width=9, fig.height=9, echo=FALSE, fig.cap="Tissue heterogeneity assessed with the BioQC signatures (continued)", out.width="100%"}
+plot_grid(plotlist = plots2[5:6], ncol=1)+ 
+      theme(plot.margin=unit(c(1,1,1,3),"cm"))
+```
+
+```{r heterogeneityall4, fig.width=9, fig.height=9, echo=FALSE, fig.cap="Tissue heterogeneity assessed with the BioQC signatures (continued)", out.width="100%"}
+plot_grid(plotlist = plots2[7:length(plots2)], ncol=1)+ 
+      theme(plot.margin=unit(c(1,1,1,3),"cm"))
+```
+
+\newpage

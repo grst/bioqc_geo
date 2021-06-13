@@ -1,4 +1,4 @@
-```{r}
+```{r, include=FALSE}
 library(stringr)
 library(readr)
 library(MASS)
@@ -7,13 +7,13 @@ library(cowplot)
 library(ggplot2)
 library(boot)
 library(dplyr)
+library(foreach)
+library(doMC)
+registerDoMC(cores=8)
 select = dplyr::select
 ```
 
-
-# Figures for publication
-
-```{r load_data, include=FALSE}
+```{r loaddata, include=FALSE}
 load('../results/data_processed.RData')
 load('../results/models.RData')
 
@@ -25,44 +25,112 @@ load('../results/archs4/archs4_models.RData')
 
 data_corr_ngs = data_corr
 total_ngs = data_corr$GSM %>% unique() %>% length()
-
 ```
 
-Same as in the section before, but all bioqc signatures aggregated by tissue groups.
-Additional, we define samples as being "severely heterogeneous", if the reference signature,
-i.e. the signature that should be present according to the annotation, is not enriched at
-an unadjusted p-value < `r SEVERE_THRES`.
+
+
+
 ```{r, include=FALSE}
+# Same as in the section before, but all bioqc signatures aggregated by tissue groups.
+# Additional, we define samples as being "severely heterogeneous", if the reference signature,
+# i.e. the signature that should be present according to the annotation, is not enriched at
+# an unadjusted p-value < `r SEVERE_THRES`.
+
 bioqc_tissue_set = read_csv("../data/bioqc_geo_oracle_dump/BIOQC_TISSUE_SET_DATA_TABLE.csv") %>%
-  filter(TISSUE_SET == 'bioqc_all') %>%
+  filter(TISSUE_SET %in% c('bioqc_all', 'gtex_solid')) %>%
   select(SIG_ID=SIGNATURE, DETECTED_TGROUP=TGROUP)
 
-bioqc_all = selected_signatures %>%
-  filter(str_detect(SIGNATURE, 'BIOQC')) %>%
-  pull("SIGNATURE")
-
-contam_ngs_tgroup = data_corr_ngs %>%
+data_all = bind_rows(data_corr_ngs %>%
+  mutate(dataset = "ARCHS4"), 
+  data_corr_array %>% mutate(dataset="GEO")) %>% 
   inner_join(bioqc_signatures, by=c("SIGNATURE"="SIG_NAME")) %>%
   rename(SIG_ID=ID) %>%
-  inner_join(bioqc_tissue_set) %>%
-  mutate(is_contaminated=qvalue < TAU & q_corr < TAU & TGROUP != DETECTED_TGROUP) %>%
-  mutate(is_severe=is_contaminated & REF_PVALUE >= SEVERE_THRES) %>%
-  mutate(dataset = "ARCHS4")
+  inner_join(bioqc_tissue_set)
 
-contam_array_tgroup = data_corr_array %>%
-  inner_join(bioqc_signatures, by=c("SIGNATURE"="SIG_NAME")) %>%
-  rename(SIG_ID=ID) %>%
-  inner_join(bioqc_tissue_set) %>%
-  mutate(is_contaminated=qvalue < TAU & q_corr < TAU & TGROUP != DETECTED_TGROUP) %>%
-  mutate(is_severe=is_contaminated & REF_PVALUE >= SEVERE_THRES) %>%
-  mutate(dataset = "GEO")
+model_params = data_all %>% 
+  select(TGROUP, SIGNATURE, REF_SIG, slope, intercept, dataset, DETECTED_TGROUP) %>% 
+  distinct() %>% 
+  mutate(slope=round(slope, 4), intercept=round(intercept, 4))
 
-contam_all = bind_rows(contam_ngs_tgroup, contam_array_tgroup) %>% ungroup()
+exclude_pairs = model_params %>% 
+  filter(slope >= SLOPE_THRES) %>% 
+  select(TGROUP, REF_SIG, SIGNATURE, DETECTED_TGROUP) %>% 
+  distinct() %>% 
+  mutate(is_excluded=TRUE)
+
+contam_all = data_all %>%
+  ungroup() %>%
+  left_join(exclude_pairs) %>% 
+  mutate(is_excluded = !is.na(is_excluded)) %>%
+  mutate(is_contaminated=qvalue < FDR_THRES & TGROUP != DETECTED_TGROUP & !is_excluded) %>%
+  mutate(is_severe=is_contaminated & REF_PVALUE >= SEVERE_THRES) 
 ```
 
-```{r export_files, include=FALSE}
+
+```{r raw-scores, fig.width=96, fig.height=48, include=FALSE}
+# Boxplots signature vs. reference 
+foreach(name = c("GEO", "ARCHS4")) %dopar% {
+  contam_all %>%
+    filter(dataset == name) %>%
+    filter(!is_excluded) %>%
+    ggplot(aes(y = score, x = SIGNATURE)) +
+    geom_boxplot() +
+    facet_grid(REF_SIG ~ ., scales = "free_x") +
+    theme_bw() +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+    ggtitle(str_c("Scores for ", name))
+  
+  ggsave(
+    str_c("../results/figures/scores_", name, ".png"),
+    width = 48,
+    height = 24,
+    dpi = 300,
+    limitsize = FALSE
+  )
+}
+```
+
+```{r raw-corr-plots, fig.width=48, fig.height=24, include=FALSE}
+# scatterplots signature vs reference signature
+foreach(name = c("GEO", "ARCHS4")) %dopar% {
+  contam_all %>%
+    filter(dataset == name) %>%
+    filter(!is_excluded) %>%
+    mutate(status = if_else(
+      is_severe,
+      "severe",
+      if_else(is_contaminated, "heterogeneous", "not heterogeneous")
+    )) %>%
+    ggplot(aes(x = ref_score, y = score)) +
+    facet_grid(TGROUP ~ SIGNATURE) +
+    # geom_abline(aes(slope=slope, intercept=intercept), colour="red") +
+    geom_point(alpha = .35, size = .5, aes(color = status)) +
+    # geom_ribbon(aes(color="interval", ymax=ci(ref_score, intercept, slope, sigma, 1), ymin=ci(ref_score, intercept, slope, sigma, -1), alpha=.2, show.legend = TRUE)) +
+    theme_bw() +
+    ggtitle(str_c("Correlations for ", name)) +
+    scale_color_manual(
+      values = c(
+        "severe" = "red",
+        "heterogeneous" = "blue",
+        "not heterogeneous" = "lightgrey"
+      )
+    )
+  
+  ggsave(
+    str_c("../results/figures/correlations_", name, ".png"),
+    width = 299,
+    height = 20,
+    dpi = 72,
+    limitsize = FALSE
+  )
+}
+
+```
+
+
+```{r exportfiles, include=FALSE}
 heterogeneity_res = contam_all %>%
-  select(dataset, GSM, TGROUP, REF_SIG, DETECTED_TGROUP, SIGNATURE, REF_PVALUE, PVALUE, qvalue, p_corr, q_corr, is_contaminated, is_severe) %>%
+  select(dataset, GSM, TGROUP, REF_SIG, DETECTED_TGROUP, SIGNATURE, REF_PVALUE, PVALUE, qvalue, is_contaminated, is_severe) %>%
   distinct()
 
 heterogeneity_res %>%
@@ -77,26 +145,27 @@ heterogeneity_res %>%
 ```{r, fig.width=8, fig.height=5, echo=FALSE, warning=FALSE, message=FALSE, fig.cap="Absolute number of samples per tissue in which certain signature is detected as significantly enriched. "}
 tgroups = bioqc_tissue_set$DETECTED_TGROUP %>% unique()
 p2 = contam_all %>%
-  filter(is_contaminated == TRUE) %>%
   group_by(dataset, TGROUP, DETECTED_TGROUP) %>%
-  summarise(cnt=n_distinct(GSM)) %>%
+  summarise(cnt=n_distinct(GSM[is_contaminated]), has_excluded=any(is_excluded)) %>%
   ggplot(aes(x=factor(DETECTED_TGROUP, levels=tgroups), y=TGROUP)) +
-      geom_tile(aes(fill=cnt)) +
-      geom_text(aes(label=cnt), size=3) +
+      geom_tile(aes(fill=cnt, alpha=(cnt != 0))) +
+      geom_tile(aes(linetype=has_excluded), alpha=0, size=.2, color="black") +
+      geom_text(aes(label=ifelse(cnt != 0, cnt, "")), size=3) +
       theme_bw() +
-      theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust=.5, size=10)) +
+      theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust=.5, size=10), legend.position="none") +
       scale_x_discrete(drop=FALSE) +
       ylab("reference tissue") +
       xlab("detected signature") +
       background_grid() +
       facet_grid(dataset~.) +
-      scale_fill_distiller(palette = "Blues", direction=1, guide=FALSE)
+      scale_fill_distiller(palette = "Blues", direction=1, guide=FALSE) +
+      scale_linetype_manual(values=c("TRUE"="dashed", "FALSE"="blank"))
 
 ```
 
 
-We use bootstrapping (R package `boot`) to derive confidence intervals.
 ```{r, include=FALSE}
+# We use bootstrapping (R package `boot`) to derive confidence intervals.
 stat_fun_contam = function(df, i) {
   df = df[i, ]
   total = nrow(df)
@@ -130,26 +199,46 @@ contam_frac = contam_all %>%
   do(bootstrap(.))
 ```
 
-```{r, fig.width=8, fig.height=4.5, echo=FALSE, warning=FALSE, fig.cap="fraction of heterogenous samples per tissue. "}
+```{r, include=FALSE, fig.width=8, fig.height=4.5, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="fraction of heterogeneous samples per tissue. ", out.width="100%"}
 p1 = contam_frac %>%
+  mutate(percent = fraction * 100) %>% 
   ungroup() %>%
-  ggplot(aes(y=fraction, x=TGROUP)) +
+  ggplot(aes(y=percent, x=TGROUP)) +
     geom_bar(aes(fill=dataset), stat="identity", position = "dodge") +
-    geom_errorbar(aes(ymin=if_else(ci_low < 0, 0, ci_low), ymax=ci_high, fill=dataset), position='dodge') +
+    geom_errorbar(aes(ymin=if_else(ci_low < 0, 0, ci_low * 100), ymax=ci_high * 100, fill=dataset), position='dodge') +
+    ylab("% heterogeneous samples") +
+    xlab("") + 
     scale_fill_brewer(palette="Set1") +
+    theme_cowplot() + 
+    background_grid() +
     theme(axis.text.x = element_text(angle = 90, hjust=1, vjust=.5),
-          legend.position = "top",
-          axis.title=element_blank()) +
-    facet_wrap(~type) +
-    ylab("frac. heterogeneous samples")
+          legend.position = "top") +
+    facet_wrap(~type) 
 
 ggsave("../results/figures/heterogeneity_fractions.pdf")
 ggsave("../results/figures/heterogeneity_fractions.png")
 write_tsv(contam_frac, path = "../results/heterogeneity_fractions.tsv")
 ```
 
-```{r, fig.width=8, fig.height=9}
+
+```{r, include=FALSE}
+# Stats
+
+contam_frac_nodataset = contam_all %>%
+  bind_rows(contam_all %>% mutate(TGROUP = "all")) %>%
+  group_by(TGROUP, GSM) %>%
+  summarise(sample_is_contaminated=any(is_contaminated), sample_is_severe=any(is_severe)) %>%
+  group_by(TGROUP) %>%
+  do(bootstrap(.))
+
+write_tsv(contam_frac, path = "../results/heterogeneity_fractions_nodataset.tsv")
+```
+
+```{r, include=FALSE, fig.width=8, fig.height=9, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="Main figure for paper. (A) Fractions of heterogeneous samples per tissue. (B) Sample confusion matrix."}
 plot_grid(p1, p2, align = "v", nrow=2, rel_heights = c(.5, .6), labels = "AUTO", axis="lr")
 ggsave("../results/figures/heterogeneity_main.pdf")
 ggsave("../results/figures/heterogeneity_main.png")
 ```
+
+
+# References

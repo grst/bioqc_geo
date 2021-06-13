@@ -17,7 +17,7 @@
 #            - REF_PVALUE: the original BioQC pvalue of the reference signature
 #            - p_corr: P-value generated from linear model
 #            - q_corr: fdr-adjusted p_corr
-# 
+#
 ########################################################################################
 
 library(tidyr)
@@ -44,9 +44,6 @@ args = commandArgs(TRUE)
 DATA_FILE = args[1]
 MODEL_FILE = args[2]
 
-## testis has too few values in archs4 -> ignore.
-#reference_signatures = reference_signatures %>% filter(TGROUP != "testis")
-
 message("loading data\n")
 # load preprocessed data
 load(DATA_FILE)
@@ -60,11 +57,6 @@ process_tgroup = function(df) {
   df$sigma = sigma(model)
   df$slope = model$coefficients[[2]]
   df$intercept = model$coefficients[[1]]
-  predicted = predict(model, newdata=dplyr::select(df, ref_score))
-  residues = df$score - predicted
-  df$residues = residues
-  # minimal sigma to avoid numerical problems with perfect correlations
-  df$p_corr = pnorm(residues, mean=0, sd=max(sigma(model), 0.01), lower.tail=FALSE)
   df
 }
 
@@ -84,11 +76,10 @@ models = foreach (ref_sig=reference_signatures$REF_SIG,
                     tmp_models
                   }
 
-# add correlation corrected p-value and correct for multiple testing.
-message("computing correlation-corrected pvalues\n")
+# add slope and intercept to dataframe
+message("Updating dataframe\n")
 data_corr = data2 %>%
   group_by(TGROUP, SIGNATURE) %>%
-  do(process_tgroup(.)) %>% 
-  mutate(q_corr = p.adjust(p_corr, method = "fdr"))
+  do(process_tgroup(.))
 
 save(models, data_corr, file=MODEL_FILE, compress = FALSE)

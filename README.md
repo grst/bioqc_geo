@@ -1,16 +1,16 @@
-# A prevalence of tissue heterogeneity in gene expression studies
+# Tissue heterogeneity is prevalent in gene expression studies
 
-> Sturm, G and Zhang JD, *Manuscript in preparation*
+
+> Gregor Sturm, Markus List and Jitao David Zhang. Tissue heterogeneity is prevalent in gene expression studies
 
 The source code in this project can be used to reproduce the results
-described in the paper.
+described in the paper. 
 
-Running the pipeline will generate an interactive HTML report using
-[bookdown](https://bookdown.org/yihui/bookdown/), which is equivalent
-to the one available on
-[grst.github.io/bioqc_geo](https://grst.github.io/bioqc_geo)
+Running the pipeline will generate the figures and supplementary information from the paper. 
+The supplementary information is additionally available as a website on 
+[grst.github.io/bioqc_geo](https://grst.github.io/bioqc_geo). 
 
-## Getting started
+## Running the pipeline
 Short version:
 ```
 conda install snakemake
@@ -22,8 +22,8 @@ snakemake --use-conda
 For details, see below.
 
 ### Prerequisites
-This pipeline uses [Anaconda](https://conda.io/miniconda.html) and
-[Snakemake](https://snakemake.readthedocs.io/en/stable/).
+This pipeline uses [conda](https://conda.io/miniconda.html) to install all dependencies and
+[Snakemake](https://snakemake.readthedocs.io/en/stable/) to orchestrate the analyses.
 
 1. **Download and install [Miniconda](https://conda.io/miniconda.html)**
 2. **Install snakemake**
@@ -37,10 +37,6 @@ the source code for the [immundeconv](https://github.com/grst/immunedeconv) R pa
 git clone git@github.com:grst/bioqc_geo.git
 ```
 
-If you have problems retrieving the submodule, read this [question on
-stackoverflow](https://stackoverflow.com/questions/3796927/how-to-git-clone-including-submodules).
-
-
 ### Run the pipeline
 To perform all computations and to generate a HTML report with
 [bookdown](https://bookdown.org/yihui/bookdown/) invoke
@@ -52,9 +48,10 @@ snakemake --use-conda book
 
 Make sure to use the `--use-conda` flag to tell Snakemake to download all dependencies from Anaconda.org.
 
-The pipeline will generate a `results` folder.
-The HTML report with all figures and results will be available in
-`results/book`.
+The pipeline will generate a `results` folder which will contain
+the rendered supplementary information as PDF and HTML documents, 
+the figures a detailed result file with heterogeneity results
+for all tested samples. 
 
 
 ### Performance and caching
@@ -74,19 +71,19 @@ though.
 To speed up repetitive builds, `bookdown` will automatically create caches.
 To remove all caches and results, use `snakemake wipe`.
 
-### Useful Snakemake targets.
+### Useful Snakemake targets
 Have a look at the `Snakefile`, it is self-explanatory.
 
 A list of the most useful targets
 ```
 snakemake --use-conda book       # generate a HTML-book in `results/book`
-snakemake --use conda            # default target; = book
+snakemake --use conda            # default target (= book)
 snakemake clean                  # cleans the HTML book
 snakemake wipe                   # cleans everything, including all caches.
 ```
 
-### preprocessed data
-This pipeline makes use of the preprocesse BioQC results.
+### Preprocessed data
+This pipeline makes use of preprocesse BioQC results.
 Downloading the entire GEO and running BioQC on all samples
 takes a lot of computational resources. Therefore,
 we provide pre-calculated intermediate results, that

@@ -1,5 +1,5 @@
 plots/*
-results/*
+results*
 data
 data.in
 results.tmp
@@ -16,3 +16,7 @@ Thumbs.db
 _notebooks
 .snakemake
 .Rproj.user
+notebooks/*.log
+notebooks/*.pdf
+zenodo
+docker-compose.yml
