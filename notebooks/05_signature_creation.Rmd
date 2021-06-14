@@ -106,4 +106,4 @@ Surprisingly, *Adrenal Gland*, *Ovary* and *Uterus* are not able to identify the
 
 Unfortunately, *Blood* was not profiled in the mouseGNF dataset. We keep the signature nonetheless as it does not trigger any false positives.
 
-\newpage
+\clearpage

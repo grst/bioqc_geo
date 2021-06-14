@@ -70,7 +70,7 @@ rule book:
     "envs/bookdown.yml"
   shell:
     "cd notebooks && "
-    "Rscript -e \"bookdown::render_book('index.Rmd', output_format=c('bookdown::gitbook', 'bookdown::pdf_document2'))\""
+    "Rscript -e \"bookdown::render_book('index.Rmd', output_format=c('bookdown::pdf_document2', 'bookdown::gitbook'))\""
 
 
 rule data:

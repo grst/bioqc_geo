@@ -127,13 +127,12 @@ each signature unambigously identifies its corresponding tissue (*i.e.* scores
 highest), the signatures could still be correlated. Some of them in fact are,
 e.g. cardiac muscle and skeletal muscle (see figure
 \@ref(fig:correlationexample)). Moreover, we lack sufficient data to perform an
-independent-sample validation on the signatures provided by BioQC. Accounting
-for correlation with the reference signatures, we can still avoid
-false-positives, even if a signature is characteristic for a tissue
-histologically close to the annotated tissue.
+independent-sample validation on the signatures provided by BioQC.  
+Therefore, to avoid false-positives, for each tissue, we exclude all signature
+that are positively correlated with the reference signature. This approach is
+more formally described in the following: 
 
-We, therefore, take the following approach to account for the correlation of signatures:
-A given sample $s$ annotated as tissue $t$ is tested for enrichment with signature $k_{\text{query}}$ resulting in a p-value $p_{\text{query}}$. Let $k_{\text{ref}}$ be the reference signature associated with tissue $t$ and $p_{\text{ref}}$ the p-value of testing $s$ for enrichment of $k_{\text{ref}}$. Let $\tau$ be a certain false discovery rate (FDR)-threshold.
+A given sample $s$ annotated as tissue $t$ is tested for enrichment with signature $k_{\text{query}}$ resulting in a p-value $p_{\text{query}}$. Let $k_{\text{ref}}$ be the reference signature associated with tissue $t$ and $p_{\text{ref}}$ the p-value of testing $s$ for enrichment of $k_{\text{ref}}$. Let $\tau$ be a certain false discovery rate (FDR)-threshold (`r FDR_THRES` in this study).
 
 (1) If the Benjamini-Hochberg (BH)-adjusted $p_{\text{query}} \ge \tau$, we
 assume that $s$ is not heterogeneous; else continue.
@@ -144,11 +143,10 @@ annotated as $t$.
 signatures from the results. If the slope is $< 0.01$ and $p_{\text{query}} > \tau$, 
 we consider the sample as heterogeneous. Tissue pairs for which signatures are excluded are 
 marked as such in the result figure. 
-(4) Additionally, we empirically define heterogeneity as *severe*, if the expected signature 
-is not detected at an unadjusted p-value of `r SEVERE_THRES`. 
+(4) We define heterogeneity as *severe*, if additionally $p_{\text{ref}} \ge $ `r SEVERE_THRES`. 
 
 
-```{r correlationexample, fig.width=9, fig.height=9, echo=FALSE, cache=FALSE, fig.cap="Examples of signature correlation. Panels A-B: correlation of the signature scores (y-axis) against the scores of a reference signature (x-axis). The black line indicates the model fitted to the data. Points are colored according to the called heterogeneity status. (A) Skeletal muscle scores of kidney samples against scores of the kidney signature. The samples are not correlated, however some outliers are detected which are samples likely containing muscle cells. (B) Skeletal muscle scores of cardiac muscle samples against skeletal muscle scores. The scores are highly correlated. While most of the points exceed the FDR threshold, they will not be classified as heterogeneous since the signatures are correlated. Panels C and D show the boxplots of the scores of various signatures on kidney and heart samples, respectively. ", out.width="100%"}
+```{r correlationexample, fig.width=9, fig.height=9, echo=FALSE, cache=FALSE, fig.cap="Examples of signature correlation. Panels A-B: scatterplot of the signature scores (y-axis) against the scores of a reference signature (x-axis). The black line indicates the model fitted to the data. Points are colored according to the called heterogeneity status. (A) Skeletal muscle scores of kidney samples against scores of the kidney signature. The samples are not correlated, however some outliers are detected which are samples likely containing muscle cells. (B) Skeletal muscle scores of cardiac muscle samples against skeletal muscle scores. The scores are highly correlated. While most of the points exceed the FDR threshold, they will not be classified as heterogeneous since the signatures are correlated. Panels C and D show the boxplots of the scores of various signatures on kidney and heart samples, respectively. ", out.width="100%"}
 # pairs of signatures we investigate.
 pairs = list(c('GTEX_Muscle_Skeletal', 'GTEX_Kidney'),
              c('GTEX_Muscle_Skeletal', 'GTEX_Heart'))
@@ -420,8 +418,8 @@ write_tsv(contam_frac, path = "../results/heterogeneity_fractions_nodataset.tsv"
 ```
 
 
-\newpage
-\clearemptypage
+\clearpage
+
 # Additional Results
 
 ## Distribution of heterogeneity along studies
@@ -443,13 +441,14 @@ study_fracs = contam_by_sample %>%
 heterogeneity_study_summary = study_fracs %>%
   group_by(dataset) %>%
   summarise(frac0_severe = sum(frac_severe == 0) / n(), frac0 = sum(frac_heterogeneous == 0) / n()) %>%
+  mutate(frac0=round(frac0, 3), frac0_severe=round(frac0_severe, 3)) %>%
   column_to_rownames("dataset") 
 ```
 
-Figure \@ref(fig:heterogeneitystudy) shows that heterogeneity is not equally distributed along studies. In fact, most studies (`r heterogeneity_study_summary["GEO", "frac0"] * 100`% GEO, `r heterogeneity_study_summary["ARCHS4", "frac0"] * 100`% ARCHS4) have no detected heterogeneous samples and only a small percentage (`r (1- heterogeneity_study_summary["GEO", "frac0_severe"]) * 100`% GEO, `r (1- heterogeneity_study_summary["ARCHS4", "frac0_severe"]) * 100`% ARCHS4) contain "severely heterogeneous" samples. 
+Figure \@ref(fig:heterogeneitystudy) shows that heterogeneity is not equally distributed along studies. In fact, most studies (`r heterogeneity_study_summary["GEO", "frac0"] * 100`% GEO, `r heterogeneity_study_summary["ARCHS4", "frac0"] * 100`% ARCHS4) contain no samples with detected heterogeneity and only a small percentage (`r (1- heterogeneity_study_summary["GEO", "frac0_severe"]) * 100`% GEO, `r (1- heterogeneity_study_summary["ARCHS4", "frac0_severe"]) * 100`% ARCHS4) contain "severely heterogeneous" samples. 
 
 
-```{r heterogeneitystudy,  fig.width=10, fig.height=4, echo=FALSE, message=FALSE, fig.cap="Fraction of heterogeneous samples and severely heterogeneous samples for each study. "}
+```{r heterogeneitystudy,  fig.width=10, fig.height=4, echo=FALSE, message=FALSE, fig.cap="Beeswarm plot depicting the fraction of heterogeneous samples and severely heterogeneous samples for each study. "}
 study_fracs %>% 
   rename(`severe heterogeneity`=frac_severe, `heterogeneity`=frac_heterogeneous) %>% 
   pivot_longer(cols=c(-dataset, -GSE), names_to = "type", values_to="fraction") %>%
@@ -462,9 +461,9 @@ study_fracs %>%
 ```
 
 
-### Heterogeneity along time
+## Heterogeneity along time
 
-Next, we were interested if the problem of heterogeneity increases over time. Figure \@ref(fig:hetereogeneityyear) shows the heterogeneity fractions 
+Next, we were interested if heterogeneity increases over time. Figure \@ref(fig:hetereogeneityyear) shows the heterogeneity fractions 
 per year and tissue. While there is some variance between years, there appears to be no clear trend over time. 
 ```{r, include=FALSE}
 year_fracs = contam_by_sample %>%
@@ -474,19 +473,20 @@ year_fracs = contam_by_sample %>%
 ```
 
 
-```{r hetereogeneityyear, fig.height=6, fig.width=15}
+```{r hetereogeneityyear, fig.height=6, fig.width=12, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="Fractions of heterogeneous and severely heterogeneous samples by year."}
 year_fracs %>% 
   ggplot(aes(x=year, y=fraction, group=TGROUP)) + 
   geom_line(aes(color=TGROUP)) + 
   # geom_ribbon(aes(ymin=ci_low, ymax=ci_high, fill=TGROUP), alpha=0.1) + 
   scale_color_brewer(palette="Paired") +
   facet_grid(type~dataset, scales = "free_x") +
-  theme_cowplot() + background_grid()
+  theme_cowplot() + background_grid() + 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
 ```
 
 
 To formally test the hypothesis that heterogeneity is associated with a time variable, we fitted a linear model (`heterogeneity ~ year + tissue`)
-and check the `year` coefficient (table \ref(tab:yearlmres)). There appears to be no significant association of time with heterogeneity. 
+and checked the `year` coefficient (table \@ref(tab:yearlmres)). There appears to be no significant association of time with heterogeneity. 
 
 ```{r yearlmres, echo=FALSE, message=FALSE, warning=FALSE}
 lm_test = function(df) {
@@ -500,10 +500,12 @@ lmres = year_fracs %>% filter(TGROUP != "all") %>%
   group_by(dataset, type) %>% 
   do(lm_test(.)) %>% 
   filter(coefficient == "year") %>% 
-  select(dataset, type, slope=Estimate, pvalue=`Pr(>|t|)`)
+  select(dataset, type, slope=Estimate, `p-value`=`Pr(>|t|)`)
 
 
 knitr::kable(lmres, caption="The time coefficient of a linear model explaining heterogeneity by year and tissue")
 ```
+
+\clearpage
 
 # References

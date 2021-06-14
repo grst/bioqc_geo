@@ -68,6 +68,6 @@ Gene counts were normalized into TPM values before analysing them with BioQC.
 knitr::include_graphics("figures/funnel_archs4.png")
 ```
 
-
+\clearpage
 
 
