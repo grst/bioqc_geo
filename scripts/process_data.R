@@ -4,7 +4,7 @@
 # OUTPUT
 #    saves RDATA object to DATA_FILE containing
 #       * `data2` essentially contains (study, signature, pvalue) pairs
-#         combined with the tissue annotation and the reference signature. 
+#         combined with the tissue annotation and the reference signature.
 #       * `bioqc_meta` contains information for each sample (platform, tissue, tissue_group)
 #       * `selected_signatures` list of names of signatures selected for
 #         this study
@@ -105,14 +105,14 @@ selected_signatures = bind_rows(selected_signatures, random_signature)
 reference_signatures = gtex_solid %>%
   drop_na() %>%
   mutate(signature = str_c("GTEX_", signature)) %>%
-  select(REF_SIG = signature, TGROUP=tgroup)
+  select(REF_SIG = signature, TGROUP=tgroup, TISSUE=tissue)
 
 # bind signature names, reference signatures and adjusted pvalues to data
 data2 = data %>%
   mutate(SIGNATURE = SIG_NAME) %>%
-  select(-SIG_NAME, -SIG_SOURCE) %>%
+  select(-SIG_NAME, -SIG_SOURCE, -TGROUP) %>%
   semi_join(selected_signatures, by = c("SIGNATURE")) %>%
-  semi_join(reference_signatures, by = c("TGROUP")) %>%
+  inner_join(reference_signatures, by = c("TISSUE")) %>%
   mutate(qvalue = p.adjust(PVALUE, method="fdr")) %>%
   arrange(GSM)
 data = NULL # free RAM
@@ -125,7 +125,7 @@ reference_scores = reference_signatures %>%
 
 # add reference scores to the data
 data2 = data2 %>%
-  inner_join(reference_scores, by = c("GSM" = "GSM", "TGROUP" = "REF_TGROUP"))
+  inner_join(reference_scores, by = c("GSM" = "GSM", "TGROUP" = "REF_TGROUP", "REF_SIG"="REF_SIG"))
 
 # save results to save runtime
 save(data2,
@@ -133,6 +133,6 @@ save(data2,
      selected_signatures,
      reference_signatures,
      bioqc_signatures,
-     file = DATA_FILE, 
+     file = DATA_FILE,
      compress = FALSE)
 

@@ -12,6 +12,7 @@ library(doMC)
 library(ggbeeswarm)
 library(tidyr)
 library(tibble)
+library(readxl)
 
 registerDoMC(cores=8)
 select = dplyr::select
@@ -58,9 +59,13 @@ knitr::kable(tmp_ref_sig, caption="reference signatures")
 # i.e. the signature that should be present according to the annotation, is not enriched at
 # an unadjusted p-value < `r SEVERE_THRES`.
 
-bioqc_tissue_set = read_csv("../data/bioqc_geo_oracle_dump/BIOQC_TISSUE_SET_DATA_TABLE.csv") %>%
-  filter(TISSUE_SET %in% c('bioqc_all', 'gtex_solid')) %>%
-  select(SIG_ID=SIGNATURE, DETECTED_TGROUP=TGROUP)
+bioqc_all = read_excel("../tables/tissue_annotation.xlsx", sheet="set bioqc_all") %>%
+  select(SIGNATURE=signature, DETECTED_TGROUP=group) %>% 
+  mutate(SIGNATURE=paste0("BIOQC_", SIGNATURE))
+gtex_solid = read_excel("../tables/tissue_annotation.xlsx", sheet="set gtex_solid") %>%
+  select(SIGNATURE=signature, DETECTED_TGROUP=group) %>% 
+  mutate(SIGNATURE=paste0("GTEX_", SIGNATURE))
+bioqc_tissue_set = bind_rows(bioqc_all, gtex_solid)
 
 data_all = bind_rows(archs4$data_corr %>%
   mutate(dataset = "ARCHS4"), 
