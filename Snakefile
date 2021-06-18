@@ -78,7 +78,7 @@ rule data:
    output:
      DATA_FILES
    shell:
-     "wget 'https://github.com/grst/bioqc_geo/releases/download/data-0.1/data.tar.gz' -O data.tar.gz && "
+     "wget 'https://github.com/grst/bioqc_geo/releases/download/data-0.2/data.tar.gz' -O data.tar.gz && "
      "mkdir -p data && "
      "tar -xvzf data.tar.gz -C data --strip-components 1"
 
