@@ -419,7 +419,7 @@ contam_frac_nodataset = contam_all %>%
   group_by(TGROUP) %>%
   do(bootstrap(.))
 
-write_tsv(contam_frac, path = "../results/heterogeneity_fractions_nodataset.tsv")
+write_tsv(contam_frac_nodataset, path = "../results/heterogeneity_fractions_nodataset.tsv")
 ```
 
 
