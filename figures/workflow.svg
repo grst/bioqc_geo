@@ -536,8 +536,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="293.44931"
-     inkscape:cy="294.96454"
+     inkscape:cx="324.76404"
+     inkscape:cy="211.12188"
      inkscape:document-units="mm"
      inkscape:current-layer="g33601"
      inkscape:document-rotation="0"
@@ -545,15 +545,16 @@
      showguides="true"
      inkscape:guide-bbox="true"
      inkscape:window-width="2560"
-     inkscape:window-height="1403"
+     inkscape:window-height="1421"
      inkscape:window-x="2560"
-     inkscape:window-y="18"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:pagecheckerboard="0">
+     inkscape:pagecheckerboard="0"
+     inkscape:snap-global="false">
     <sodipodi:guide
        position="47.055477,133.53749"
        orientation="0,-1"
@@ -1386,7 +1387,7 @@
     </g>
     <g
        id="g32753"
-       transform="translate(-0.72442231)">
+       transform="matrix(1.0035063,0,0,1.0035063,-1.1540627,-0.02447585)">
       <g
          id="g10"
          inkscape:label="funnel"
@@ -2545,7 +2546,7 @@
                x="196.41879"
                y="66.654915"
                style="font-size:2.46944px;stroke-width:0.264583"
-               id="tspan13057">slope = 0</tspan></text>
+               id="tspan13057">slope &lt; 0.01</tspan></text>
           <circle
              style="fill:#ffffff;fill-opacity:1;stroke:#666666;stroke-width:0.264999;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill;stop-color:#000000"
              id="path33196"
@@ -16740,7 +16741,7 @@
       </g>
       <g
          id="g33328"
-         transform="translate(7.2979578,-56.07933)">
+         transform="translate(3.5937909,-52.375161)">
         <g
            id="g33304">
           <circle
