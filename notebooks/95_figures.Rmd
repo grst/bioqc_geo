@@ -64,7 +64,7 @@ bioqc_all = read_excel("../tables/tissue_annotation.xlsx", sheet="set bioqc_all"
   mutate(SIGNATURE=paste0("BIOQC_", SIGNATURE))
 gtex_solid = read_excel("../tables/tissue_annotation.xlsx", sheet="set gtex_solid") %>%
   select(SIGNATURE=signature, DETECTED_TGROUP=group) %>% 
-  mutate(SIGNATURE=paste0("GTEX_", SIGNATURE))
+  mutate(SIGNATURE=paste0("GTEX_", SIGNATURE)) %>% distinct()
 bioqc_tissue_set = bind_rows(bioqc_all, gtex_solid)
 
 data_all = bind_rows(archs4$data_corr %>%
