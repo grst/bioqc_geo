@@ -140,10 +140,10 @@ assume that $s$ is not heterogeneous; else continue.
 $|log10(p_{\text{query}})|$ against $|log10(p_{\text{ref}})|$ for all samples
 annotated as $t$. 
 (3) If the slope of the linear model is  $\ge 0.01$, we exclude the pair of
-signatures from the results. If the slope is $< 0.01$ and $p_{\text{query}} > \tau$, 
+signatures from the results. If the slope is $< 0.01$ and the FDR-adjusted $p_{\text{query}} < \tau$, 
 we consider the sample as heterogeneous. Tissue pairs for which signatures are excluded are 
 marked as such in the result figure. 
-(4) We define heterogeneity as *severe*, if additionally $p_{\text{ref}} \ge $ `r SEVERE_THRES`. 
+(4) We define heterogeneity as *severe*, if additionally $p_{\text{ref}} \ge$ `r SEVERE_THRES`. 
 
 
 ```{r correlationexample, fig.width=9, fig.height=9, echo=FALSE, cache=FALSE, fig.cap="Examples of signature correlation. Panels A-B: scatterplot of the signature scores (y-axis) against the scores of a reference signature (x-axis). The black line indicates the model fitted to the data. Points are colored according to the called heterogeneity status. (A) Skeletal muscle scores of kidney samples against scores of the kidney signature. The samples are not correlated, however some outliers are detected which are samples likely containing muscle cells. (B) Skeletal muscle scores of cardiac muscle samples against skeletal muscle scores. The scores are highly correlated. While most of the points exceed the FDR threshold, they will not be classified as heterogeneous since the signatures are correlated. Panels C and D show the boxplots of the scores of various signatures on kidney and heart samples, respectively. ", out.width="100%"}
@@ -386,7 +386,7 @@ write_tsv(contam_frac, path = "../results/heterogeneity_fractions.tsv")
 
 
 
-```{r, include=FALSE, fig.width=8, fig.height=11, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="Main figure for paper. (A) Fractions of heterogeneous samples per tissue. (B) Sample confusion matrix."}
+```{r, include=FALSE, fig.width=8, fig.height=9, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="Main figure for paper. (A) Fractions of heterogeneous samples per tissue. (B) Sample confusion matrix."}
 plot_grid(p1, p2, align = "v", ncol=1, rel_heights = c(.5, .6), labels = "AUTO", axis="lr")
 ggsave("../results/figures/heterogeneity_main.pdf")
 ggsave("../results/figures/heterogeneity_main.png")
