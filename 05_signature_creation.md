@@ -60,25 +60,17 @@ We split samples in 10 [stratified folds](http://scikit-learn.org/stable/modules
 
 Figure \@ref(fig:gtexxval) shows the average BioQC score over all folds for each signature and each tissue.
 
-\begin{figure}[p]
-
-{\centering \includegraphics[width=1\linewidth]{signature_validation/gtex_v6_xval_scores} 
-
-}
-
-\caption{cross-validation of GTEx tissue signatures. Signatures are shown on the y-axis, the corresponding groups of samples on the x-axis. The tile shading indicates the average BioQC score of a signature on a group of samples. For better visibility of low scores, the colors are saturated at 30.}(\#fig:gtexxval)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="signature_validation/gtex_v6_xval_scores.png" alt="cross-validation of GTEx tissue signatures. Signatures are shown on the y-axis, the corresponding groups of samples on the x-axis. The tile shading indicates the average BioQC score of a signature on a group of samples. For better visibility of low scores, the colors are saturated at 30." width="100%" />
+<p class="caption">(\#fig:gtexxval)cross-validation of GTEx tissue signatures. Signatures are shown on the y-axis, the corresponding groups of samples on the x-axis. The tile shading indicates the average BioQC score of a signature on a group of samples. For better visibility of low scores, the colors are saturated at 30.</p>
+</div>
 
 As identifying contaminated or mislabled samples can be boiled down to a classification problem, we are interested in the predictive performance of each signature. Figure \@ref(fig:gtexxvalclass) shows the confusion matrix of using the signatures for classification. A sample is considered as classified as a tissue, if the corresponding signature scores highest among all other signatures.
 
-\begin{figure}[p]
-
-{\centering \includegraphics[width=1\linewidth]{signature_validation/gtex_v6_xval_classification} 
-
-}
-
-\caption{Confusion matrix of the cross-validation.}(\#fig:gtexxvalclass)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="signature_validation/gtex_v6_xval_classification.png" alt="Confusion matrix of the cross-validation." width="100%" />
+<p class="caption">(\#fig:gtexxvalclass)Confusion matrix of the cross-validation.</p>
+</div>
 
 ## Reference Signatures
 From the above matrices we learn that, while the vast majority of signatures yield a high score in the corresponding tissue, an unambiguous classification of tissues is only viable for a subset of tissues.
@@ -92,14 +84,10 @@ and summarized below.
 
 Figure \@ref(fig:gtexconfmat) shows the confusion matrix of the reduced signature set. All tissues have been correctly identified at precision = recall = 1.0.
 
-\begin{figure}[htbp]
-
-{\centering \includegraphics[width=0.5\linewidth]{signature_validation/gtex_v6_solid_xval_classification} 
-
-}
-
-\caption{Confusion matrix of robust signatures. }(\#fig:gtexconfmat)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="signature_validation/gtex_v6_solid_xval_classification.png" alt="Confusion matrix of robust signatures. " width="50%" />
+<p class="caption">(\#fig:gtexconfmat)Confusion matrix of robust signatures. </p>
+</div>
 
 
 
@@ -109,14 +97,10 @@ To asses if the signatures translate across species and platforms, we tested the
 
 Figure \@ref(fig:xspeciesval) shows the score matrix of GTEx signatures against mouseGNF samples. 
 
-\begin{figure}[htbp]
-
-{\centering \includegraphics[width=0.7\linewidth]{signature_validation/gtex_v6_solid_vs_mouse_gnf} 
-
-}
-
-\caption{Cross-platform, cross-species validation of the robust signatures identified in the previous step on mouse microarray data.}(\#fig:xspeciesval)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="signature_validation/gtex_v6_solid_vs_mouse_gnf.png" alt="Cross-platform, cross-species validation of the robust signatures identified in the previous step on mouse microarray data." width="70%" />
+<p class="caption">(\#fig:xspeciesval)Cross-platform, cross-species validation of the robust signatures identified in the previous step on mouse microarray data.</p>
+</div>
 
 The signatures *Brain, Heart, Kidney, Liver, Skeletal Muscle, Pancreas, Skin* and *Testis* identify the respective tissue despite the species and platform differences at a high (>5) BioQC score.
 
@@ -126,4 +110,4 @@ Surprisingly, *Adrenal Gland*, *Ovary* and *Uterus* are not able to identify the
 
 Unfortunately, *Blood* was not profiled in the mouseGNF dataset. We keep the signature nonetheless as it does not trigger any false positives.
 
-\newpage
+\clearpage

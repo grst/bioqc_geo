@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>3 Sample data and metadata | Tissue heterogeneity is prevalent in gene expression studies (Supplementary Information)</title>
   <meta name="description" content="In this study, we systematically search GEO and ARCHS4 for cases of “tissue heterogeneity.”" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
   <meta property="og:title" content="3 Sample data and metadata | Tissue heterogeneity is prevalent in gene expression studies (Supplementary Information)" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Gregor Sturm, Markus List, Jitao David Zhang" />
 
 
-<meta name="date" content="2020-12-01" />
+<meta name="date" content="2021-06-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="validating-signatures.html"/>
 <link rel="next" href="testing-for-tissue-heterogeneity.html"/>
-<script src="libs/header-attrs-2.5/header-attrs.js"></script>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,72 +51,32 @@
 
 
 
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
 
 
 <style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
 }
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 </head>
@@ -152,12 +112,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html"><i class="fa fa-check"></i><b>4</b> Testing for tissue heterogeneity</a>
 <ul>
 <li class="chapter" data-level="4.1" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#sec:signatures"><i class="fa fa-check"></i><b>4.1</b> Tissue signatures</a></li>
-<li class="chapter" data-level="4.2" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#testing-samples-for-heterogeneity"><i class="fa fa-check"></i><b>4.2</b> Testing samples for heterogeneity</a>
+<li class="chapter" data-level="4.2" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#testing-samples-for-heterogeneity"><i class="fa fa-check"></i><b>4.2</b> Testing samples for heterogeneity</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="additional-results.html"><a href="additional-results.html"><i class="fa fa-check"></i><b>5</b> Additional Results</a>
 <ul>
-<li class="chapter" data-level="4.2.1" data-path="testing-for-tissue-heterogeneity.html"><a href="testing-for-tissue-heterogeneity.html#determining-tau."><i class="fa fa-check"></i><b>4.2.1</b> Determining <span class="math inline">\(\tau\)</span>.</a></li>
+<li class="chapter" data-level="5.1" data-path="additional-results.html"><a href="additional-results.html#distribution-of-heterogeneity-across-studies"><i class="fa fa-check"></i><b>5.1</b> Distribution of heterogeneity across studies</a></li>
+<li class="chapter" data-level="5.2" data-path="additional-results.html"><a href="additional-results.html#heterogeneity-along-time"><i class="fa fa-check"></i><b>5.2</b> Heterogeneity along time</a></li>
 </ul></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>5</b> References</a></li>
+<li class="chapter" data-level="6" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>6</b> References</a></li>
 </ul>
 
       </nav>
@@ -187,8 +149,8 @@ Since the reference signatures are not as specific as the tissue annotation, we 
 <h2><span class="header-section-number">3.2</span> GEO</h2>
 <div id="downloading-geo-data" class="section level3" number="3.2.1">
 <h3><span class="header-section-number">3.2.1</span> Downloading GEO data</h3>
-<p>We retrieved sample metadata for GEO using the <a href="https://www.bioconductor.org/packages/release/bioc/vignettes/GEOmetadb/inst/doc/GEOmetadb.html">GEOmetadb</a> package <span class="citation">(<a href="references.html#ref-geometadb" role="doc-biblioref">Zhu et al. 2008</a>)</span>.
-We downloaded the studies with <a href="https://bioconductor.org/packages/release/bioc/html/GEOquery.html">GEOquery</a> <span class="citation">(<a href="references.html#ref-geoquery" role="doc-biblioref">Davis and Meltzer 2007</a>)</span> and stored them as R <a href="https://bioconductor.org/packages/devel/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf">ExpressionSet</a> <span class="citation">(<a href="references.html#ref-Huber2015" role="doc-biblioref">Huber et al. 2015</a>)</span> using the R script <a href="https://github.com/grst/BioQC_GEO_analysis/blob/master/scripts/geo_to_eset.R">geo_to_eset.R</a>.<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a> We used the <code>annotGPL=TRUE</code> option of GEOquery’s <code>getGEO</code> function to obtain gene symbols for the studies, where available.
+<p>We retrieved sample metadata for GEO using the <a href="https://www.bioconductor.org/packages/release/bioc/vignettes/GEOmetadb/inst/doc/GEOmetadb.html">GEOmetadb</a> package <span class="citation">(<a href="#ref-geometadb" role="doc-biblioref">Zhu et al. 2008</a>)</span>.
+We downloaded the studies with <a href="https://bioconductor.org/packages/release/bioc/html/GEOquery.html">GEOquery</a> <span class="citation">(<a href="#ref-geoquery" role="doc-biblioref">Davis and Meltzer 2007</a>)</span> and stored them as R <a href="https://bioconductor.org/packages/devel/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf">ExpressionSet</a> <span class="citation">(<a href="#ref-Huber2015" role="doc-biblioref">Huber et al. 2015</a>)</span> using the R script <a href="https://github.com/grst/BioQC_GEO_analysis/blob/master/scripts/geo_to_eset.R">geo_to_eset.R</a>.<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a> We used the <code>annotGPL=TRUE</code> option of GEOquery’s <code>getGEO</code> function to obtain gene symbols for the studies, where available.
 Since the tissue signatures use human gene symbols, we added human orthologs for all mouse and rat samples.</p>
 </div>
 <div id="filtering-geo-data" class="section level3" number="3.2.2">
@@ -204,7 +166,7 @@ Since the tissue signatures use human gene symbols, we added human orthologs for
 <li>Finally, we only retained samples originating from tissues for which a <em>reference signature</em> is available.</li>
 </ol>
 <div class="figure" style="text-align: center"><span id="fig:funnelgeo"></span>
-<img src="figures/funnel_geo.png" alt="Summary of filtering steps on GEO samples" width="40%" />
+<img src="/home/sturm/projects/2019/bioqc_geo/figures/funnel_geo.png" alt="Summary of filtering steps on GEO samples" width="40%" />
 <p class="caption">
 Figure 3.1: Summary of filtering steps on GEO samples
 </p>
@@ -214,7 +176,7 @@ Figure 3.1: Summary of filtering steps on GEO samples
 <div id="archs4" class="section level2" number="3.3">
 <h2><span class="header-section-number">3.3</span> ARCHS4</h2>
 <p>In addition to GEO, we used data from
-<a href="https://amp.pharm.mssm.edu/archs4/">ARCHS4</a> <span class="citation">(<a href="references.html#ref-Lachmann2018" role="doc-biblioref">Lachmann et al. 2018</a>)</span>, a publicly available data
+<a href="https://amp.pharm.mssm.edu/archs4/">ARCHS4</a> <span class="citation">(<a href="#ref-Lachmann2018" role="doc-biblioref">Lachmann et al. 2018</a>)</span>, a publicly available data
 collection of annotaed, consistently processed gene expression datasets based
 on RNA-sequencing. We downloaded gene expression and metadata as <code>RData</code> objects
 from the <a href="https://amp.pharm.mssm.edu/archs4/download.html">ARCHS4 website</a> (version 8.0).<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a></p>
@@ -228,13 +190,27 @@ from the <a href="https://amp.pharm.mssm.edu/archs4/download.html">ARCHS4 websit
 </ol>
 <p>Gene counts were normalized into TPM values before analysing them with BioQC.</p>
 <div class="figure" style="text-align: center"><span id="fig:funnelarchs"></span>
-<img src="figures/funnel_archs4.png" alt="Summary of filtering steps on ARCHS4 samples" width="40%" />
+<img src="/home/sturm/projects/2019/bioqc_geo/figures/funnel_archs4.png" alt="Summary of filtering steps on ARCHS4 samples" width="40%" />
 <p class="caption">
 Figure 3.2: Summary of filtering steps on ARCHS4 samples
 </p>
 </div>
 
-<div style="page-break-after: always;"></div>
+</div>
+</div>
+<h3> References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-geoquery" class="csl-entry">
+Davis, S., and P. S. Meltzer. 2007. <span>“<span>GEOquery</span>: A Bridge Between the Gene Expression Omnibus (<span>GEO</span>) and <span>BioConductor</span>.”</span> <em>Bioinformatics</em> 23 (14): 1846–47. <a href="https://doi.org/10.1093/bioinformatics/btm254">https://doi.org/10.1093/bioinformatics/btm254</a>.
+</div>
+<div id="ref-Huber2015" class="csl-entry">
+Huber, Wolfgang, Vincent J Carey, Robert Gentleman, Simon Anders, Marc Carlson, Benilton S Carvalho, Hector Corrada Bravo, et al. 2015. <span>“Orchestrating High-Throughput Genomic Analysis with Bioconductor.”</span> <em>Nature Methods</em> 12 (2): 115–21. <a href="https://doi.org/10.1038/nmeth.3252">https://doi.org/10.1038/nmeth.3252</a>.
+</div>
+<div id="ref-Lachmann2018" class="csl-entry">
+Lachmann, Alexander, Denis Torre, Alexandra B. Keenan, Kathleen M. Jagodnik, Hoyjin J. Lee, Lily Wang, Moshe C. Silverstein, and Avi Ma’ayan. 2018. <span>“Massive Mining of Publicly Available <span>RNA</span>-Seq Data from Human and Mouse.”</span> <em>Nature Communications</em> 9 (1). <a href="https://doi.org/10.1038/s41467-018-03751-6">https://doi.org/10.1038/s41467-018-03751-6</a>.
+</div>
+<div id="ref-geometadb" class="csl-entry">
+Zhu, Yuelin, Sean Davis, Robert Stephens, Paul S. Meltzer, and Yidong Chen. 2008. <span>“<span class="nocase">GEOmetadb: Powerful alternative search engine for the Gene Expression Omnibus</span>.”</span> <em>Bioinformatics</em> 24 (23): 2798–2800. <a href="https://doi.org/10.1093/bioinformatics/btn520">https://doi.org/10.1093/bioinformatics/btn520</a>.
 </div>
 </div>
 <div class="footnotes">
@@ -274,6 +250,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -293,7 +270,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": null,
+"download": ["_main.pdf"],
 "toc": {
 "collapse": "subsection"
 }

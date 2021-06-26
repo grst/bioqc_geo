@@ -40,14 +40,10 @@ We filtered GEO samples by the following criteria (figure \@ref(fig:funnelgeo)):
  7. Finally, we only retained samples originating from tissues for which a *reference signature* is available. 
 
 
-\begin{figure}[h]
-
-{\centering \includegraphics[width=0.4\linewidth]{figures/funnel_geo} 
-
-}
-
-\caption{Summary of filtering steps on GEO samples}(\#fig:funnelgeo)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="figures/funnel_geo.png" alt="Summary of filtering steps on GEO samples" width="40%" />
+<p class="caption">(\#fig:funnelgeo)Summary of filtering steps on GEO samples</p>
+</div>
 
 
 ## ARCHS4
@@ -69,15 +65,11 @@ We filtered samples by the following criteria (figure \@ref(fig:funnelarchs)):
 Gene counts were normalized into TPM values before analysing them with BioQC. 
 
 
-\begin{figure}[h]
+<div class="figure" style="text-align: center">
+<img src="figures/funnel_archs4.png" alt="Summary of filtering steps on ARCHS4 samples" width="40%" />
+<p class="caption">(\#fig:funnelarchs)Summary of filtering steps on ARCHS4 samples</p>
+</div>
 
-{\centering \includegraphics[width=0.4\linewidth]{figures/funnel_archs4} 
-
-}
-
-\caption{Summary of filtering steps on ARCHS4 samples}(\#fig:funnelarchs)
-\end{figure}
-
-
+\clearpage
 
 
